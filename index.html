@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>QR Code</title>
+        <style>
+            body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .qr-code {
+            width: 30%;
+            background: rgba(112, 112, 112, 0.3);
+            border-radius: 25%;
+            /* filter: blur(4px); */
+            box-shadow: -15px -15px 15px rgba(23, 23, 23, 0.71),
+                15px 15px 15px rgba(0,0,0,0.1),
+                inset -5px -5px 5px rgba(255, 255, 255, 0.55),
+                inset 5px 5px 5px rgba(99, 99, 99, 0.1);
+        }
+        svg{
+            backdrop-filter: none;
+            margin: 10%;
+        }
+        </style>
+    </head>
+    <body>
+        <h1>QR Code to scan whatsapp</h1>
+        <div class="qr-code">
+        %%svg%%
+        </div>
+        <p>Scan the qrcode</p>
+    </body>
+</html>

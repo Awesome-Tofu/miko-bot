@@ -1,0 +1,38 @@
+2023/11/04-21:49:53.492 44fc Reusing MANIFEST D:\Codes\whatsapp-web-main\.wwebjs_auth\session-client-one\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/MANIFEST-000001
+2023/11/04-21:49:53.494 44fc Recovering log #857
+2023/11/04-21:49:53.534 44fc Reusing old log D:\Codes\whatsapp-web-main\.wwebjs_auth\session-client-one\Default\IndexedDB\https_web.whatsapp.com_0.indexeddb.leveldb/000857.log 
+2023/11/04-21:50:37.565 4770 Level-0 table #874: started
+2023/11/04-21:50:37.613 4770 Level-0 table #874: 1391237 bytes OK
+2023/11/04-21:50:37.618 4770 Delete type=0 #857
+2023/11/04-21:50:38.217 44fc Compacting 1@0 + 1@1 files
+2023/11/04-21:50:38.274 44fc Generated table #875@0: 20894 keys, 487857 bytes
+2023/11/04-21:50:38.281 44fc Generated table #876@0: 413 keys, 8504 bytes
+2023/11/04-21:50:38.282 44fc Compacted 1@0 + 1@1 files => 496361 bytes
+2023/11/04-21:50:38.284 44fc compacted to: files[ 0 2 16 0 0 0 0 ]
+2023/11/04-21:50:38.285 44fc Delete type=2 #860
+2023/11/04-21:50:38.285 44fc Delete type=2 #874
+2023/11/04-21:50:43.110 44fc Compacting 1@1 + 10@2 files
+2023/11/04-21:50:43.200 44fc Generated table #877@1: 66577 keys, 2274066 bytes
+2023/11/04-21:50:43.257 44fc Generated table #878@1: 10596 keys, 2167031 bytes
+2023/11/04-21:50:43.305 44fc Generated table #879@1: 2357 keys, 2157132 bytes
+2023/11/04-21:50:43.341 44fc Generated table #880@1: 1284 keys, 2154143 bytes
+2023/11/04-21:50:43.375 44fc Generated table #881@1: 668 keys, 2116306 bytes
+2023/11/04-21:50:43.438 44fc Generated table #882@1: 11257 keys, 2172823 bytes
+2023/11/04-21:50:43.539 44fc Generated table #883@1: 27322 keys, 2274380 bytes
+2023/11/04-21:50:43.600 44fc Generated table #884@1: 12388 keys, 2166559 bytes
+2023/11/04-21:50:43.639 44fc Generated table #885@1: 1752 keys, 2113089 bytes
+2023/11/04-21:50:43.715 44fc Generated table #886@1: 98017 keys, 2246210 bytes
+2023/11/04-21:50:43.727 44fc Generated table #887@1: 8565 keys, 170650 bytes
+2023/11/04-21:50:43.727 44fc Compacted 1@1 + 10@2 files => 22012389 bytes
+2023/11/04-21:50:43.729 44fc compacted to: files[ 0 1 17 0 0 0 0 ]
+2023/11/04-21:50:43.730 44fc Delete type=2 #861
+2023/11/04-21:50:43.730 44fc Delete type=2 #862
+2023/11/04-21:50:43.730 44fc Delete type=2 #863
+2023/11/04-21:50:43.730 44fc Delete type=2 #864
+2023/11/04-21:50:43.730 44fc Delete type=2 #865
+2023/11/04-21:50:43.730 44fc Delete type=2 #866
+2023/11/04-21:50:43.730 44fc Delete type=2 #867
+2023/11/04-21:50:43.730 44fc Delete type=2 #868
+2023/11/04-21:50:43.730 44fc Delete type=2 #869
+2023/11/04-21:50:43.730 44fc Delete type=2 #870
+2023/11/04-21:50:43.730 44fc Delete type=2 #875

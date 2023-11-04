@@ -1,0 +1,32 @@
+{
+    "name": "Chatbot-Insta",
+    "description": "instagram bot build with nodejs",
+    "repository": "https://github.com/Awesome-Tofu/instagram-chatbot",
+    "logo": "https://graph.org/file/f44a8af092e5f6a8930f9.png",
+    "keywords": ["nodejs", "bot", "instagram bot", "instagram automation", "multi device"],
+    "env": {
+    "PUPPETEER_EXECUTABLE_PATH": {
+      "description": "A secret key for verifying the integrity of signed cookies.",
+      "value": "/usr/bin/google-chrome-stable"
+    },
+    "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": {
+      "description": "The number of processes to run.",
+      "value": "true"
+    }
+     },    
+    "buildpacks": [
+      {
+        "url": "heroku/nodejs"
+      },
+      {
+         "url": "https://github.com/jontewks/puppeteer-heroku-buildpack.git"
+      }
+    ],
+     "formation": {
+          "worker": {
+              "quantity": 1,
+              "size": "basic"
+          }
+      }
+  }
+  

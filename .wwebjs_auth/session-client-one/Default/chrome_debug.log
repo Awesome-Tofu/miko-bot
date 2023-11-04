@@ -1,0 +1,2 @@
+[1104/214953.320:INFO:CONSOLE(0)] "Error with Permissions-Policy header: Unrecognized feature: 'ambient-light-sensor'.", source:  (0)
+[1104/215004.624:INFO:CONSOLE(2)] "Uncaught (in promise) Error: Comms::sendIq called before startComms", source: https://web.whatsapp.com/vendor1~app.4802d7adf05a55e9c1dc.js (2)

@@ -1,4 +1,4 @@
-const { Client , LocalAuth, MessageMedia} = require('whatsapp-web.js');
+const { Client , LocalAuth} = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const express = require('express');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
@@ -29,7 +29,6 @@ const puppeteerExecutablePath =
     : puppeteer.executablePath();
 
 const client = new Client({
-  authStrategy: new LocalAuth({ clientId: "client-one" }),
   puppeteer: {
 		args: ['--no-sandbox',
     '--disable-setuid-sandbox'

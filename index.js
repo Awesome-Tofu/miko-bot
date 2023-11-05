@@ -76,8 +76,6 @@ client.on('qr', (text) => {
 
 client.on('remote_session_saved',async () => {
   console.log('SESSION SAVED');
-  const sessionName = await store.extract({session: 'test'});
-  console.log('your session name ='+ sessionName);
 })
 
 

@@ -3,5 +3,6 @@ module.exports = async function helpCommand(client, message) {
     start - will start the bot
     help - help message
     ping - Pong
+    tl or telegraph - generate link of file
     `);
 }

@@ -6,17 +6,27 @@
     "keywords": ["nodejs", "bot", "instagram bot", "instagram automation", "multi device"],
     "env": {
     "PUPPETEER_EXECUTABLE_PATH": {
-      "description": "A secret key for verifying the integrity of signed cookies.",
-      "value": "/usr/bin/google-chrome-stable"
+      "description": "Leave it as default",
+      "value": "/app/.apt/usr/bin/google-chrome",
+      "required": true
     },
     "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": {
-      "description": "The number of processes to run.",
-      "value": "true"
+      "description": "Leave it as default",
+      "value": "true",
+      "required": true
+    },
+    "MONGODB_URI":{
+      "description": "Add your mongoDB URI or you csn skip it",
+      "value": "mongodb+srv://akash:akash@cluster0.yusz4qo.mongodb.net/?retryWrites=true&w=majority",
+      "required":false
     }
      },    
     "buildpacks": [
       {
         "url": "heroku/nodejs"
+      },
+      {
+        "url": "https://github.com/heroku/heroku-buildpack-google-chrome.git"
       },
       {
          "url": "https://github.com/jontewks/puppeteer-heroku-buildpack.git"

@@ -1,7 +1,6 @@
-const { Client , LocalAuth} = require('whatsapp-web.js');
+const { Client , RemoteAuth} = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const express = require('express');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 require("dotenv").config();
 const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
@@ -14,7 +13,16 @@ const stickerCommand = require('./commands/sticker');
 const testCommand = require('./commands/test');
 const tlCommand = require('./commands/telegraph');
 const trCommand = require('./commands/translate');
+const repoCommand = require('./commands/repo');
+const gptCommand = require('./commands/gpt');
+const bardCommand = require('./commands/bard');
+const echoCommand = require('./commands/echo');
 
+
+
+
+const { MongoStore } = require('wwebjs-mongo');
+const mongoose = require('mongoose');
 
 
 
@@ -28,7 +36,14 @@ const puppeteerExecutablePath =
     ? process.env.PUPPETEER_EXECUTABLE_PATH
     : puppeteer.executablePath();
 
+
+mongoose.connect(process.env.MONGODB_URI).then(() => {
+const store = new MongoStore({ mongoose: mongoose });
 const client = new Client({
+  authStrategy: new RemoteAuth({
+    store: store,
+    backupSyncIntervalMs: 300000
+}),
   puppeteer: {
 		args: ['--no-sandbox',
     '--disable-setuid-sandbox'
@@ -75,7 +90,8 @@ client.on('authenticated', (session) => {
 
 client.on('message', message => {
     const prefix = '.';
-    const command = message.body.replace(prefix, '');
+    const body_array = message.body.split(" ");
+    const command = body_array[0].replace(prefix,'').toLowerCase();
     if(command === 'start') {
       startCommand(client, message);
     }else if(command=="ping"){
@@ -88,8 +104,16 @@ client.on('message', message => {
       testCommand(client, message);
     }else if(command=="tl"||command=="telegraph"){
       tlCommand(client, message);
-    }else if(command=="tr"||command=="translate"){
+    }else if(command=="tr"){
       trCommand(client, message);
+    }else if(command=="repo"){
+      repoCommand(client, message);
+    }else if(command=="gpt"){
+      gptCommand(client, message);
+    }else if(command=="bard"){
+      bardCommand(client, message);
+    }else if(command=="echo"){
+      echoCommand(client, message);
     }
   });
   
@@ -102,6 +126,8 @@ app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
 
+
+
 client.initialize();
 console.log("Initializing...");
-
+});

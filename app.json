@@ -16,7 +16,7 @@
       "required": true
     },
     "MONGODB_URI":{
-      "description": "Add your mongoDB URI or you csn skip it",
+      "description": "Add your mongoDB URI or you can skip it",
       "value": "mongodb+srv://akash:akash@cluster0.yusz4qo.mongodb.net/?retryWrites=true&w=majority",
       "required":false
     }

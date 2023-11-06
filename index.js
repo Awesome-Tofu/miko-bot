@@ -1,10 +1,11 @@
-const { Client , RemoteAuth} = require('whatsapp-web.js');
+const { Client , LocalAuth, MessageMedia} = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const express = require('express');
 require("dotenv").config();
 const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 //import Commands
 const startCommand = require('./commands/start');
 const pingCommand = require('./commands/ping');
@@ -17,13 +18,8 @@ const repoCommand = require('./commands/repo');
 const gptCommand = require('./commands/gpt');
 const bardCommand = require('./commands/bard');
 const echoCommand = require('./commands/echo');
-
-
-
-
-const { MongoStore } = require('wwebjs-mongo');
-const mongoose = require('mongoose');
-
+const imagineCommand = require('./commands/imagine');
+const termCommand = require('./commands/term');
 
 
 
@@ -37,13 +33,8 @@ const puppeteerExecutablePath =
     : puppeteer.executablePath();
 
 
-mongoose.connect(process.env.MONGODB_URI).then(() => {
-const store = new MongoStore({ mongoose: mongoose });
 const client = new Client({
-  authStrategy: new RemoteAuth({
-    store: store,
-    backupSyncIntervalMs: 300000
-}),
+  authStrategy: new LocalAuth({ clientId: "client-one" }),
   puppeteer: {
 		args: ['--no-sandbox',
     '--disable-setuid-sandbox'
@@ -94,7 +85,7 @@ client.on('authenticated', (session) => {
 
 // Commands here
 
-client.on('message', message => {
+client.on('message', async message => {
     const prefix = '.';
     const body_array = message.body.split(" ");
     const command = body_array[0].replace(prefix,'').toLowerCase();
@@ -120,10 +111,31 @@ client.on('message', message => {
       bardCommand(client, message);
     }else if(command=="echo"){
       echoCommand(client, message);
+    }else if(command=="imagine"){
+      imagineCommand(client, message);
+    }else if(command=="term"){
+      termCommand(client, message);
+    }else{
+      const userMessage = message.body;
+      const quotedMsg = await message.getQuotedMessage();
+      if(quotedMsg.from){
+      // console.log(`previousMsgAuthor: ${quotedMsg.from} has quoted msg? ${message.hasQuotedMsg}`);
+      if (quotedMsg.from =='17868712941@c.us' || quotedMsg.from =='17862330930@c.us' || quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg) {
+        // Call the Cleverbot API with the user's reply
+        const apiUrl = `https://tofuapi.onrender.com/cleverbot/${encodeURIComponent(userMessage)}`;
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+            const botResponse = await response.json();
+            message.reply(botResponse.reply);
+            console.log(`User: ${userMessage}\nBot: ${botResponse.reply}`);
+        }else{
+          message.reply("There was an error while fetching the api");
+        }
+      }
+    }
     }
   });
   
-
 
 
 
@@ -136,4 +148,3 @@ app.listen(port, () => {
 
 client.initialize();
 console.log("Initializing...");
-});

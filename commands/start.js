@@ -4,7 +4,7 @@ const gif2mp4File = require('../utils/gif2mp4');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
 module.exports = async function startCommand(client, message) {
-    const randomStickers = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+    const randomStickers = Math.floor(Math.random() * (9 - 1 + 1)) + 1;
     const sticker = MessageMedia.fromFilePath(`${__dirname}/stickers/${randomStickers}.png`);
     client.sendMessage(message.from, sticker, { sendMediaAsSticker: true });
     let arraygif = ['wave','poke','blush','cuddle','happy','hug', 'pat', 'kiss'];

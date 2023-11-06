@@ -7,7 +7,6 @@ const puppeteer = require('puppeteer');
 const fs = require('fs');
 //import Commands
 const startCommand = require('./commands/start');
-const nekoCommand = require('./commands/sfw');
 const pingCommand = require('./commands/ping');
 const helpCommand = require('./commands/help');
 const stickerCommand = require('./commands/sticker');

@@ -4,6 +4,9 @@
 import neko from 'commands/images/nekos.js';
 
 
+const { MessageMedia } = require('whatsapp-web.js');
+
+
 module.exports = async function nekoCommand(client, message) {
        const randomIndex = Math.floor(Math.random() * neko.length);
        const media_url = neko[randomIndex];

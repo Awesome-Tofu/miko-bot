@@ -19,6 +19,21 @@
       "description": "Add your mongoDB URI or you can skip it",
       "value": "mongodb+srv://akash:akash@cluster0.yusz4qo.mongodb.net/?retryWrites=true&w=majority",
       "required":false
+    },
+    "BOT_NUMBER":{
+      "description": "bot's phone number example - 918377xxxxxx",
+      "value": "",
+      "required":true
+    },
+    "OWNER_NUMBER":{
+      "description": "Add your phone number example - 913474xxxxxx",
+      "value": "",
+      "required":true
+    },
+    "DEFAULT_LANGUAGE":{
+      "description": "default language for translation",
+      "value": "en",
+      "required":false
     }
      },    
     "buildpacks": [

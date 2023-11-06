@@ -1,4 +1,4 @@
-const { Client , MessageMedia} = require('whatsapp-web.js');
+const { Client , LocalAuth, MessageMedia} = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const express = require('express');
 require("dotenv").config();
@@ -34,7 +34,7 @@ const puppeteerExecutablePath =
 
 
 const client = new Client({
-  // authStrategy: new LocalAuth({ clientId: "client-one" }),
+  authStrategy: new LocalAuth({ clientId: "client-one" }),
   puppeteer: {
 		args: ['--no-sandbox',
     '--disable-setuid-sandbox'

@@ -7,5 +7,9 @@ module.exports = async function helpCommand(client, message) {
     tr - translate
     gpt - Ask GPT
     bard - Ask bard
+    imagine - generates image, be patient while running this command
+    sticker - converts to sticker from photo
+    repo - provides repo (deployable on render)
+    more coming soon.. 
     `);
 }

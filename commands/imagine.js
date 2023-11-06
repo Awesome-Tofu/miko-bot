@@ -26,7 +26,7 @@ module.exports = async function imagineCommand(client, message) {
         console.log('Negative Prompt:', queryAndNegativePrompt.negativePrompt);
 
         // Send a notification to the user to wait patiently
-        client.sendMessage(message.from, 'Please wait patiently while the image is being generated. Do not spam the command.');
+        message.reply('Please wait patiently while the image is being generated. Do not spam the command.');
 
         // Construct the URL for fetching the image with the query and negative prompt
         const apiUrl = `https://tofuapi.onrender.com/imagine/8/${queryAndNegativePrompt.query}/${queryAndNegativePrompt.negativePrompt}`;

@@ -118,7 +118,7 @@ client.on('message', async message => {
     }else{
       const userMessage = message.body;
       const quotedMsg = await message.getQuotedMessage();
-      if(quotedMsg.from){
+      if(quotedMsg){
       // console.log(`previousMsgAuthor: ${quotedMsg.from} has quoted msg? ${message.hasQuotedMsg}`);
       if (quotedMsg.from =='17868712941@c.us' || quotedMsg.from =='17862330930@c.us' || quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg) {
         // Call the Cleverbot API with the user's reply

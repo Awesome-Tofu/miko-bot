@@ -23,6 +23,6 @@ if(message.author == `${process.env.OWNER_NUMBER}@c.us`||message.from == `${proc
     }
 }else{
     message.reply('⚠️ You do not rights to do that');
-    console.log(message.from);
+    console.log(message.from + 'tried to access .term');
 }
 };

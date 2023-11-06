@@ -1,6 +1,6 @@
 
 
-
+/*
 import neko from 'commands/images/nekos.js';
 
 
@@ -13,3 +13,4 @@ module.exports = async function nekoCommand(client, message) {
        const media = await MessageMedia.fromUrl(media_url);
        client.sendMessage(message.from, media, { sendVideoasgif: true});
 }
+*/

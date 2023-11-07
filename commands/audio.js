@@ -39,8 +39,11 @@ module.exports = async function downloadYouTube(client, message) {
                   client.sendMessage(message.from, `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`);
                   client.sendMessage(message.from, '*[✅]* Successfully!');
             });
-        }catch(error){
+        }
+    }catch(error){
             console.log(error);
             message.reply('Something went wrong.');
         }
+
+}
 

@@ -4,7 +4,8 @@ const express = require('express');
 require("dotenv").config();
 const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
-const fs = require('fs').promises;
+const fsPromises = require('fs').promises; // Promises-based fs
+const fs = require('fs'); // Traditional fs
 const path = require('path');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 //import Commands
@@ -50,16 +51,18 @@ const client = new Client({
 let qrText;
 
 app.get('/', (req, res) => {
-    if (qrText) {
-      fs.readFile('index.html', 'utf8', (err, data) => {
-      const qr_code = qrimage.imageSync(qrText, { type: 'svg'});
-      const modifiedHTML = data.replace('%%svg%%', qr_code);
-      res.send(modifiedHTML);
-    })
-    } else {
-      res.send('QR code not available yet. Please try again later.');
-    }
-  });
+  if (qrText) {
+    fs.readFile('index.html', 'utf8', (err, data) => {
+    const qr_code = qrimage.imageSync(qrText, { type: 'svg'});
+    const modifiedHTML = data.replace('%%svg%%', qr_code);
+    res.send(modifiedHTML);
+  })
+  } else {
+    res.send('QR code not available yet. Please try again later.');
+  }
+
+});
+
 
 client.on('qr', (text) => {
   qrText = text; // Store the QR code text
@@ -70,6 +73,10 @@ client.on('qr', (text) => {
 
 
 
+
+client.on('remote_session_saved',async () => {
+  console.log('SESSION SAVED');
+})
 
 
 client.on('ready', () => {
@@ -128,7 +135,7 @@ client.on('message', async message => {
       if (quotedMsg.from =='17868712941@c.us' || quotedMsg.from =='17862330930@c.us' || quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg) {
         // Call the Cleverbot API with the user's reply
         if (message.type == 'sticker'){ 
-          const files = await fs.readdir('./chatbotstickers');
+          const files = await fsPromises.readdir('./chatbotstickers');
             
           const imageFiles = files.filter(file => {
             return ['.png', '.jpg'].includes(path.extname(file).toLowerCase());

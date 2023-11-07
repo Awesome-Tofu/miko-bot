@@ -26,7 +26,7 @@ const infoCommand = require('./commands/info');
 const { AudioDownloadYouTube, 
   VideoDownloadYouTube, 
   GetYouTubeInfo 
-      } = require('./commands/yt');
+      } = require('./commands/ytdl');
 
 
 

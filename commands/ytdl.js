@@ -88,8 +88,8 @@ module.exports = async function VideoDownloadYouTube(client, message) {
                   await client.sendMessage(message.from, media, { sendMediaAsDocument: true });
                   client.sendMessage(message.from, `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`);
                   client.sendMessage(message.from, '*[✅]* Successfully!');
-            });
-        }
+                });
+          }
     }catch(error){
             console.log(error);
             message.reply('Something went wrong.');
@@ -132,13 +132,12 @@ module.exports = async function GetYouTubeInfo(client, message) {
                 client.sendMessage(message.from, `*CHANNEL DETAILS*\n• Name : *${data.channel.name}*\n• User : *${data.channel.user}*\n• Verified : *${data.channel.verified}*\n• Channel : *${data.channel.channelUrl}*\n• Subscriber : *${data.channel.subscriber}*`);
                 client.sendMessage(message.from, `*VIDEO DETAILS*\n• Title : *${data.video.title}*\n• Seconds : *${data.video.lengthSeconds}*\n• VideoURL : *${data.video.videoUrl}*\n• Publish : *${data.video.publishDate}*\n• Viewers : *${data.video.viewCount}*`)
                 client.sendMessage(message.from, '*[✅]* Successfully!');
-            });
         }
     }catch(error){
             console.log(error);
             message.reply('Something went wrong.');
-        }
-
+    }
 }
+
 
 

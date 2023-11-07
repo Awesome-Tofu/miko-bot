@@ -2,6 +2,7 @@
 
 const ytdl = require('ytdl-core');
 const { MessageMedia } = require('whatsapp-web.js');
+const fs = require('fs');
 
 module.exports = async function downloadYouTube(client, message) {
         let url = message.body.replace('.audio ','');

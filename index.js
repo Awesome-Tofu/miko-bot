@@ -25,6 +25,7 @@ const termCommand = require('./commands/term');
 const infoCommand = require('./commands/info');
 const AudioDownloadYouTube = require('./commands/ytdl');
 const VideoDownloadYouTube = require('./commands/ytdl');
+const GetYouTubeInfo = require('./commands/ytdl');
 
 
 
@@ -125,10 +126,12 @@ client.on('message', async message => {
       termCommand(client, message);
     }else if(command=="info"){
       infoCommand(client, message)
-    }else if(command=="audio"||command=="mp3"){
+    }else if(command=="audio"){
       AudioDownloadYouTube(client, message)
-    }else if(command=="video"||command=="mp4"){
+    }else if(command=="video"){
       VideoDownloadYouTube(client, message)
+    }else if(command=="detail"){
+      GetYouTubeInfo(client, message)
     }else{
       //else it will run chatbot
       const userMessage = message.body;

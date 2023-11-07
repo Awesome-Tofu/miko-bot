@@ -4,7 +4,8 @@ const express = require('express');
 require("dotenv").config();
 const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
-const fs = require('fs');
+const fs = require('fs').promises;
+const path = require('path');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 //import Commands
 const startCommand = require('./commands/start');
@@ -68,10 +69,6 @@ client.on('qr', (text) => {
 });
 
 
-client.on('remote_session_saved',async () => {
-  console.log('SESSION SAVED');
-})
-
 
 
 
@@ -130,15 +127,29 @@ client.on('message', async message => {
       // console.log(`previousMsgAuthor: ${quotedMsg.from} has quoted msg? ${message.hasQuotedMsg}`);
       if (quotedMsg.from =='17868712941@c.us' || quotedMsg.from =='17862330930@c.us' || quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg) {
         // Call the Cleverbot API with the user's reply
-        const apiUrl = `https://chat.merissabot.me/api/apikey=5715764478-MERISSAPy8wmE0ei5/miko/tofu/message=${encodeURIComponent(userMessage)}`;
-        const response = await fetch(apiUrl);
-        if (response.ok) {
-            const botResponse = await response.json();
-            message.reply(botResponse.reply);
-            console.log(`User: ${userMessage}\nBot: ${botResponse.reply}`);
+        if (message.type == 'sticker'){ 
+          const files = await fs.readdir('./chatbotstickers');
+            
+          const imageFiles = files.filter(file => {
+            return ['.png', '.jpg'].includes(path.extname(file).toLowerCase());
+          });
+          const randomIndex = Math.floor(Math.random() * imageFiles.length);
+          const randomImageName = imageFiles[randomIndex];
+          var imagePath = path.join(__dirname+'/chatbotstickers/'+ randomImageName);
+          const sticker = MessageMedia.fromFilePath(imagePath);
+          client.sendMessage(message.from, sticker, { sendMediaAsSticker: true });
         }else{
-          message.reply("There was an error while fetching the chatbot api");
+          const apiUrl = `https://chat.merissabot.me/api/apikey=5715764478-MERISSAPy8wmE0ei5/miko/tofu/message=${encodeURIComponent(userMessage)}`;
+          const response = await fetch(apiUrl);
+          if (response.ok) {
+              const botResponse = await response.json();
+              message.reply(botResponse.reply);
+              console.log(`User: ${userMessage}\nBot: ${botResponse.reply}`);
+          }else{
+            message.reply("There was an error while fetching the chatbot api");
+          }
         }
+
       }
     }
     }

@@ -46,50 +46,6 @@ async function AudioDownloadYouTube(client, message) {
     }
 }
 
-// YOUTUBE VIDEO DOWNLOADER
-async function VideoDownloadYouTube(client, message) {
-    let url = message.body.replace('.video ','');
-    try {
-        if(url=='.video')
-        {
-            await message.reply('No query!')
-        }
-        else
-        {
-            let info = await ytdl.getInfo(url);
-            let data = 
-            {
-            "channel": {
-                "name": info.videoDetails.author.name,
-                "user": info.videoDetails.author.user,
-                "channelUrl": info.videoDetails.author.channel_url,
-                "userUrl": info.videoDetails.author.user_url,
-                "verified": info.videoDetails.author.verified,
-                "subscriber": info.videoDetails.author.subscriber_count
-            },
-            "video": {
-                "title": info.videoDetails.title,
-                "description": info.videoDetails.description,
-                "lengthSeconds": info.videoDetails.lengthSeconds,
-                "videoUrl": info.videoDetails.video_url,
-                "publishDate": info.videoDetails.publishDate,
-                "viewCount": info.videoDetails.viewCount
-            }
-            }
-            ytdl(url, { filter: 'audioandvideo', format: 'mp4', quality: 'highest' }).pipe(fs.createWriteStream(`./commands/audio_dl/download.mp3`)).on('finish', async () => {
-              const media = await MessageMedia.fromFilePath(`./commands/audio_dl/download.mp4`);
-              media.filename = `youtubedl.mp4`;
-              await client.sendMessage(message.from, media, { sendMediaAsDocument: true });
-              client.sendMessage(message.from, `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`);
-              client.sendMessage(message.from, '*[✅]* Successfully!');
-                    })
-                }
-        }catch(error){
-            message.reply("Something went wrong.")
-}
-}
-
-// YOUTUBE LINK INFORMATION COLLECTOR
 async function GetYouTubeInfo(client, message) {
     let url = message.body.replace('.detail ','');
     try {

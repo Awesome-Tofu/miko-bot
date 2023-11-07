@@ -52,7 +52,7 @@ module.exports = async function AudioDownloadYouTube(client, message) {
 module.exports = async function VideoDownloadYouTube(client, message) {
         let url = message.body.replace('.video ','');
         try {
-            if(url=='.audio')
+            if(url=='.video')
             {
                 await message.reply('No query!')
             }

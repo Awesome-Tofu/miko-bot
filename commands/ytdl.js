@@ -100,7 +100,7 @@ module.exports = async function VideoDownloadYouTube(client, message) {
 
 // YOUTUBE LINK INFORMATION COLLECTOR
 
-module.exports = async function VideoDownloadYouTube(client, message) {
+module.exports = async function GetYouTubeInfo(client, message) {
         let url = message.body.replace('.detail ','');
         try {
             if(url=='.detail')

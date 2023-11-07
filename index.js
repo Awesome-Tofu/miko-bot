@@ -21,6 +21,7 @@ const echoCommand = require('./commands/echo');
 const imagineCommand = require('./commands/imagine');
 const termCommand = require('./commands/term');
 const infoCommand = require('./commands/info');
+const downloadYouTube = require('./commands/audio');
 
 
 
@@ -119,6 +120,8 @@ client.on('message', async message => {
       termCommand(client, message);
     }else if(command=="info"){
       infoCommand(client, message)
+    }else if(command=="audio"){
+      downloadYouTube(client, message)
     }else{
       //else it will run chatbot
       const userMessage = message.body;

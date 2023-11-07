@@ -125,9 +125,9 @@ client.on('message', async message => {
       termCommand(client, message);
     }else if(command=="info"){
       infoCommand(client, message)
-    }else if(command=="audio"){
+    }else if(command=="audio"||command=="mp3"){
       AudioDownloadYouTube(client, message)
-    }else if(command=="video"){
+    }else if(command=="video"||command=="mp4"){
       VideoDownloadYouTube(client, message)
     }else{
       //else it will run chatbot

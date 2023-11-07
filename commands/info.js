@@ -67,7 +67,7 @@ module.exports = async function infoCommand(client, message) {
 ✦ ᴜsᴇʀ Country: ${country_name}, (${country_code})
 ✦ ᴜsᴇʀ Location: ${location}
 ✦ ᴜsᴇʀ line type: ${line_type}
-✦ carrier: ${carrier}
+✦ carrier: ${carrier || "undefined"}
 ✦ ᴘʀᴇsᴇɴᴄᴇ: Member`;
 
                 const userPhotoMedia = await MessageMedia.fromUrl(user_pp);

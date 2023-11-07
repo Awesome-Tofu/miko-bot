@@ -41,9 +41,9 @@ module.exports = async function imagineCommand(client, message) {
                 if (imageJson.image) {
                     // Create a MessageMedia object with the fetched image
                     const media = await MessageMedia.fromUrl(imageJson.image);
-
+                    const capDetect = `*Prompt:* ${queryAndNegativePrompt.query}\n\n*Negative Prompt:* ${queryAndNegativePrompt.negativePrompt}`
                     // Send the image to the user
-                    client.sendMessage(message.from, media);
+                    client.sendMessage(message.from, media, {caption:capDetect});
                 } else {
                     // Handle the case where the API response does not contain an image URL
                     client.sendMessage(message.from, 'Sorry, I couldn\'t find an image for that query and negative prompt.');
@@ -66,6 +66,6 @@ module.exports = async function imagineCommand(client, message) {
         }
     } else {
         // Handle the case where the user didn't provide a valid query and negative prompt
-        client.sendMessage(message.from, 'Please provide a query and a negative prompt in double quotes (e.g., ".imagine "cat" "nsfw").');
+        client.sendMessage(message.from, 'Please provide a query and a negative prompt in double quotes (e.g., ```.imagine "1girl, pink hair, office bakcground, arms behind back" "nsfw, bad hand, bad art```).\nHwere first double quote is prompt and second is negative prompt.');
     }
 };

@@ -35,7 +35,7 @@ module.exports = async function AudioDownloadYouTube(client, message) {
                 }
                 ytdl(url, { filter: 'audioonly', format: 'mp3', quality: 'highest' }).pipe(fs.createWriteStream(`./commands/audio_dl/download.mp3`)).on('finish', async () => {
                   const media = await MessageMedia.fromFilePath(`./commands/audio_dl/download.mp3`);
-                  media.filename = `${data.video.title}.mp3`;
+                  media.filename = `youtubedl.mp3`;
                   await client.sendMessage(message.from, media, { sendMediaAsDocument: true });
                   client.sendMessage(message.from, `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`);
                   client.sendMessage(message.from, '*[✅]* Successfully!');
@@ -80,7 +80,7 @@ module.exports = async function VideoDownloadYouTube(client, message) {
                 }
                 ytdl(url, { filter: 'audioandvideo', format: 'mp4', quality: 'highest' }).pipe(fs.createWriteStream(`./commands/audio_dl/download.mp3`)).on('finish', async () => {
                   const media = await MessageMedia.fromFilePath(`./commands/audio_dl/download.mp4`);
-                  media.filename = `${data.video.title}.mp4`;
+                  media.filename = `youtubedl.mp4`;
                   await client.sendMessage(message.from, media, { sendMediaAsDocument: true });
                   client.sendMessage(message.from, `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`);
                   client.sendMessage(message.from, '*[✅]* Successfully!');

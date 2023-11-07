@@ -23,9 +23,12 @@ const echoCommand = require('./commands/echo');
 const imagineCommand = require('./commands/imagine');
 const termCommand = require('./commands/term');
 const infoCommand = require('./commands/info');
-const VideoDownloadYouTube = require('./commands/audio');
-const AudioDownloadYouTube = require('./commands/video');
-const GetYouTubeInfo = require('./commands/ytdetail');
+const { AudioDownloadYouTube, 
+  VideoDownloadYouTube, 
+  GetYouTubeInfo 
+      } = require('./commands/yt');
+
+
 
 
 //Code

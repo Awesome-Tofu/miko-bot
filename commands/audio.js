@@ -32,7 +32,7 @@ module.exports = async function downloadYouTube(client, message) {
                     "viewCount": info.videoDetails.viewCount
                 }
                 }
-                ytdl(url, { filter: audioonly, format: mp3, quality: 'highest' }).pipe(fs.createWriteStream(`./commands/audio_dl/download.mp3`)).on('finish', async () => {
+                ytdl(url, { filter: 'audioonly', format: 'mp3', quality: 'highest' }).pipe(fs.createWriteStream(`./commands/audio_dl/download.mp3`)).on('finish', async () => {
                   const media = await MessageMedia.fromFilePath(`./commands/audio_dl/download.mp3`);
                   media.filename = `youtubedl.mp3`;
                   await client.sendMessage(message.from, media, { sendMediaAsDocument: true });

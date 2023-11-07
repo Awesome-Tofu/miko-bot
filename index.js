@@ -20,6 +20,8 @@ const bardCommand = require('./commands/bard');
 const echoCommand = require('./commands/echo');
 const imagineCommand = require('./commands/imagine');
 const termCommand = require('./commands/term');
+const infoCommand = require('./commands/info');
+
 
 
 
@@ -115,21 +117,24 @@ client.on('message', async message => {
       imagineCommand(client, message);
     }else if(command=="term"){
       termCommand(client, message);
+    }else if(command=="info"){
+      infoCommand(client, message)
     }else{
+      //else it will run chatbot
       const userMessage = message.body;
       const quotedMsg = await message.getQuotedMessage();
       if(quotedMsg){
       // console.log(`previousMsgAuthor: ${quotedMsg.from} has quoted msg? ${message.hasQuotedMsg}`);
       if (quotedMsg.from =='17868712941@c.us' || quotedMsg.from =='17862330930@c.us' || quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg) {
         // Call the Cleverbot API with the user's reply
-        const apiUrl = `https://tofuapi.onrender.com/cleverbot/${encodeURIComponent(userMessage)}`;
+        const apiUrl = `https://chat.merissabot.me/api/apikey=5715764478-MERISSAPy8wmE0ei5/miko/tofu/message=${encodeURIComponent(userMessage)}`;
         const response = await fetch(apiUrl);
         if (response.ok) {
             const botResponse = await response.json();
             message.reply(botResponse.reply);
             console.log(`User: ${userMessage}\nBot: ${botResponse.reply}`);
         }else{
-          message.reply("There was an error while fetching the api");
+          message.reply("There was an error while fetching the chatbot api");
         }
       }
     }

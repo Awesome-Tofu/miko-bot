@@ -10,6 +10,7 @@ module.exports = async function helpCommand(client, message) {
     imagine - generates image, be patient while running this command
     sticker - converts to sticker from photo
     repo - provides repo (deployable on render)
+    info- get info of replied user
     more coming soon.. 
     `);
 }

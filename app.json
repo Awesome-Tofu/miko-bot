@@ -34,6 +34,11 @@
       "description": "default language for translation",
       "value": "en",
       "required":false
+    },
+    "NUMVERIFY_KEY":{
+      "description": "get the key from https://numverify.com/product for free or use mine",
+      "value": "13e4e196a58f64646251999692b9d006",
+      "required":true
     }
      },    
     "buildpacks": [

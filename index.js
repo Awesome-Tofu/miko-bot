@@ -23,11 +23,10 @@ const echoCommand = require('./commands/echo');
 const imagineCommand = require('./commands/imagine');
 const termCommand = require('./commands/term');
 const infoCommand = require('./commands/info');
-const { AudioDownloadYouTube, 
-  VideoDownloadYouTube, 
+const { AudioDownloadYouTube,
   GetYouTubeInfo 
       } = require('./commands/ytdl');
-
+const videoCommand = require('./commands/video')
 
 
 
@@ -130,7 +129,7 @@ client.on('message', async message => {
     }else if(command=="audio"){
       AudioDownloadYouTube(client, message)
     }else if(command=="video"){
-      VideoDownloadYouTube(client, message)
+      videoCommand(client, message)
     }else if(command=="detail"){
       GetYouTubeInfo(client, message)
     }else{

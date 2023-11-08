@@ -90,6 +90,5 @@ async function GetYouTubeInfo(client, message) {
 // Export all the functions in an object
 module.exports = {
   AudioDownloadYouTube,
-  VideoDownloadYouTube,
   GetYouTubeInfo
 };

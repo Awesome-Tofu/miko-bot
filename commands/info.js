@@ -16,7 +16,7 @@ module.exports = async function infoCommand(client, message) {
             });
 
             if (isAdmin) {
-                const user_pp = await client.getProfilePicUrl(quotedMsg.author || quotedMsg.from);
+                const user_pp = await client.getProfilePicUrl(quotedMsg.author || quotedMsg.from) || "https://te.legra.ph/file/7ea1d50fdd0b2e7c447cc.png";
                 const contact = await quotedMsg.getContact();
                 const user_name = contact.pushname;
                 const user_num = quotedMsg.author.replace('@c.us', '') || quotedMsg.from.replace('@c.us', '');
@@ -49,7 +49,6 @@ module.exports = async function infoCommand(client, message) {
                 const user_name = contact.pushname;
                 const user_num = quotedMsg.author.replace('@c.us', '') || quotedMsg.from.replace('@c.us', '');
                 const NUMKEY = process.env.NUMVERIFY_KEY || "13e4e196a58f64646251999692b9d006";
-                console.log(`pp ${user_pp}\n user_name ${user_name}\n num ${user_num}`);
                 const response = await fetch(`http://apilayer.net/api/validate?access_key=${NUMKEY}&number=${user_num}`);
                 const data = await response.json();
                 const country_name= data.country_name;

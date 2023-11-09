@@ -27,6 +27,8 @@ const { AudioDownloadYouTube,
   GetYouTubeInfo 
       } = require('./commands/ytdl');
 const videoCommand = require('./commands/video')
+const quoteCommand = require('./commands/quotely')
+
 
 
 
@@ -132,6 +134,8 @@ client.on('message', async message => {
       videoCommand(client, message)
     }else if(command=="detail"){
       GetYouTubeInfo(client, message)
+    }else if(command=="q"||command=="quote"){
+      quoteCommand(client, message)
     }else{
       //else it will run chatbot
       const userMessage = message.body;

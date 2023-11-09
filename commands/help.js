@@ -14,6 +14,9 @@ module.exports = async function helpCommand(client, message) {
     audio [yt link] - To download high quality audio.
     video [yt link] - To download high quality video.
     detail [yt link] - To get both video and channel information
+    q - quotely the message
+    paste - paste the text to link
+    extract - get number info
     more coming soon.. 
     `);
 }

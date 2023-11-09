@@ -26,8 +26,12 @@ const infoCommand = require('./commands/info');
 const { AudioDownloadYouTube,
   GetYouTubeInfo 
       } = require('./commands/ytdl');
-const videoCommand = require('./commands/video')
-const quoteCommand = require('./commands/quotely')
+const videoCommand = require('./commands/video');
+const quoteCommand = require('./commands/quotely');
+const pasteCommand = require('./commands/paste');
+const extractCommand = require('./commands/extract');
+
+
 
 
 
@@ -127,21 +131,24 @@ client.on('message', async message => {
     }else if(command=="term"){
       termCommand(client, message);
     }else if(command=="info"){
-      infoCommand(client, message)
+      infoCommand(client, message);
     }else if(command=="audio"){
-      AudioDownloadYouTube(client, message)
+      AudioDownloadYouTube(client, message);
     }else if(command=="video"){
-      videoCommand(client, message)
+      videoCommand(client, message);
     }else if(command=="detail"){
-      GetYouTubeInfo(client, message)
+      GetYouTubeInfo(client, message);
     }else if(command=="q"||command=="quote"){
-      quoteCommand(client, message)
+      quoteCommand(client, message);
+    }else if(command=="paste"){
+      pasteCommand(client, message);
+    }else if(command=="extract"){
+      extractCommand(client, message);
     }else{
       //else it will run chatbot
       const userMessage = message.body;
       const quotedMsg = await message.getQuotedMessage();
       if(quotedMsg){
-      // console.log(`previousMsgAuthor: ${quotedMsg.from} has quoted msg? ${message.hasQuotedMsg}`);
       if (quotedMsg.from =='17868712941@c.us' || quotedMsg.from =='17862330930@c.us' || quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg) {
         // Call the Cleverbot API with the user's reply
         if (message.type == 'sticker'){ 

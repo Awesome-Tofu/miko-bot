@@ -1,4 +1,3 @@
-// commands/start.js
 const { MessageMedia } = require('whatsapp-web.js');
 const gif2mp4File = require('../utils/gif2mp4');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));

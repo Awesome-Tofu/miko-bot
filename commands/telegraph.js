@@ -24,6 +24,7 @@ async function telegraph(attachmentData) {
 
 
 module.exports = async function tlCommand(client, message) {
+  try{
     message.delete(true);
     if (message.hasQuotedMsg) {
         let quotedMsg = await message.getQuotedMessage();
@@ -37,4 +38,8 @@ module.exports = async function tlCommand(client, message) {
       } else {
         await client.sendMessage(message.from, "*Error*\n```Please reply to a media file```");
       }
+  }catch(error){
+    await message.reply("Error cant support text!")
+  } 
+
 }

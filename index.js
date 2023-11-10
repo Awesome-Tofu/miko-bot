@@ -30,6 +30,7 @@ const videoCommand = require('./commands/video');
 const quoteCommand = require('./commands/quotely');
 const pasteCommand = require('./commands/paste');
 const extractCommand = require('./commands/extract');
+const hanimeCommand = require('./commands/hanime');
 
 
 
@@ -144,6 +145,8 @@ client.on('message', async message => {
       pasteCommand(client, message);
     }else if(command=="extract"){
       extractCommand(client, message);
+    }else if(command=="hanime"){
+      hanimeCommand(client, message);
     }else{
       //else it will run chatbot
       const userMessage = message.body;

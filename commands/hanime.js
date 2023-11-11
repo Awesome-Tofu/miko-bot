@@ -21,8 +21,12 @@ if(message.body=='.hanime'|| message.body=='.hanime '){
 }else if(words[0]=="watch"){
     const slug = words[1];
     const video = await watch(slug);
-    const media = await MessageMedia.fromUrl(video);
-    await client.sendMessage(message.from, media, {sendMediaAsDocument: true, caption:`Here's the video link\n${video}`} );
+    const quality360 = video['360'];
+    const quality480 = video['480'];
+    const quality720 = video['720'];
+
+    const media = await MessageMedia.fromUrl(quality360);
+    await client.sendMessage(message.from, media, {sendMediaAsDocument: true, caption:`Here's the video link\n\n➤ *360p*\n${quality360}\n➤ *480p*\n${quality480}\n➤ *720p*\n${quality720}\n➤Copy the link and use this website to download if you want\nhttps://m3u8.dev/`} );
 }else if(words[0]=="info"){
     await message.reply("Collecting data...")
     const slug = words[1];

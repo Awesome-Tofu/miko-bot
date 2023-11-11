@@ -25,7 +25,7 @@ async function trending() {
             return '';
         }
         
-        const trends =  data.results.map(item => item.slug);
+        const trends =  data.results.map(item => '➤ '+item.slug);
         const formattedTrends = trends.join('\n');
 
         return formattedTrends;
@@ -48,13 +48,13 @@ async function getSlug(tag, page){
             return;
         }
 
-        const slugs =  data.results.map(item => item.slug);
+        const slugs =  data.results.map(item => '➤ '+item.slug);
         const formattedSlugs = slugs.join('\n');
 
         return formattedSlugs;
     }catch(error){
         console.error(error);
-        return "Error while getting getSlug"
+        return "Error while getting tag\n*Example usage*\n.hanime get facial 0\n.hanime get <tag> <page>"
     }
 }
 
@@ -65,12 +65,16 @@ async function watch(slug){
         const data = await response.json();
         const videoData = data.results[0].streams;
         const video360p = videoData.find(video => video.height === "360");
+        const video480p = videoData.find(video => video.height === "480");
+        const video720p = videoData.find(video => video.height === "720");
 
-        if (video360p) {
-            return video360p.url;
-        } else {
-            return "No video with 360p height found";
+        const vidQualities = {
+            360: video360p.url,
+            480: video480p.url,
+            720: video720p.url,
         }
+
+        return vidQualities;
     }catch(error){
         console.error(error);
         return "There was an error while getting Watch"

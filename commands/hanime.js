@@ -13,8 +13,8 @@ if(message.body=='.hanime'|| message.body=='.hanime '){
     const trending_slugs = await trending();
     message.reply(`Today's Trending\n\n${trending_slugs}`);
 }else if(words[0]=="get"){
-    const tag = words[1];
-    const page = words[2] || '0';
+    const tag = words.slice(1, -1).join(" ");
+    const page = words[words.length - 1] || '0';
     console.log(tag,page);
     const slugs = await getSlug(tag, page);
     await message.reply(`Available slugs for tag *${tag}*\n\n${slugs}`)
@@ -22,7 +22,7 @@ if(message.body=='.hanime'|| message.body=='.hanime '){
     const slug = words[1];
     const video = await watch(slug);
     const media = await MessageMedia.fromUrl(video);
-    client.sendMessage(message.from, media, {sendMediaAsDocument: true, caption:`Here's video link\n${video}`} );
+    await client.sendMessage(message.from, media, {sendMediaAsDocument: true, caption:`Here's the video link\n${video}`} );
 }else if(words[0]=="info"){
     await message.reply("Collecting data...")
     const slug = words[1];

@@ -8,17 +8,16 @@ module.exports = async function videoCommand(client, message) {
         } else {
             message.reply('```Please be patient while the video is downloading...```');
             const utext = message.body.replace('.video ', '');
-            const response = await fetch(`https://api.akuari.my.id/downloader/yt1?link=${utext}`);
+            const response = await fetch(`https://vihangayt.me/download/ytmp4?url=${utext}`);
             const data = await response.json();
-            const video = data.urldl_video;
-            const FinalLink = video.link;
+            const video = data.data.vid_720p;
 
             // Set unsafeMime option to true to bypass MIME type detection
-            const media = await MessageMedia.fromUrl(FinalLink, { unsafeMime: true });
+            const media = await MessageMedia.fromUrl(video, { unsafeMime: true });
 
-            var title = data.info.title;
+            var title = data.data.title;
             var size = media.filesize;
-            var channel = data.info.channel;
+            var duration = data.data.duration;
             message.reply('```Uploading...```')
             function formatFileSize(fileSizeInBytes) {
                 if (fileSizeInBytes < 1024) {
@@ -32,7 +31,7 @@ module.exports = async function videoCommand(client, message) {
                 }
             }
             const readableFileSize = formatFileSize(size);
-            const caption = `*Title:* ${title}\n*Size:* ${readableFileSize}\n*Channel:* ${channel}`;
+            const caption = `*Title:* ${title}\n*Size:* ${readableFileSize}\n*Duration:* ${duration}`;
             await client.sendMessage(message.from, media, { caption: caption });
         }
     } catch (error) {

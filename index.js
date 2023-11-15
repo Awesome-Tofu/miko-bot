@@ -31,6 +31,7 @@ const quoteCommand = require('./commands/quotely');
 const pasteCommand = require('./commands/paste');
 const extractCommand = require('./commands/extract');
 const hanimeCommand = require('./commands/hanime');
+const instaCommand = require('./commands/insta');
 
 
 
@@ -147,6 +148,8 @@ client.on('message', async message => {
       extractCommand(client, message);
     }else if(command=="hanime"){
       hanimeCommand(client, message);
+    }else if(command=="insta"){
+      instaCommand(client, message);
     }else{
       //else it will run chatbot
       const userMessage = message.body;

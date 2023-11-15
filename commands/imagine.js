@@ -66,6 +66,6 @@ module.exports = async function imagineCommand(client, message) {
         }
     } else {
         // Handle the case where the user didn't provide a valid query and negative prompt
-        client.sendMessage(message.from, 'Please provide a query and a negative prompt in double quotes (e.g., ```.imagine "1girl, pink hair, office bakcground, arms behind back" "nsfw, bad hand, bad art```).\nHwere first double quote is prompt and second is negative prompt.');
+        message.reply('Please provide a query and a negative prompt in double quotes (e.g., ```.imagine "1girl, pink hair, office bakcground, arms behind back" "nsfw, bad hand, bad art```).\nHwere first double quote is prompt and second is negative prompt.');
     }
 };

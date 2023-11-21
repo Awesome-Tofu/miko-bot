@@ -4,10 +4,10 @@ const express = require('express');
 require("dotenv").config();
 const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
-const fsPromises = require('fs').promises; // Promises-based fs
 const fs = require('fs'); // Traditional fs
-const path = require('path');
 const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+
+
 //import Commands
 const startCommand = require('./commands/start');
 const pingCommand = require('./commands/ping');
@@ -32,6 +32,11 @@ const pasteCommand = require('./commands/paste');
 const extractCommand = require('./commands/extract');
 const hanimeCommand = require('./commands/hanime');
 const instaCommand = require('./commands/insta');
+const chatbotCommand = require('./commands/chatbot');
+const codeCommand = require('./commands/code');
+const enhanceCommand = require('./commands/enhance');
+const wantedCommand = require('./commands/wanted');
+
 
 
 
@@ -73,6 +78,10 @@ app.get('/', (req, res) => {
 
 });
 
+
+app.get('/alive', (req, res) => {
+    res.send('I am Alive! 😶‍🌫️👍')
+});
 
 client.on('qr', (text) => {
   qrText = text; // Store the QR code text
@@ -126,6 +135,8 @@ client.on('message', async message => {
       gptCommand(client, message);
     }else if(command=="bard"){
       bardCommand(client, message);
+    }else if(command=="code"){
+      codeCommand(client, message);
     }else if(command=="echo"){
       echoCommand(client, message);
     }else if(command=="imagine"){
@@ -150,38 +161,13 @@ client.on('message', async message => {
       hanimeCommand(client, message);
     }else if(command=="insta"){
       instaCommand(client, message);
+    }else if(command=="enhance" || command=="upscale"){
+      enhanceCommand(client, message);
+    }else if(command=="wanted"){
+      wantedCommand(client, message);
     }else{
       //else it will run chatbot
-      const userMessage = message.body;
-      const quotedMsg = await message.getQuotedMessage();
-      if(quotedMsg){
-      if (quotedMsg.from =='17868712941@c.us' || quotedMsg.from =='17862330930@c.us' || quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg) {
-        // Call the Cleverbot API with the user's reply
-        if (message.type == 'sticker'){ 
-          const files = await fsPromises.readdir('./chatbotstickers');
-            
-          const imageFiles = files.filter(file => {
-            return ['.png', '.jpg'].includes(path.extname(file).toLowerCase());
-          });
-          const randomIndex = Math.floor(Math.random() * imageFiles.length);
-          const randomImageName = imageFiles[randomIndex];
-          var imagePath = path.join(__dirname+'/chatbotstickers/'+ randomImageName);
-          const sticker = MessageMedia.fromFilePath(imagePath);
-          client.sendMessage(message.from, sticker, { sendMediaAsSticker: true });
-        }else{
-          const apiUrl = `https://chat.merissabot.me/api/apikey=5715764478-MERISSAPy8wmE0ei5/miko/tofu/message=${encodeURIComponent(userMessage)}`;
-          const response = await fetch(apiUrl);
-          if (response.ok) {
-              const botResponse = await response.json();
-              message.reply(botResponse.reply);
-              console.log(`User: ${userMessage}\nBot: ${botResponse.reply}`);
-          }else{
-            message.reply("There was an error while fetching the chatbot api");
-          }
-        }
-
-      }
-    }
+      chatbotCommand(client, message);
     }
   });
   

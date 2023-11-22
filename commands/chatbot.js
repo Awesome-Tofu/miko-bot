@@ -23,7 +23,7 @@ module.exports = async function chatbotCommand(client, message) {
           client.sendMessage(message.from, sticker, { sendMediaAsSticker: true });
         }else{
         //   const apiUrl = `https://chat.merissabot.me/api/apikey=5715764478-MERISSAPy8wmE0ei5/miko/tofu/message=${encodeURIComponent(userMessage)}`;
-          const apiUrl = `https://api.yanzbotz.my.id/api/ai/characterai?text=${encodeURIComponent(userMessage)}&name=hatsune%20miko`;
+          const apiUrl = `https://api.yanzbotz.my.id/api/ai/characterai?text=${encodeURIComponent(userMessage)}&name=Yandere%20Hatsune%20Miku`;
           const response = await fetch(apiUrl);
           if (response.ok) {
               const botResponse = await response.json();

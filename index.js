@@ -17,7 +17,8 @@ const testCommand = require('./commands/test');
 const tlCommand = require('./commands/telegraph');
 const trCommand = require('./commands/translate');
 const repoCommand = require('./commands/repo');
-const gptCommand = require('./commands/gpt');
+const {gptCommand,
+  gpt5Command} = require('./commands/gpt');
 const bardCommand = require('./commands/bard');
 const echoCommand = require('./commands/echo');
 const imagineCommand = require('./commands/imagine');
@@ -36,6 +37,8 @@ const chatbotCommand = require('./commands/chatbot');
 const codeCommand = require('./commands/code');
 const enhanceCommand = require('./commands/enhance');
 const wantedCommand = require('./commands/wanted');
+const ttsCommand = require('./commands/tts');
+
 
 
 
@@ -133,6 +136,8 @@ client.on('message', async message => {
       repoCommand(client, message);
     }else if(command=="gpt"){
       gptCommand(client, message);
+    }else if(command=="gpt5"){
+      gpt5Command(client, message);
     }else if(command=="bard"){
       bardCommand(client, message);
     }else if(command=="code"){
@@ -165,6 +170,8 @@ client.on('message', async message => {
       enhanceCommand(client, message);
     }else if(command=="wanted"){
       wantedCommand(client, message);
+    }else if(command=="tts"){
+      ttsCommand(client, message);
     }else{
       //else it will run chatbot
       chatbotCommand(client, message);

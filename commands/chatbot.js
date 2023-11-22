@@ -23,15 +23,15 @@ module.exports = async function chatbotCommand(client, message) {
           client.sendMessage(message.from, sticker, { sendMediaAsSticker: true });
         }else{
         //   const apiUrl = `https://chat.merissabot.me/api/apikey=5715764478-MERISSAPy8wmE0ei5/miko/tofu/message=${encodeURIComponent(userMessage)}`;
-          const apiUrl = `https://pervert-api.onrender.com/chatbot/${encodeURIComponent(userMessage)}`;
+          const apiUrl = `https://api.yanzbotz.my.id/api/ai/characterai?text=${encodeURIComponent(userMessage)}&name=hatsune%20miko`;
           const response = await fetch(apiUrl);
           if (response.ok) {
               const botResponse = await response.json();
-              const trResponse = await fetch(`https://translate-api-gray.vercel.app/translate?q=${encodeURIComponent(botResponse.reply)}`);
+              const trResponse = await fetch(`https://translate-api-gray.vercel.app/translate?q=${encodeURIComponent(botResponse.result)}`);
               const translationData = await trResponse.json();
-              if (translationData.from && (translationData.from.toLowerCase() === 'hi' || translationData.from.toLowerCase() === 'en' || translationData.from.toLowerCase() === 'ja')) {
+              if (translationData.from && (translationData.from.toLowerCase() === 'hi' || translationData.from.toLowerCase() === 'en')) {
                 // If the source language is already English or Hindi, return the query itself
-                message.reply(botResponse.reply);
+                message.reply(botResponse.result);
               }else{
                 try{
                     const translatedText = translationData.text;
@@ -40,9 +40,9 @@ module.exports = async function chatbotCommand(client, message) {
                     console.error('Error translating text:', error.message);
                 }
               }
-              console.log(`User: ${userMessage}\nBot: ${botResponse.reply}`);
+              console.log(`User: ${userMessage}\nBot: ${botResponse.result}`);
           }else{
-            message.reply("There was an error while fetching the chatbot api");
+            message.reply("Hello");
           }
         }
 

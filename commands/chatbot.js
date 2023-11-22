@@ -11,7 +11,7 @@ module.exports = async function chatbotCommand(client, message) {
       if (quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg) {
         // Call the Cleverbot API with the user's reply
         if (message.type == 'sticker'){ 
-          const files = await fsPromises.readdir('./chatbotstickers');
+          const files = await fsPromises.readdir('./commands/chatbotstickers');
             
           const imageFiles = files.filter(file => {
             return ['.png', '.jpg'].includes(path.extname(file).toLowerCase());

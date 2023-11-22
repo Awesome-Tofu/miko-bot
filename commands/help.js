@@ -24,6 +24,12 @@ module.exports = async function helpCommand(client, message) {
 ➥ *wanted* - get one piece bounty of given image
 ➥ *enhance* or *upscale* - enhance the given picture
 ➥ *tts* - convert text to speech model aoi
+➥ *pp* - get random couple pfp
+➥ *sauce* - get source of replied anime media
+➥ *tiny* [link] - get shortened url of given link
+➥ *rmbg* - remove background of replied photo
+➥ *carbon* [text] - get carbon photo of given text
+
 
 more coming soon...
     `);

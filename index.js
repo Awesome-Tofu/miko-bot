@@ -38,6 +38,11 @@ const codeCommand = require('./commands/code');
 const enhanceCommand = require('./commands/enhance');
 const wantedCommand = require('./commands/wanted');
 const ttsCommand = require('./commands/tts');
+const ppCommand = require('./commands/pp');
+const sauceCommand = require('./commands/sauce');
+const tinyCommand = require('./commands/tinyurl');
+const rmbgCommand = require('./commands/rmbg');
+const carbonCommand = require('./commands/carbon');
 
 
 
@@ -118,6 +123,7 @@ client.on('message', async message => {
     const prefix = '.';
     const body_array = message.body.split(" ");
     const command = body_array[0].replace(prefix,'').toLowerCase();
+
     if(command === 'start') {
       startCommand(client, message);
     }else if(command=="ping"){
@@ -144,7 +150,7 @@ client.on('message', async message => {
       codeCommand(client, message);
     }else if(command=="echo"){
       echoCommand(client, message);
-    }else if(command=="imagine"){
+    }else if(command.startsWith('imagine')){
       imagineCommand(client, message);
     }else if(command=="term"){
       termCommand(client, message);
@@ -172,6 +178,16 @@ client.on('message', async message => {
       wantedCommand(client, message);
     }else if(command=="tts"){
       ttsCommand(client, message);
+    }else if(command=="pp"){
+      ppCommand(client, message);
+    }else if(command=="sauce"){
+      sauceCommand(client, message);
+    }else if(command=="tiny"){
+      tinyCommand(client, message);
+    }else if(command=="rmbg"){
+      rmbgCommand(client, message);
+    }else if(command=="carbon"){
+      carbonCommand(client, message);
     }else{
       //else it will run chatbot
       chatbotCommand(client, message);

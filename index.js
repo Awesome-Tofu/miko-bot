@@ -44,6 +44,8 @@ const tinyCommand = require('./commands/tinyurl');
 const rmbgCommand = require('./commands/rmbg');
 const carbonCommand = require('./commands/carbon');
 const {promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, supportCommand} = require('./commands/group');
+const {toanimeCommand, toanime3dCommand} = require('./commands/toanime');
+
 
 
 
@@ -202,6 +204,10 @@ client.on('message', async message => {
       reportCommand(client, message);
     }else if(command=="support"){
       supportCommand(client, message);
+    }else if(command=="toanime"){
+      toanimeCommand(client, message);
+    }else if(command=="toanime3d"){
+      toanime3dCommand(client, message);
     }else{
       //else it will run chatbot
       chatbotCommand(client, message);

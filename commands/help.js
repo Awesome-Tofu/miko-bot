@@ -34,6 +34,9 @@ module.exports = async function helpCommand(client, message) {
 ➥ *tiny* [link] - get shortened url of given link
 ➥ *rmbg* - remove background of replied photo
 ➥ *carbon* [text] - get carbon photo of given text
+➥ *toanime* - convert image to anime
+➥ *toanime3d* - convert image to 3d anime
+
 
 
 more coming soon...

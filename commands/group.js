@@ -1,5 +1,3 @@
-const { MessageMedia } = require('whatsapp-web.js');
-
 async function promoteCommand(client, message) {
     // Check if the message is from a group
     const chat = await message.getChat();
@@ -207,7 +205,7 @@ async function inviteCommand(client, message) {
 async function reportCommand(client, message) {
     const utext = message.body.replace('.report ', '')
     let inviteLink;
-    if(!utext){
+    if(utext.trim()==".report"||utext.trim()=="report"){
         message.reply('please provide the problem\n*Example*\n.report there is something wrong with .gpt command')
     }
     const chat = await message.getChat();

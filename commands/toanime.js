@@ -28,7 +28,6 @@ async function telegraph(attachmentData) {
 
 async function toanimeCommand(client, message) {
   try{
-    message.delete(true);
     if (message.hasQuotedMsg) {
         let quotedMsg = await message.getQuotedMessage();
         let attachmentData = await quotedMsg.downloadMedia();
@@ -36,11 +35,11 @@ async function toanimeCommand(client, message) {
         if (data == "error") {
           quotedMsg.reply(`Error occured while creating direct link.`);
         } else {
-          await message.reply('please wait while imagine is being converted');
+          await message.reply('please wait while image is being converted');
           const response = await fetch(`https://api.betabotz.org/api/maker/jadianime?url=${data}&apikey=GK5zaGhL`);
           const data2 = await response.json();
-        //   console.log(data2.result.img_crop_single);
-          const media = await MessageMedia.fromUrl(`${data2.result.img_crop_single}`, {type: 'image/jpg'});
+          console.log(data2.result.img_crop_single);
+          const media = await MessageMedia.fromUrl(`${data2.result.img_crop_single}`, {unsafe: true});
           await client.sendMessage(message.from, media, {caption: "Converted Image to Anime"});
         }
       } else {
@@ -55,7 +54,6 @@ async function toanimeCommand(client, message) {
 
 async function toanime3dCommand(client, message) {
     try{
-      message.delete(true);
       if (message.hasQuotedMsg) {
           let quotedMsg = await message.getQuotedMessage();
           let attachmentData = await quotedMsg.downloadMedia();
@@ -63,10 +61,11 @@ async function toanime3dCommand(client, message) {
           if (data == "error") {
             quotedMsg.reply(`Error occured while creating direct link.`);
           } else {
-            await message.reply('please wait while imagine is being converted');
+            await message.reply('please wait while image is being converted');
             const response = await fetch(`https://api.betabotz.org/api/maker/jadianime3d?url=${data}&apikey=GK5zaGhL`);
             const data2 = await response.json();
-            const media = await MessageMedia.fromUrl(`${data2.result.output.fileUrl}`, {type: 'image/jpg'});
+            console.log(data2.result.output.fileUrl);
+            const media = await MessageMedia.fromUrl(`${data2.result.output.fileUrl}`, {unsafe: true});
             await client.sendMessage(message.from, media, {caption: "Converted Image to 3d Anime"});
           }
         } else {

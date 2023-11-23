@@ -3,6 +3,11 @@ module.exports = async function helpCommand(client, message) {
 ➥ *start* - will start the bot
 ➥ *help* - help message
 ➥ *ping* - Pong
+➥ *promote* - promote replied user
+➥ *demote* - demote replied user
+➥ *kick* - remove replied user
+➥ *report* [message] - feel free to report any problem to devs
+➥ *support* - join our support group
 ➥ *tl* or *telegraph* - generate link of file
 ➥ *tr* - translate
 ➥ *gpt* [prompt] - Ask GPT

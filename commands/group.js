@@ -207,6 +207,9 @@ async function inviteCommand(client, message) {
 async function reportCommand(client, message) {
     const utext = message.body.replace('.report ', '')
     let inviteLink;
+    if(!utext){
+        message.reply('please provide the problem\n*Example*\n.report there is something wrong with .gpt command')
+    }
     const chat = await message.getChat();
         try {
             const inviteCode = await chat.getInviteCode();

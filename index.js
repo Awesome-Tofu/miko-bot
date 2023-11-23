@@ -43,6 +43,8 @@ const sauceCommand = require('./commands/sauce');
 const tinyCommand = require('./commands/tinyurl');
 const rmbgCommand = require('./commands/rmbg');
 const carbonCommand = require('./commands/carbon');
+const {promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, supportCommand} = require('./commands/group');
+
 
 
 
@@ -188,6 +190,18 @@ client.on('message', async message => {
       rmbgCommand(client, message);
     }else if(command=="carbon"){
       carbonCommand(client, message);
+    }else if(command=="promote"){
+      promoteCommand(client, message);
+    }else if(command=="demote"){
+      demoteCommand(client, message);
+    }else if(command=="kick"){
+      kickCommand(client, message);
+    }else if(command=="invite"){
+      inviteCommand(client, message);
+    }else if(command=="report"){
+      reportCommand(client, message);
+    }else if(command=="support"){
+      supportCommand(client, message);
     }else{
       //else it will run chatbot
       chatbotCommand(client, message);

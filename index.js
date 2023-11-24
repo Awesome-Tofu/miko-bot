@@ -66,7 +66,7 @@ const puppeteerExecutablePath =
 
 
 const client = new Client({
-  ffmpegPath: '/app/vendor/ffmpeg',
+  // ffmpegPath: '/app/vendor/ffmpeg',
   authStrategy: new LocalAuth({ clientId: "client-one" }),
   puppeteer: {
 		args: ['--no-sandbox',

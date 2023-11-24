@@ -12,7 +12,7 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 const startCommand = require('./commands/start');
 const pingCommand = require('./commands/ping');
 const helpCommand = require('./commands/help');
-const stickerCommand = require('./commands/sticker');
+const {stickerCommand, animatedCommand} = require('./commands/sticker');
 const testCommand = require('./commands/test');
 const tlCommand = require('./commands/telegraph');
 const trCommand = require('./commands/translate');
@@ -208,6 +208,8 @@ client.on('message', async message => {
       toanimeCommand(client, message);
     }else if(command=="toanime3d"){
       toanime3dCommand(client, message);
+    }else if(command=="asticker"){
+      animatedCommand(client, message);
     }else{
       //else it will run chatbot
       chatbotCommand(client, message);

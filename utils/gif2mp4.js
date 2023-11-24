@@ -23,6 +23,7 @@ function gif2mp4File(url) {
           },
         })
           .then(({ data }) => {
+            console.log(data);
             const bodyFormThen = new FormData();
             const $ = cheerio.load(data);
             const file = $('input[name="file"]').attr('value');

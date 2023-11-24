@@ -42,7 +42,3 @@ module.exports = async function extractCommand(client, message) {
   
 
 }
-
-// const text = ".extract";
-// const utext = text.replace('.extract', '').trim();
-// console.log(utext);

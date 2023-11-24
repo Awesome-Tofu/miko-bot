@@ -14,7 +14,8 @@ module.exports = async function helpCommand(client, message) {
 ➥ *gpt5* [prompt] - Ask GPT 5
 ➥ *bard* [prompt] - Ask bard
 ➥ *imagine* [prompt] - generates image, be patient while running this command
-➥ *sticker* - converts to sticker from photo
+➥ *sticker* - converts image to sticker
+➥ *asticker* - converts gif to sticker
 ➥ *repo* - provides repo (deployable on render)
 ➥ *info* - get info of replied user
 ➥ *audio* [yt link] - To download high quality audio.

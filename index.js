@@ -4,6 +4,7 @@ const express = require('express');
 require("dotenv").config();
 const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
+const fs = require('fs'); // Traditional fs
 
 
 //import Commands

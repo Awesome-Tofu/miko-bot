@@ -1,6 +1,9 @@
 const ytdl = require('ytdl-core');
 const { MessageMedia } = require('whatsapp-web.js');
 const fs = require('fs');
+const ffmpeg = require('fluent-ffmpeg');
+
+
 
 // YOUTUBE AUDIO DOWNLOADER
 async function AudioDownloadYouTube(client, message) {
@@ -35,9 +38,10 @@ async function AudioDownloadYouTube(client, message) {
             ytdl(url, { filter: 'audioonly', format: 'mp3', quality: 'highest' }).pipe(fs.createWriteStream(`./commands/audio_dl/download.mp3`)).on('finish', async () => {
               const media = await MessageMedia.fromFilePath(`./commands/audio_dl/download.mp3`);
               media.filename = `youtubedl.mp3`;
-              await client.sendMessage(message.from, media, { sendMediaAsDocument: true });
-              await client.sendMessage(message.from, media,  { sendAudioAsVoice: true });
-              client.sendMessage(message.from, `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`);
+              message.reply('```Please be patient while the audio is downloading...```');
+              const caption = `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`
+              await client.sendMessage(message.from, media, { caption:caption,sendMediaAsDocument: true });
+              await processAudio(client, message, './commands/audio_dl/download.mp3');
         });
     }
 }catch(error){
@@ -45,6 +49,35 @@ async function AudioDownloadYouTube(client, message) {
         message.reply('Something went wrong.');
     }
 }
+
+
+
+
+async function processAudio(client, message, inputFilePath) {
+    try {
+        await new Promise((resolve, reject) => {
+            ffmpeg()
+                .input(inputFilePath)
+                .audioChannels(1)
+                .audioCodec('opus')
+                .toFormat('ogg')
+                .addOutputOptions('-avoid_negative_ts make_zero')
+                .on('end', resolve)
+                .on('error', reject)
+                .save(`./commands/audio_dl/processed.ogg`);
+        });
+
+        // Create MessageMedia from the processed audio
+        const media = await MessageMedia.fromFilePath(`./commands/audio_dl/processed.ogg`);
+        media.filename = `youtubedl.ogg`;
+
+        // Send the processed audio as a voice message
+        await client.sendMessage(message.from, media, { ptt: true });
+    } catch (error) {
+        console.error('Error processing audio:', error);
+    }
+}
+
 
 async function GetYouTubeInfo(client, message) {
     let url = message.body.replace('.detail ','');

@@ -27,7 +27,7 @@ async function telegraph(attachmentData) {
 
 module.exports = async function wantedCommand(client, message) {
   try{
-    message.delete(true);
+    // message.delete(true);
     if (message.hasQuotedMsg) {
         let quotedMsg = await message.getQuotedMessage();
         let attachmentData = await quotedMsg.downloadMedia();

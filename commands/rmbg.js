@@ -27,7 +27,7 @@ async function telegraph(attachmentData) {
 
 module.exports = async function rmbgCommand(client, message) {
   try{
-    message.delete(true);
+    // message.delete(true);
     if (message.hasQuotedMsg) {
         let quotedMsg = await message.getQuotedMessage();
         let attachmentData = await quotedMsg.downloadMedia();
@@ -38,7 +38,7 @@ module.exports = async function rmbgCommand(client, message) {
           const rmbgAPI = 'https://api.yanzbotz.my.id/api/tools/removebg?url='
           const media = await MessageMedia.fromUrl(`${rmbgAPI}${data}`, {unsafeMime: true});
           media.mimetype = 'image/png';
-          media.filename = "rmbg.png"
+          media.filename = "rmbg.png";
           await client.sendMessage(message.from, media, {caption: "*Background removed image*", sendMediaAsDocument: true});
         }
       } else {

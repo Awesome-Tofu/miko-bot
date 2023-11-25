@@ -39,11 +39,13 @@ const wantedCommand = require('./commands/wanted');
 const ttsCommand = require('./commands/tts');
 const ppCommand = require('./commands/pp');
 const sauceCommand = require('./commands/sauce');
+const delCommand = require('./commands/del');
 const tinyCommand = require('./commands/tinyurl');
 const rmbgCommand = require('./commands/rmbg');
 const carbonCommand = require('./commands/carbon');
 const {promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, supportCommand} = require('./commands/group');
 const {toanimeCommand, toanime3dCommand} = require('./commands/toanime');
+const emojiCommand = require('./commands/emojimix');
 
 
 
@@ -210,6 +212,10 @@ client.on('message', async message => {
       toanime3dCommand(client, message);
     }else if(command=="asticker"){
       animatedCommand(client, message);
+    }else if(command=="del"){
+      delCommand(client, message);
+    }else if(command=="emoji"){
+      emojiCommand(client, message);
     }else{
       //else it will run chatbot
       chatbotCommand(client, message);

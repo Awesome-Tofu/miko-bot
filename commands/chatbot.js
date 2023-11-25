@@ -42,7 +42,9 @@ module.exports = async function chatbotCommand(client, message) {
               }
               console.log(`User: ${userMessage}\nBot: ${botResponse.result}`);
           }else{
-            message.reply("Hello, I can hear your sharp breaths~");
+            // message.reply("Hello, I can hear your sharp breaths~");
+            // chat.sendMessage('1786
+            console.error('Chatbot API error');
           }
         }
 

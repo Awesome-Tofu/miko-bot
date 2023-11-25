@@ -1,3 +1,6 @@
 node_modules
+package-lock.json
+/.wwebjs_auth
+/.wwebjs_cache
 .env
 new.js

@@ -36,8 +36,8 @@ async function AudioDownloadYouTube(client, message) {
               const media = await MessageMedia.fromFilePath(`./commands/audio_dl/download.mp3`);
               media.filename = `youtubedl.mp3`;
               await client.sendMessage(message.from, media, { sendMediaAsDocument: true });
+              await client.sendMessage(message.from, media,  { sendAudioAsVoice: true });
               client.sendMessage(message.from, `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`);
-              client.sendMessage(message.from, '*[✅]* Success!');
         });
     }
 }catch(error){

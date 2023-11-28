@@ -46,6 +46,10 @@ const carbonCommand = require('./commands/carbon');
 const {promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, supportCommand} = require('./commands/group');
 const {toanimeCommand, toanime3dCommand} = require('./commands/toanime');
 const emojiCommand = require('./commands/emojimix');
+const restartCommand = require('./commands/redeploy');
+const hbarCommand = require('./commands/hbar');
+
+
 
 
 
@@ -216,6 +220,10 @@ client.on('message', async message => {
       delCommand(client, message);
     }else if(command=="emoji"){
       emojiCommand(client, message);
+    }else if(command=="restart"){
+      restartCommand(client, message);
+    }else if(command=="hbar"){
+      hbarCommand(client, message);
     }else{
       //else it will run chatbot
       chatbotCommand(client, message);

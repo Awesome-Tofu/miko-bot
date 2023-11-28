@@ -1,6 +1,8 @@
 module.exports = async function helpCommand(client, message) {
     await message.reply(`➦ *Available Command list:*
 ➥ *start* - will start the bot
+➥ *restart* - redeploy the bot (only owner)
+➥ *term* [comamnd] - run the terminal (only owner)
 ➥ *help* - help message
 ➥ *ping* - Pong
 ➥ *promote* - promote replied user
@@ -25,7 +27,8 @@ module.exports = async function helpCommand(client, message) {
 ➥ *q* - quotely the message
 ➥ *paste* [text] - paste the text to link
 ➥ *extract* [@number]- get number info
-➥ *hanime* - get hanime videos
+➥ *hanime* - get hanime videos (m3u8)
+➥ *hbar* - get hentaibar videos (mp4)
 ➥ *code* - generate code (code assistant)
 ➥ *wanted* - get one piece bounty of given image
 ➥ *enhance* or *upscale* - enhance the given picture

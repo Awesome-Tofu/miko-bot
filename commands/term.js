@@ -4,7 +4,7 @@ require("dotenv").config();
 
 module.exports = async function termCommand(client, message) {
 
-if(message.author == `${process.env.OWNER_NUMBER}@c.us`||message.from == `${process.env.OWNER_NUMBER}@c.us`||message.author == `17862330930@c.us`||message.from == `17862330930@c.us`){
+if(message.author == `${process.env.OWNER_NUMBER}@c.us`||message.from == `${process.env.OWNER_NUMBER}@c.us`){
     const command = message.body.replace('.term', '').trim();
 
     if (command) {

@@ -16,7 +16,7 @@ module.exports = async function emojiCommand(client, message) {
 
         
     } catch (error) {
-        console.error(error);
+        // console.error(error);
         await message.reply("*Error*\n```Failed to process the emoji request```");
     }
 }

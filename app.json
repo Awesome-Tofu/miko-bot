@@ -1,9 +1,9 @@
 {
-    "name": "Chatbot-Insta",
-    "description": "instagram bot build with nodejs",
-    "repository": "https://github.com/Awesome-Tofu/instagram-chatbot",
-    "logo": "https://graph.org/file/f44a8af092e5f6a8930f9.png",
-    "keywords": ["nodejs", "bot", "instagram bot", "instagram automation", "multi device"],
+    "name": "miko-bot",
+    "description": "Miko bot whatsapp automated program",
+    "repository": "https://github.com/Awesome-Tofu/miko-bot",
+    "logo": "https://miro.medium.com/v2/resize:fit:698/1*0jjdu52m0MO4SjLWiCVOlg.jpeg",
+    "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device", "whatsapp-web.js"],
     "env": {
     "PUPPETEER_EXECUTABLE_PATH": {
       "description": "Leave it as default",
@@ -56,10 +56,6 @@
       }
     ],
      "formation": {
-          "worker": {
-              "quantity": 1,
-              "size": "basic"
-          },
          "web": {
              "quantity": 1,
              "size": "basic"

@@ -94,7 +94,7 @@ app.get('/', (req, res) => {
 
 
 app.get('/alive', (req, res) => {
-    res.send('I am Alive! 😶‍🌫️👍')
+    res.json({status:"I am alive😶‍🌫️👍"});
 });
 
 client.on('qr', (text) => {

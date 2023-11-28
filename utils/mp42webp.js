@@ -9,7 +9,7 @@ async function mp42webpFile(inputPath, outputFilePath) {
   if (inputPath.startsWith('http')) {
     console.log('Downloading video...');
     const buffer = await download(inputPath);
-    downloadedFilePath = 'commands/webps/downloaded_video.mp4'; // You can change the name if needed
+    downloadedFilePath = '/commands/webps/downloaded_video.mp4';
     fs.writeFileSync(downloadedFilePath, buffer);
     console.log('Download complete');
   }

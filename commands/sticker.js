@@ -37,7 +37,7 @@ async function animatedCommand(client, message) {
           quotedMsg.reply(`Error occured while create direct link.`);
         } else {
 
-          const webpFile = await mp42webpFile(data, 'commands/webps/output_image.webp');
+          const webpFile = await mp42webpFile(data, '/commands/webps/output_image.webp');
           console.log(webpFile);
           const sticker = await MessageMedia.fromFilePath(`${__dirname}/webps/output_image.webp`);
           await client.sendMessage(message.from, sticker, { sendMediaAsSticker: true });          

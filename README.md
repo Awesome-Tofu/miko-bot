@@ -26,13 +26,14 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
 3. **Set Environment Variables:**
 
     ```env
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD = true
-    PUPPETEER_EXECUTABLE_PATH = /usr/bin/google-chrome-stable
-    MONGODB_URI = your MONGODB_URI
-    DEFAULT_LANGUAGE = default language to be translated to in .tr command
-    BOT_NUMBER = 918051xxxxxx
-    OWNER_NUMBER = 917437xxxxxx
-    NUMVERIFY_KEY = 13e4e196a58f64646251999692b9d006
+   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD (required) if you are running on windows, remove it
+   PUPPETEER_EXECUTABLE_PATH (required) if you are running on windows, remove it
+   MONGODB_URI (optional)
+   DEFAULT_LANGUAGE (optional)
+   BOT_NUMBER (required)
+   OWNER_NUMBER (required)
+   NUMVERIFY_KEY (required)
+   DEPLOY_HOOK (Optional) only add if you in render, it will be in settings of project
 
 4. **Start the script:**
    ```bash

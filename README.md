@@ -32,8 +32,8 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    DEFAULT_LANGUAGE (optional)
    BOT_NUMBER (required)
    OWNER_NUMBER (required)
-   NUMVERIFY_KEY (required)
-   DEPLOY_HOOK (Optional) only add if you in render, it will be in settings of project
+   NUMVERIFY_KEY (optional)
+   DEPLOY_HOOK (Optional) only add if you deploy in render, it will be in settings of project
 
 4. **Start the script:**
    ```bash

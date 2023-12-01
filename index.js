@@ -50,16 +50,6 @@ const restartCommand = require('./commands/redeploy');
 const hbarCommand = require('./commands/hbar');
 
 
-
-
-
-
-
-
-
-
-
-
 //Code
 const app = express();
 const port = process.env.PORT || 3000; 

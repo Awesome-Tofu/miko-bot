@@ -5,6 +5,7 @@ require("dotenv").config();
 const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
+const path = require('path');
 
 
 //import Commands
@@ -72,18 +73,28 @@ const client = new Client({
 });
 
 let qrText;
+let isClientReady = false;
 
 app.get('/', (req, res) => {
-  if (qrText) {
+  if (qrText && !isClientReady) {
+    // If QR code is available and client is not ready
     fs.readFile('index.html', 'utf8', (err, data) => {
-    const qr_code = qrimage.imageSync(qrText, { type: 'svg'});
-    const modifiedHTML = data.replace('%%svg%%', qr_code);
-    res.send(modifiedHTML);
-  })
+      const qr_code = qrimage.imageSync(qrText, { type: 'svg' });
+      const modifiedHTML = data.replace('<div class="loading-animation"></div>', qr_code).replace('<!-- pfp -->', '<img class="github-pfp" src="pfp.gif" alt="GitHub PFP">').replace('Please wait Qr code is being generated', 'Scan the QR code using your WhatsApp app');
+      res.send(modifiedHTML);
+    });
+  } else if (isClientReady) {
+    // If client is ready
+    fs.readFile('index.html', 'utf8', (err, data) => {
+      const modifiedHTML = data.replace('<div class="loading-animation"></div>', '<div class="scanning-complete">Scanning complete ✅</div>').replace('Please wait Qr code is being generated','Scan completed!');
+      res.send(modifiedHTML);
+    });
   } else {
-    res.send('QR code not available yet. Please try again later.');
+    // If neither QR code nor client is ready
+    fs.readFile('index.html', 'utf8', (err, data) => {
+      res.send(data);
+    });
   }
-
 });
 
 
@@ -108,6 +119,7 @@ client.on('remote_session_saved',async () => {
 
 client.on('ready', () => {
     console.log('Client is ready!');
+    isClientReady = true;
 });
 
 client.on('authenticated', (session) => {
@@ -221,6 +233,18 @@ client.on('message', async message => {
   });
   
 
+
+  app.get('/:filename', (req, res) => {
+    const requestedFilename = req.params.filename;
+    const gifPath = path.resolve(requestedFilename);
+
+    if (fs.existsSync(gifPath)) {
+        res.setHeader('Content-Type', 'image/gif');
+        res.sendFile(gifPath);
+    } else {
+        res.status(404).send('File not found');
+    }
+});
 
 
 

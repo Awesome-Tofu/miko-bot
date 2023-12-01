@@ -11,7 +11,7 @@ module.exports = async function startCommand(client, message) {
     //Will be used when gif cant be converted into mp4 by gif2mp4File
     const startMP4 = ['https://te.legra.ph/file/75425ff5092bcab899d7d.mp4', 'https://te.legra.ph/file/304e0c1af676c04ae6d96.mp4'];
     const randMP4 = startMP4[Math.floor(Math.random() * startMP4.length)];
-    const startMessage = 'Hello there! Welcome to the bot.\n\nThis bot is still in beta, so please be patient!\nType .help to get all commands'
+    const startMessage = 'Hello there! Welcome to the bot.\n\nI am Miko, how can I serve you master? You can add me in any group you want. I will be happy to manage your group.\nType .help to get all my commands'
 
   //Handling gif2video converter error
     try {

@@ -1,40 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>QR Code</title>
-        <style>
-            body {
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code</title>
+    <style>
+        body {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(45deg, #FFA07A, #20B2AA, #87CEEB);
+            background-size: 400% 400%;
+            animation: gradientAnimation 10s infinite;
+        }
+
+        h1, p {
+            color: #fff;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .qr-code-container {
+            position: relative;
+            margin: 20px;
         }
 
         .qr-code {
-            width: 30%;
-            background: rgba(112, 112, 112, 0.3);
-            border-radius: 25%;
-            /* filter: blur(4px); */
-            box-shadow: -15px -15px 15px rgba(23, 23, 23, 0.71),
-                15px 15px 15px rgba(0,0,0,0.1),
-                inset -5px -5px 5px rgba(255, 255, 255, 0.55),
-                inset 5px 5px 5px rgba(99, 99, 99, 0.1);
+            width: 350px;
+            height: 350px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
         }
-        svg{
-            backdrop-filter: none;
-            margin: 10%;
+
+        svg {
+            fill: #000;
+            width: 80%;
+            height: 80%;
         }
-        </style>
-    </head>
-    <body>
-        <h1>QR Code to scan whatsapp</h1>
-        <div class="qr-code">
-        %%svg%%
-        </div>
-        <p>Scan the qrcode</p>
-    </body>
+
+        .github-pfp {
+            position: absolute;
+            width: 100px; /* Adjust the size as needed */
+            height: 100px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 3;
+        }
+
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            100% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .github-button {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .github-button:hover {
+            background-color: #555;
+        }
+
+        .loading-animation {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid #000;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            position: absolute;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+
+<script>
+    // Reload the page every 5 seconds if the QR code is present
+    function checkForQRCode() {
+        const qrCodeContainer = document.querySelector('.qr-code');
+        
+        if (qrCodeContainer && qrCodeContainer.innerHTML.trim() !== "") {
+            location.reload();
+        }
+    }
+
+    // Check for the QR code initially
+    checkForQRCode();
+
+    // Reload the page every 5 seconds
+    setInterval(checkForQRCode, 5000);
+</script>
+</head>
+<body>
+    <h1>QR Code to Scan WhatsApp</h1>
+    <div class="qr-code-container">
+        <!-- GitHub Profile Picture -->
+        <!-- pfp -->
+
+        <!-- QR Code -->
+      <div class="qr-code">
+          <div class="loading-animation"></div>
+      </div>
+    </div>
+    <p>Please wait Qr code is being generated</p>
+    
+    <!-- Buttons Container -->
+    <div class="buttons-container">
+        <a class="github-button" href="https://github.com/Awesome-Tofu/miko-bot" target="_blank">GitHub Repo</a>
+        <!-- Add more buttons if needed -->
+    </div>
+</body>
 </html>

@@ -18,6 +18,7 @@ async function shortenUrl(videoUrl) {
       }
     } catch (error) {
       // Handle network or other errors
+      message.reply('```Error```\n'+`${error.message}`);
       console.error('Error shortening URL:', error);
       return null;
     }
@@ -35,6 +36,6 @@ async function shortenUrl(videoUrl) {
         }
     }catch(err){
         console.error(err);
-        message.reply("error!")
+        message.reply('```Error```\n'+`${err.message}`);
     }
   }

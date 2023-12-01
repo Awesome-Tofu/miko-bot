@@ -1,3 +1,5 @@
+//Thanks to @ThiruXD for youtube audio and video modules
+
 const ytdl = require('ytdl-core');
 const { MessageMedia } = require('whatsapp-web.js');
 const fs = require('fs');

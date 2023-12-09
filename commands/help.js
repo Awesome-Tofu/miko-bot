@@ -30,7 +30,7 @@ module.exports = async function helpCommand(client, message) {
 ➥ *hanime* - get hanime videos (m3u8)
 ➥ *hbar* - get hentaibar videos (mp4)
 ➥ *code* - generate code (code assistant)
-➥ *wanted* - get one piece bounty of given image
+➥ *wanted* [name bounty] - get one piece bounty of given image
 ➥ *enhance* or *upscale* - enhance the given picture
 ➥ *tts* - convert text to speech model aoi
 ➥ *pp* - get random couple pfp
@@ -41,6 +41,8 @@ module.exports = async function helpCommand(client, message) {
 ➥ *toanime* - convert image to anime
 ➥ *toanime3d* - convert image to 3d anime
 ➥ *emoji* [☺️+😅] - mix your emojis
+➥ *pin* [query] - get pinterest images
+
 
 more coming soon...
     `);

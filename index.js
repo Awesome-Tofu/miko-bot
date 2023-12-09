@@ -49,6 +49,7 @@ const {toanimeCommand, toanime3dCommand} = require('./commands/toanime');
 const emojiCommand = require('./commands/emojimix');
 const restartCommand = require('./commands/redeploy');
 const hbarCommand = require('./commands/hbar');
+const pinCommand = require('./commands/pinterest');
 
 
 //Code
@@ -226,6 +227,8 @@ client.on('message', async message => {
       restartCommand(client, message);
     }else if(command=="hbar"){
       hbarCommand(client, message);
+    }else if(command=="pin"){
+      pinCommand(client, message);
     }else{
       //else it will run chatbot
       chatbotCommand(client, message);

@@ -1,7 +1,5 @@
 const { MessageMedia } = require('whatsapp-web.js');
 
-
-
   module.exports = async function carbonCommand(client, message){
     try{
         const utext = message.body.replace('.carbon ', '').trim();

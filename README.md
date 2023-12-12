@@ -8,6 +8,7 @@ MIKO BOT is a Node.js-based WhatsApp chatbot powered by [Puppeteer](https://pptr
 - **Dynamic Responses**: Customize your bot to provide dynamic responses based on user inputs or predefined conditions.
 - **Message Handling**: Handle incoming messages, process them, and respond accordingly.
 - **Sticker Handling**: Respond with random stickers from a predefined collection.
+- **Example Bot**: [Miko Bot](https://wa.link/lof6tp)
 
 ## Getting Started
 
@@ -57,7 +58,13 @@ Once the bot is running, you can start sending commands and messages to it via W
    | `.support`       | Get support and assistance.                |
    | `.help`       | You can see more command lists               |
    
+## Support
 
+   <p>Need any help? Feel free to join our support group. We will be happy to help you☺️</p><br>
+    <a aria-label="Join our chats" href="https://chat.whatsapp.com/E0XzCPRXoip16GVoG9yUV0" target="_blank">
+    <img alt="whatsapp" src="https://img.shields.io/badge/Join Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
+  </a>
+  
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

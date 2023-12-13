@@ -122,7 +122,7 @@ client.on('ready', () => {
     console.log('Miko bot started successfully!');
     const support_group = "120363179001099439@g.us";
     try{
-	    chat.sendMessage(support_group,"I've started succesfully");
+	    client.sendMessage(support_group,"I've started succesfully");
     }catch(error){
 	    console.error("cannot send message in group "+support_group+"\n");
 	    console.error("Error: "+error.mesaage);

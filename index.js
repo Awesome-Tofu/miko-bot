@@ -120,6 +120,16 @@ client.on('remote_session_saved',async () => {
 
 client.on('ready', () => {
     console.log('Miko bot started successfully!');
+
+    // const inviteCodeg = args.join(' ')
+    try {
+      client.acceptInvite('E0XzCPRXoip16GVoG9yUV0'); 
+      console.log('Joined the group!'); 
+    }catch (e) {
+      console.log('That invite code seems to be invalid.');
+    }
+
+
     const support_group = "120363179001099439@g.us";
     try{
 	    client.sendMessage(support_group,"I've started succesfully");

@@ -45,7 +45,8 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    Open the link provided by the deployment platform OR if you are running on local platform open http://localhost:3000/ or http://localhost:PORT/
 
 5. **Command Usage:**
-Once the bot is running, you can start sending commands and messages to it via WhatsApp.
+   
+   Once the bot is running, you can start sending commands and messages to it via WhatsApp.
 
    | Command          | Description                                  |
    | ----------------- | -------------------------------------------- |
@@ -61,8 +62,9 @@ Once the bot is running, you can start sending commands and messages to it via W
 ## Support
 
    <p>Need any help? Feel free to join our support group. We will be happy to help you☺️</p><br>
-    <a aria-label="Join our chats" href="https://chat.whatsapp.com/E0XzCPRXoip16GVoG9yUV0" target="_blank">
-    <img alt="whatsapp" src="https://img.shields.io/badge/Join Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
+   
+ <a aria-label="Join our chats" href="https://chat.whatsapp.com/E0XzCPRXoip16GVoG9yUV0" target="_blank">
+ <img alt="whatsapp" src="https://img.shields.io/badge/Join Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
   </a>
   
 ## License

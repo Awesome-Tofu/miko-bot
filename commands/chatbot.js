@@ -23,15 +23,15 @@ module.exports = async function chatbotCommand(client, message) {
           client.sendMessage(message.from, sticker, { sendMediaAsSticker: true });
         }else{
         //   const apiUrl = `https://chat.merissabot.me/api/apikey=5715764478-MERISSAPy8wmE0ei5/miko/tofu/message=${encodeURIComponent(userMessage)}`;
-          const apiUrl = `https://api.yanzbotz.my.id/api/ai/characterai?text=${encodeURIComponent(userMessage)}&name=Yandere%20Hatsune%20Miku`;
+          const apiUrl = `https://tofuapi.onrender.com/cleverbot/${encodeURIComponent(userMessage)}`;
           const response = await fetch(apiUrl);
           if (response.ok) {
               const botResponse = await response.json();
-              const trResponse = await fetch(`https://translate-api-gray.vercel.app/translate?q=${encodeURIComponent(botResponse.result)}`);
+              const trResponse = await fetch(`https://translate-api-gray.vercel.app/translate?q=${encodeURIComponent(botResponse.reply)}`);
               const translationData = await trResponse.json();
               if (translationData.from && (translationData.from.toLowerCase() === 'hi' || translationData.from.toLowerCase() === 'en')) {
                 // If the source language is already English or Hindi, return the query itself
-                message.reply(botResponse.result);
+                message.reply(botResponse.reply);
               }else{
                 try{
                     const translatedText = translationData.text;

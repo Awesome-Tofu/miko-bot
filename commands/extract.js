@@ -9,7 +9,6 @@ module.exports = async function extractCommand(client, message) {
  if(!utext){
     await message.reply("Please tag someone to get thier phone number info");
 }else{
-    if(utext.includes('@')){
         const user_num = utext.replace('@','')
         const user_pp = await client.getProfilePicUrl(`${user_num}@c.us`) || "https://te.legra.ph/file/7ea1d50fdd0b2e7c447cc.png";
         const NUMKEY = process.env.NUMVERIFY_KEY || "13e4e196a58f64646251999692b9d006";
@@ -31,9 +30,6 @@ module.exports = async function extractCommand(client, message) {
 ✦ carrier: ${carrier || "undefined"}`;
         const userPhotoMedia = await MessageMedia.fromUrl(user_pp);
         await client.sendMessage(message.from, userPhotoMedia, {caption: captionMessage});
-    }else{
-        message.reply("please write in this format @userNumber here without space ");
-    }
 }
  }catch(error){
     console.error(error);

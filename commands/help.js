@@ -5,9 +5,10 @@ module.exports = async function helpCommand(client, message) {
 ➥ *term* [comamnd] - run the terminal (only owner)
 ➥ *help* - help message
 ➥ *ping* - Pong
-➥ *promote* - promote replied user
-➥ *demote* - demote replied user
-➥ *kick* - remove replied user
+➥ *promote* [@tag] - promote replied user
+➥ *demote* [@tag] - demote replied user
+➥ *kick* [@tag] - remove replied user
+➥ *id* [@tag] - get user id
 ➥ *report* [message] - feel free to report any problem to devs
 ➥ *support* - join our support group
 ➥ *tl* or *telegraph* - generate link of file
@@ -41,7 +42,9 @@ module.exports = async function helpCommand(client, message) {
 ➥ *toanime* - convert image to anime
 ➥ *toanime3d* - convert image to 3d anime
 ➥ *emoji* [☺️+😅] - mix your emojis
-➥ *pin* [query] - get pinterest images
+➥ *pint* [query] - get pinterest images
+➥ *wiki* [query] - get details from wikipedia
+
 
 
 more coming soon...

@@ -17,6 +17,7 @@ async function promoteCommand(client, message) {
     }
 
     // Check if the sender is an admin
+
     const senderId = message.author;
     const isAdmin = chat.participants.find((participant) => {
         return participant.id._serialized === senderId && participant.isAdmin;
@@ -27,29 +28,41 @@ async function promoteCommand(client, message) {
     }
 
     // Check if the message is a reply and get the replied user
+    const utext = await message.getMentions();
     const quotedMessage = await message.getQuotedMessage();
-    if (!quotedMessage) {
-        message.reply('Please reply to a user you want to promote.');
+    if (!quotedMessage && utext.length === 0) {
+        message.reply('Please reply to a user or tag whom you want to promote.');
         return;
     }
 
 
     // Check if the replied user is already an admin
-    const repliedUserId = quotedMessage.author;
+    let repliedUserId;
+    try {
+        repliedUserId = quotedMessage.author;
+    } catch (error) {
+        repliedUserId = utext[0].id._serialized;
+    }
     const isrepliedUserAdmin = chat.participants.find((participant) => {
         return participant.id._serialized === repliedUserId && participant.isAdmin;
     });
     if (isrepliedUserAdmin) {
-        quotedMessage.reply('User is already an admin.');
+        message.reply('User is already an admin.');
         return;
     }
 
     // Promote the replied user
     try {
         await chat.promoteParticipants([repliedUserId]);
-        const contact = await quotedMessage.getContact();
-        const user_name = contact.pushname;
-        quotedMessage.reply(`User *${user_name}* [${repliedUserId}] has been promoted to admin.`);
+        let contact;
+        try {
+            contact = await quotedMessage.getContact();
+        } catch (error) {
+            contact = await client.getContactById(utext[0].id._serialized);
+        }
+        client.sendMessage(message.from, `User @${contact.id.user} has been promoted to admin.`, {
+            mentions: [contact]
+        });
     } catch (error) {
         console.error('Error promoting user:', error);
         message.reply('An error occurred while promoting the user.');
@@ -86,29 +99,41 @@ async function demoteCommand(client, message){
     }
 
     // Check if the message is a reply and get the replied user
+    const utext = await message.getMentions();
     const quotedMessage = await message.getQuotedMessage();
-    if (!quotedMessage) {
-        message.reply('Please reply to a user you want to demote.');
+    if (!quotedMessage && utext.length === 0) {
+        message.reply('Please reply to a user or tag whom you want to demote.');
         return;
     }
 
 
     // Check if the replied user is already an admin
-    const repliedUserId = quotedMessage.author;
+    let repliedUserId;
+    try {
+        repliedUserId = quotedMessage.author;
+    } catch (error) {
+        repliedUserId = utext[0].id._serialized;
+    }
     const isrepliedUserAdmin = chat.participants.find((participant) => {
         return participant.id._serialized === repliedUserId && participant.isAdmin;
     });
     if (!isrepliedUserAdmin) {
-        quotedMessage.reply('User is already not an admin.');
+        message.reply('User is already not an admin.');
         return;
     }
 
     // Demote the replied user
     try {
         await chat.demoteParticipants([repliedUserId]);
-        const contact = await quotedMessage.getContact();
-        const user_name = contact.pushname;
-        quotedMessage.reply(`User *${user_name}* [${repliedUserId}] has been demoted to member.`);
+        let contact;
+        try {
+            contact = await quotedMessage.getContact();
+        } catch (error) {
+            contact = await client.getContactById(utext[0].id._serialized);
+        }
+        client.sendMessage(message.from, `User @${contact.id.user} has been demoted to member.`, {
+            mentions: [contact]
+        });
     } catch (error) {
         console.error('Error demoting user:', error);
         message.reply('An error occurred while demoting the user.');
@@ -144,29 +169,41 @@ async function kickCommand(client, message){
     }
 
     // Check if the message is a reply and get the replied user
+    const utext = await message.getMentions();
     const quotedMessage = await message.getQuotedMessage();
-    if (!quotedMessage) {
-        message.reply('Please reply to a user you want to kick.');
+    if (!quotedMessage && utext.length === 0) {
+        message.reply('Please reply to a user or tag whom you want to kick.');
         return;
     }
 
 
     // Check if the replied user is already an admin
-    const repliedUserId = quotedMessage.author;
+    let repliedUserId;
+    try {
+        repliedUserId = quotedMessage.author;
+    } catch (error) {
+        repliedUserId = utext[0].id._serialized;
+    }
     const isrepliedUserAdmin = chat.participants.find((participant) => {
         return participant.id._serialized === repliedUserId && participant.isAdmin;
     });
     if (isrepliedUserAdmin) {
-        quotedMessage.reply('User is an admin.');
+        message.reply('User is an admin.');
         return;
     }
 
     // Demote the replied user
     try {
         await chat.removeParticipants([repliedUserId]);
-        const contact = await quotedMessage.getContact();
-        const user_name = contact.pushname;
-        quotedMessage.reply(`User *${user_name}* [${repliedUserId}] has been kicked from the group.`);
+        let contact;
+        try {
+            contact = await quotedMessage.getContact();
+        } catch (error) {
+            contact = await client.getContactById(utext[0].id._serialized);
+        }
+        client.sendMessage(message.from, `User @${contact.id.user} has been kicked from the group.`, {
+            mentions: [contact]
+        });
     } catch (error) {
         console.error('Error kicking user:', error);
         message.reply('An error occurred while kicking the user.');
@@ -213,7 +250,7 @@ async function reportCommand(client, message) {
             const inviteCode = await chat.getInviteCode();
             inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
         } catch (error) {
-            inviteLink = "unknown either chat is private or bot is not admin"
+            inviteLink = "UNKNOWN: either chat is private or bot is not admin"
         }
     const contact = await message.getContact();
     await message.reply('```Reported to the support group! My devs will work soon upon it. Thanks for reporting.☺️```'+`\n\n*Your report:*\n${utext}`)
@@ -221,7 +258,34 @@ async function reportCommand(client, message) {
 }
 
 async function supportCommand(client, message) {
-    await message.reply('```⭐Our support group⭐```'+`\n\n*https://chat.whatsapp.com/E0XzCPRXoip16GVoG9yUV0*`)
+    await message.reply('```⭐Feel free to join our support group⭐```'+`\n\n*https://chat.whatsapp.com/E0XzCPRXoip16GVoG9yUV0*`);
+}
+
+async function idCommand(client, message){
+
+    const chat = await message.getChat();
+    if (!chat.isGroup) {
+        message.reply("This chat's id is: "+`*${message.id.remote}*`);
+        return;
+    }
+
+    const utext = await message.getMentions();
+    const quotedMessage = await message.getQuotedMessage();
+    if (!quotedMessage && utext.length === 0) {
+        message.reply(`Group id: *${message.id.remote}*\nYour id: *${message.id.participant}*`);
+        return;
+    }
+
+    if (quotedMessage){
+        const contact = await quotedMessage.getContact();
+        message.reply(`User *${contact.pushname}'s* id is: *${quotedMessage.author}*`)
+    }
+
+    if (utext.length !== 0){
+        const id = utext[0].id._serialized;
+        const contact = await client.getContactById(id)
+        message.reply(`User *${contact.pushname}'s* id is: *${id}*`)
+    }
 }
 
 module.exports = {
@@ -230,5 +294,6 @@ module.exports = {
     kickCommand,
     inviteCommand,
     reportCommand,
-    supportCommand
+    supportCommand,
+    idCommand
   };

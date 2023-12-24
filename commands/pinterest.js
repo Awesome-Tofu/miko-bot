@@ -12,7 +12,7 @@ async function pinterest(query) {
   }
 }
 
-module.exports = async function pinCommand(client, message) {
+module.exports = async function pintCommand(client, message) {
   try {
     // Extracting query from the message
     const regex = /^\.pin (.+)$/;

@@ -44,12 +44,13 @@ const delCommand = require('./commands/del');
 const tinyCommand = require('./commands/tinyurl');
 const rmbgCommand = require('./commands/rmbg');
 const carbonCommand = require('./commands/carbon');
-const {promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, supportCommand} = require('./commands/group');
+const {promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, supportCommand, idCommand} = require('./commands/group');
 const {toanimeCommand, toanime3dCommand} = require('./commands/toanime');
 const emojiCommand = require('./commands/emojimix');
 const restartCommand = require('./commands/redeploy');
 const hbarCommand = require('./commands/hbar');
-const pinCommand = require('./commands/pinterest');
+const pintCommand = require('./commands/pinterest');
+const wikiCommand = require('./commands/wiki');
 
 
 //Code
@@ -64,7 +65,7 @@ const puppeteerExecutablePath =
 
 const client = new Client({
   // ffmpegPath: '/app/vendor/ffmpeg',
-  authStrategy: new LocalAuth({ clientId: "client-one" }),
+  authStrategy: new LocalAuth({ clientId: "miko" }),
   puppeteer: {
 		args: ['--no-sandbox',
     '--disable-setuid-sandbox'
@@ -87,7 +88,7 @@ app.get('/', (req, res) => {
   } else if (isClientReady) {
     // If client is ready
     fs.readFile('index.html', 'utf8', (err, data) => {
-      const modifiedHTML = data.replace('<div class="loading-animation"></div>', '<div class="scanning-complete">Scanning complete ✅</div>').replace('Please wait Qr code is being generated','Scan completed!');
+      const modifiedHTML = data.replace('<div class="loading-animation"></div>', '<div class="scanning-complete">Scanning complete ✅</div>').replace('Please wait Qr code is being generated','Scan completed!').replace('setInterval(checkForQRCode, 5000);', 'setInterval(checkForQRCode, 1000);');
       res.send(modifiedHTML);
     });
   } else {
@@ -120,22 +121,13 @@ client.on('remote_session_saved',async () => {
 
 client.on('ready', () => {
     console.log('Miko bot started successfully!');
-
+    const support_group_id = "120363179001099439@g.us";
     // const inviteCodeg = args.join(' ')
     try {
       client.acceptInvite('E0XzCPRXoip16GVoG9yUV0'); 
       console.log('Joined the group!'); 
     }catch (e) {
       console.log('That invite code seems to be invalid.');
-    }
-
-
-    const support_group = "120363179001099439@g.us";
-    try{
-	    client.sendMessage(support_group,"I've started succesfully");
-    }catch(error){
-	    console.error("cannot send message in group "+support_group+"\n");
-	    console.error("Error: "+error.mesaage);
     }
     isClientReady = true;
 });
@@ -244,8 +236,12 @@ client.on('message', async message => {
       restartCommand(client, message);
     }else if(command=="hbar"){
       hbarCommand(client, message);
-    }else if(command=="pin"){
-      pinCommand(client, message);
+    }else if(command=="pint"){
+      pintCommand(client, message);
+    }else if(command=="wiki"){
+      wikiCommand(client, message);
+    }else if(command=="id"){
+      idCommand(client, message);
     }else{
       //else it will run chatbot
       chatbotCommand(client, message);

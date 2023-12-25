@@ -38,6 +38,16 @@
     "NUMVERIFY_KEY":{
       "description": "get the key from https://numverify.com/product for free or use mine",
       "value": "13e4e196a58f64646251999692b9d006",
+      "required":false
+    },
+    "GITHUB_TOKEN":{
+      "description": "get your github token from https://github.com/settings/tokens",
+      "value": "",
+      "required":true
+    },
+    "GITHUB_TOKEN":{
+      "description": "create a new public empty repo and paste its repo link",
+      "value": "",
       "required":true
     }
      },    

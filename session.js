@@ -8,7 +8,7 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 
 dotenv.config();
 
-const repo_link = process.env.STORAGE_REPO;
+const repo_link = process.env.SESSION_REPO;
 const parsedUrl = new URL(repo_link);
 const pathParts = parsedUrl.pathname.split("/");
 const username = pathParts[1];

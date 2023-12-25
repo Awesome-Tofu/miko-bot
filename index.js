@@ -6,6 +6,11 @@ const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
+const {
+  downloadAndExtractFolderFromGitHub,
+  deleteZipFileFromGitHub,
+  uploadFolderToGitHub
+} = require('./session');
 
 
 //import Commands
@@ -104,11 +109,18 @@ app.get('/alive', (req, res) => {
     res.json({status:"I am alive😶‍🌫️👍"});
 });
 
-client.on('qr', (text) => {
+client.on('qr', async(text) => {
   qrText = text; // Store the QR code text
   console.log('QR RECEIVED', qrText);
   qrcode.generate(qrText, { small: true });
   console.log('Visit the server URL to scan the code');
+
+  try {
+    console.log("downloading session from github");
+    await downloadAndExtractFolderFromGitHub();
+  } catch (error) {
+    console.log("no session present on github.");
+  }
 });
 
 
@@ -119,7 +131,7 @@ client.on('remote_session_saved',async () => {
 })
 
 
-client.on('ready', () => {
+client.on('ready', async() => {
     console.log('Miko bot started successfully!');
     const support_group_id = "120363179001099439@g.us";
     // const inviteCodeg = args.join(' ')
@@ -130,6 +142,20 @@ client.on('ready', () => {
       console.log('That invite code seems to be invalid.');
     }
     isClientReady = true;
+
+    try {
+      console.log("deleting session from github");
+      await deleteZipFileFromGitHub();
+    } catch (error) {
+      console.log("no session to delete on github");
+      try {
+        console.log("uploading session to github");
+        await uploadFolderToGitHub('.wwebjs_auth.zip');
+      } catch (error) {
+        console.log("deleting session from github");
+        await deleteZipFileFromGitHub();
+      }
+    }
 });
 
 client.on('authenticated', (session) => {
@@ -249,6 +275,10 @@ client.on('message', async message => {
   });
   
 
+  app.get('/delsession',async(req,res)=>{
+    await deleteZipFileFromGitHub();
+    res.json({message:"deleted session from github"});
+  })
 
   app.get('/:filename', (req, res) => {
     const requestedFilename = req.params.filename;

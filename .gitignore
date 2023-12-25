@@ -4,4 +4,3 @@ package-lock.json
 /.wwebjs_cache
 .env
 new.js
-session.js

@@ -154,6 +154,8 @@ client.on('ready', async() => {
       } catch (error) {
         console.log("deleting session from github");
         await deleteZipFileFromGitHub();
+        console.log("uploading session to github");
+        await uploadFolderToGitHub('.wwebjs_auth.zip')
       }
     }
 });

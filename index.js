@@ -120,6 +120,7 @@ client.on('qr', async(text) => {
     await downloadAndExtractFolderFromGitHub();
   } catch (error) {
     console.log("no session present on github.");
+    console.error(error.message);
   }
 });
 

@@ -15,7 +15,7 @@ async function pinterest(query) {
 module.exports = async function pintCommand(client, message) {
   try {
     // Extracting query from the message
-    const regex = /^\.pin (.+)$/;
+    const regex = /^\.pint (.+)$/;
     const match = message.body.match(regex);
 
     if (match) {
@@ -38,7 +38,7 @@ module.exports = async function pintCommand(client, message) {
       }
     } else {
       // Invalid command format
-      message.reply(`Invalid command format. Please use: .pin "Query"`);
+      message.reply(`Invalid command format. Please use: .pint "Query"`);
     }
   } catch (error) {
     console.error("Command Error:", error);

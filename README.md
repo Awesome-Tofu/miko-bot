@@ -27,8 +27,8 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
 3. **Set Environment Variables:**
 
     ```env
-   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD (required) if you are running on windows, remove it
-   PUPPETEER_EXECUTABLE_PATH (required) if you are running on windows, remove it
+   PUPPETEER_SKIP_CHROMIUM_DOWNLOAD (required), if you are running on windows remove it
+   PUPPETEER_EXECUTABLE_PATH (required), if you are running on windows remove it
    MONGODB_URI (optional)
    DEFAULT_LANGUAGE (optional)
    BOT_NUMBER (required)
@@ -44,7 +44,7 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
 
 5. **Scanning the QR code:**
 
-   Open the link provided by the deployment platform OR if you are running on local platform open http://localhost:3000/ or http://localhost:PORT/
+   Open the link provided by the deployment platform OR if you are running on local platform open http://localhost:3000/
 
 5. **Command Usage:**
    

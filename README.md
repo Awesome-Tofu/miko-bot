@@ -34,7 +34,9 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    BOT_NUMBER (required)
    OWNER_NUMBER (required)
    NUMVERIFY_KEY (optional)
-   DEPLOY_HOOK (Optional) only add if you deploy in render, it will be in settings of project
+   GITHUB_TOKEN (https://github.com/settings/tokens)
+   SESSION_REPO (just make a new public repo and paste the link)
+    
 
 4. **Start the script:**
    ```bash
@@ -66,7 +68,11 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
  <a aria-label="Join our chats" href="https://chat.whatsapp.com/E0XzCPRXoip16GVoG9yUV0" target="_blank">
  <img alt="whatsapp" src="https://img.shields.io/badge/Join Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
   </a>
-  
+
+## Things I want you to know
+
+   I am still learning nodejs, so my code might look repeating cuz I dont want to touch code if its working, and I am having trouble in saving session (session.js doesnt works). If you can help, please feel free to contribute.
+   
 ## License
 
 [MIT](https://choosealicense.com/licenses/mit/)

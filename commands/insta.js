@@ -6,7 +6,7 @@ module.exports = async function instaCommand(client, message) {
         if (message.body.trim() === '.insta') {
             message.reply("No query!");
         } else {
-            message.reply('```Please be patient while the media is downloading...```');
+            const downloading = message.reply('```Please be patient while the media is downloading...```');
             const link = message.body.replace('.insta ', ''); // Fix variable name
             const response = await fetch(`https://vihangayt.me/download/instagram?url=${link}`);
             const data = await response.json();
@@ -17,17 +17,21 @@ module.exports = async function instaCommand(client, message) {
                     const file = mediaData.url;
 
                     if (type === 'image') {
+                        await downloading.edit('```Downloaded```');
                         const media = await MessageMedia.fromUrl(file);
                         await client.sendMessage(message.from, media);
+                        await downloading.delete(true);
                     } else if (type === 'video') {
+                        await downloading.edit('```Downloaded```');
                         const media = await MessageMedia.fromUrl(file, { unsafeMime: true });
                         await client.sendMessage(message.from, media);
+                        await downloading.delete(true);
                     } else {
-                        message.reply('Unknown media type');
+                        downloading.edit('Unknown media type');
                     }
                 }
             } else {
-                message.reply('No media found');
+                downloading.edit('No media found');
             }
         }
     } catch (error) {

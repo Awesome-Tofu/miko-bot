@@ -115,13 +115,13 @@ client.on('qr', async(text) => {
   qrcode.generate(qrText, { small: true });
   console.log('Visit the server URL to scan the code');
 
-  try {
-    console.log("downloading session from github");
-    await downloadAndExtractFolderFromGitHub();
-  } catch (error) {
-    console.log("no session present on github.");
-    console.error(error.message);
-  }
+  // try {
+  //   console.log("downloading session from github");
+  //   await downloadAndExtractFolderFromGitHub();
+  // } catch (error) {
+  //   console.log("no session present on github.");
+  //   console.error(error.message);
+  // }
 });
 
 
@@ -144,23 +144,23 @@ client.on('ready', async() => {
     }
     isClientReady = true;
 
-    try {
-      console.log("deleting session from github");
-      await deleteZipFileFromGitHub();
-      console.log("uploading session to github");
-      await uploadFolderToGitHub('.wwebjs_auth.zip');
-    } catch (error) {
-      console.log("no session to delete on github");
-      try {
-        console.log("uploading session to github");
-        await uploadFolderToGitHub('.wwebjs_auth.zip');
-      } catch (error) {
-        console.log("deleting session from github");
-        await deleteZipFileFromGitHub();
-        console.log("uploading session to github");
-        await uploadFolderToGitHub('.wwebjs_auth.zip')
-      }
-    }
+    // try {
+    //   console.log("deleting session from github");
+    //   await deleteZipFileFromGitHub();
+    //   console.log("uploading session to github");
+    //   await uploadFolderToGitHub('.wwebjs_auth.zip');
+    // } catch (error) {
+    //   console.log("no session to delete on github");
+    //   try {
+    //     console.log("uploading session to github");
+    //     await uploadFolderToGitHub('.wwebjs_auth.zip');
+    //   } catch (error) {
+    //     console.log("deleting session from github");
+    //     await deleteZipFileFromGitHub();
+    //     console.log("uploading session to github");
+    //     await uploadFolderToGitHub('.wwebjs_auth.zip')
+    //   }
+    // }
 });
 
 client.on('authenticated', (session) => {

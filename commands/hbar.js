@@ -140,7 +140,7 @@ if(message.body=='.hbar'|| message.body=='.hbar '){
     const trendings = await trending();
     message.reply(`Trending\n\n${trendings}`);
 }else if(utext=="random"){
-    await message.reply('```Scraping...```');
+    const scraping = await message.reply('```Scraping...```');
     try {
         const vidrandomdata = await hrandom();
         const videoFile = vidrandomdata.video;
@@ -153,11 +153,12 @@ if(message.body=='.hbar'|| message.body=='.hbar '){
         if (fileSizeInMB < 60) {
             // console.log('less');
             const caption = `*Title:* ${name}\n*Size:* ${fileSizeInMB} MB\n*Duration:* ${duration}`;
-            await message.reply('```Uploading...```');
+            await scraping.edit('```Uploading...```');
             const media = await MessageMedia.fromUrl(videoFile, { unsafeMime: true });
             await client.sendMessage(message.from, media, {
                 caption: caption,
             });
+            await scraping.delete(true);
         } else {
             // console.log('more');
             const linkMessage = `*Title:* ${name}\n*Link:* ${videoFile}\n*Size:* ${fileSizeInMB} MB\n*Duration:* ${duration}`;
@@ -181,7 +182,7 @@ if(message.body=='.hbar'|| message.body=='.hbar '){
 }else if(words[0]=="watch"){
     words.shift();
     const name = words.join(' ');
-    await message.reply('```Scraping...```');
+    const scraping = await message.reply('```Scraping...```');
     const vidrandomdata = await watch(name);
     try {
         const videoFile = vidrandomdata.video;
@@ -193,11 +194,12 @@ if(message.body=='.hbar'|| message.body=='.hbar '){
         if (fileSizeInMB < 58) {
             // console.log('less');
             const caption = `*Title:* ${name}\n*Size:* ${fileSizeInMB} MB\n*Duration:* ${duration}`;
-            await message.reply('```Uploading...```');
+            await scraping.edit('```Uploading...```');
             const media = await MessageMedia.fromUrl(videoFile, { unsafeMime: true });
             await client.sendMessage(message.from, media, {
                 caption: caption,
             });
+            await scraping.delete(true);
         } else {
             // console.log('more');
             const linkMessage = `*Title:* ${name}\n*Link:* ${videoFile}\n*Size:* ${fileSizeInMB} MB\n*Duration:* ${duration}`;

@@ -2,8 +2,8 @@ const { MessageMedia } = require('whatsapp-web.js');
 
   module.exports = async function carbonCommand(client, message){
     try{
-        const utext = message.body.replace('.carbon ', '').trim();
-        if(utext=='.carbon'||'carbon'){
+        const utext = message.body.replace('.carbon ', '');
+        if(utext.trim()==''){
             await message.reply("No Query!");
         }else{
             const carbonAPI = 'https://api.yanzbotz.my.id/api/maker/carbon?text='

@@ -6,7 +6,7 @@ module.exports = async function videoCommand(client, message) {
         if (message.body.trim() == '.video') {
             message.reply("No query!");
         } else {
-            message.reply('```Please be patient while the video is downloading...```');
+            const downloading = message.reply('```Please be patient while the video is downloading...```');
             const utext = message.body.replace('.video ', '');
             const response = await fetch(`https://vihangayt.me/download/ytmp4?url=${utext}`);
             const data = await response.json();
@@ -18,7 +18,7 @@ module.exports = async function videoCommand(client, message) {
             var title = data.data.title;
             var size = media.filesize;
             var duration = data.data.duration;
-            message.reply('```Uploading...```')
+            downloading.edit('```Uploading...```')
             function formatFileSize(fileSizeInBytes) {
                 if (fileSizeInBytes < 1024) {
                     return fileSizeInBytes + ' B';
@@ -33,6 +33,7 @@ module.exports = async function videoCommand(client, message) {
             const readableFileSize = formatFileSize(size);
             const caption = `*Title:* ${title}\n*Size:* ${readableFileSize}\n*Duration:* ${duration}`;
             await client.sendMessage(message.from, media, { caption: caption });
+            await downloading.delete(true);
         }
     } catch (error) {
         message.reply("Error");

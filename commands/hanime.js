@@ -28,7 +28,7 @@ if(message.body=='.hanime'|| message.body=='.hanime '){
     const media = await MessageMedia.fromUrl(quality360);
     await client.sendMessage(message.from, media, {sendMediaAsDocument: true, caption:`Here's the video link\n\n➤ *360p*\n${quality360}\n➤ *480p*\n${quality480}\n➤ *720p*\n${quality720}\n➤Copy the link and use this website to download if you want\nhttps://m3u8.dev/`} );
 }else if(words[0]=="info"){
-    await message.reply("Collecting data...")
+    const collecting = await message.reply("Collecting data...")
     const slug = words[1];
     const info = await hinfo(slug);
     const img = info.img;
@@ -37,6 +37,7 @@ if(message.body=='.hanime'|| message.body=='.hanime '){
     const views = info.views;
     const media = await MessageMedia.fromUrl(img);
     const captionMessage = `*name:* ${name}\n*views:* ${views}\n\n*description:* ${description.replace('</p>','')}`
+    await collecting.delete(true);
     await client.sendMessage(message.from, media, {caption: captionMessage});
 }else if(words[0]=="tags"){
     let all_tags = await tags();

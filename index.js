@@ -52,7 +52,6 @@ const carbonCommand = require('./commands/carbon');
 const {promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, supportCommand, idCommand} = require('./commands/group');
 const {toanimeCommand, toanime3dCommand} = require('./commands/toanime');
 const emojiCommand = require('./commands/emojimix');
-const restartCommand = require('./commands/redeploy');
 const hbarCommand = require('./commands/hbar');
 const pintCommand = require('./commands/pinterest');
 const wikiCommand = require('./commands/wiki');
@@ -263,8 +262,6 @@ client.on('message', async message => {
       delCommand(client, message);
     }else if(command=="emoji"){
       emojiCommand(client, message);
-    }else if(command=="restart"){
-      restartCommand(client, message);
     }else if(command=="hbar"){
       hbarCommand(client, message);
     }else if(command=="pint"){

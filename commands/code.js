@@ -8,9 +8,9 @@ module.exports = async function codeCommand(client, message) {
             if(utext=='.code'){
                 await writing.edit('No query!\nExample: .code write code to create loop in nodejs')
             }else{
-                const response = await fetch(`https://vihangayt.me/tools/blackbox?q=${utext}`);
+                const response = await fetch(`https://tofuapi.onrender.com/chat/palm/${encodeURIComponent(utext)}`);
                 const data = await response.json();
-                const respon = await data.data;
+                const respon = await data.content;
                 await writing.edit(respon);
             }
         }catch(error){

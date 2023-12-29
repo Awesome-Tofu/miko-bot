@@ -30,7 +30,7 @@ module.exports = async function helpCommand(client, message) {
 ➥ *extract* [@number]- get number info
 ➥ *hanime* - get hanime videos (m3u8)
 ➥ *hbar* - get hentaibar videos (mp4)
-➥ *code* - generate code (code assistant)
+➥ *code* - generate code (code assistant PaLM)
 ➥ *wanted* [name bounty] - get one piece bounty of given image
 ➥ *enhance* or *upscale* - enhance the given picture
 ➥ *tts* - convert text to speech model aoi

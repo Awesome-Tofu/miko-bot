@@ -6,9 +6,9 @@ module.exports = async function videoCommand(client, message) {
         if (message.body.trim() == '.video') {
             message.reply("No query!");
         } else {
-            const downloading = message.reply('```Please be patient while the video is downloading...```');
+            const downloading = await message.reply('```Please be patient while the video is downloading...```');
             const utext = message.body.replace('.video ', '');
-            const response = await fetch(`https://vihangayt.me/download/ytmp4?url=${utext}`);
+            const response = await fetch(`https://vihangayt.me/download/ytmp4?url=${utext.trim()}`);
             const data = await response.json();
             const video = data.data.vid_720p;
 
@@ -36,7 +36,7 @@ module.exports = async function videoCommand(client, message) {
             await downloading.delete(true);
         }
     } catch (error) {
-        message.reply("Error");
+        message.reply("Error"+`\n\n${error.message}`);
         console.log(error);
     }
 }

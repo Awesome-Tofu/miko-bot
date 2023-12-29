@@ -45,6 +45,6 @@ if(message.body=='.hanime'|| message.body=='.hanime '){
 }
 }catch(error){
         console.error(error);
-        await message.reply("something went wrong ```001```")
+        await message.reply("```something went wrong```"+`\n${error.message}`)
     }
 }

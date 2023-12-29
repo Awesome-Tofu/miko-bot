@@ -8,9 +8,9 @@ module.exports = async function bardCommand(client, message) {
                 await message.reply('No query!')
             }else{
                 const identity = "You are bard, but your name is Miko and you are female, chatting with user in Whatsapp\nUser:"
-                const response = await fetch(`https://vihangayt.me/tools/bard?q=${identity}${utext}`);
+                const response = await fetch(`https://api.qewertyy.me/models?model_id=20&prompt=${identity}${encodeURIComponent(utext)}`);
                 const data = await response.json();
-                const respon = await data.data;
+                const respon = await data.content;
                 await message.reply(respon.replace('Miko:',''));
             }
         }catch(error){

@@ -1,37 +1,30 @@
-const { promisify } = require('util');
-const exec = promisify(require('child_process').exec);
+const os = require('os');
+const ms = require('ms');
 
 module.exports = async function pingCommand(client, message) {
     try {
-        // Get basic ping response (Linux and Windows)
-        const pingCommand = process.platform === 'win32' ? 'ping -n 3 google.com' : 'ping -c 3 google.com';
-        const pingResponse = await exec(pingCommand);
+        const start = Date.now();
+        const end = Date.now();
 
-        // Get system information (Linux and Windows)
-        const systemCommand = process.platform === 'win32' ? 'systeminfo' : 'uname -a';
-        const systemInfo = await exec(systemCommand);
+        const uptime = os.uptime();
+        const totalMem = os.totalmem();
+        const freeMem = os.freemem();
+        const cpuUsage = os.loadavg()[0];
+        const diskUsage = (totalMem - freeMem) / totalMem;
 
-        // Get network information (Linux and Windows)
-        const networkCommand = process.platform === 'win32' ? 'ipconfig' : 'ifconfig';
-        const networkInfo = await exec(networkCommand);
+        const response = `🏓 ᴩᴏɴɢ : ${(end - start).toFixed(3)}ᴍs\n\nᴍɪᴋᴏ sʏsᴛᴇᴍ sᴛᴀᴛs :\n\n↬ ᴜᴩᴛɪᴍᴇ : ${ms(uptime * 1000, { long: true })}\n↬ ʀᴀᴍ : ${(1 - freeMem / totalMem) * 100}%\n↬ ᴄᴩᴜ : ${cpuUsage * 100}%\n↬ ᴅɪsᴋ : ${diskUsage * 100}%`;
+            // Store the Promise returned by message.reply in a variable
+        const replyPromise = message.reply(response);
 
-        // Extract relevant information from the command outputs
-        const pingResult = pingResponse.stdout;
-        const systemResult = systemInfo.stdout;
-        const networkResult = networkInfo.stdout;
+        // Add a catch handler to the Promise to handle any errors
+        replyPromise.catch(error => {
+            console.error('Error sending message:', error);
+        });
 
-        // Create a detailed reply
-        const replyMessage = `
-Pong! 🏓\n
-*Ping Result:*\n${pingResult}\n
-*System Information:*\n${systemResult}\n
-*Network Information:*\n${networkResult}
-        `;
-
-        // Send the detailed reply
-        await message.reply(replyMessage);
+        // Wait for the Promise to resolve before continuing
+        await replyPromise;
     } catch (error) {
         console.error('Error fetching ping information:', error);
-        message.reply('An error occurred while fetching ping information.');
+        await message.reply('An error occurred while fetching ping information.'+ `\n\n${error.message}`);
     }
 };

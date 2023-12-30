@@ -16,7 +16,6 @@ module.exports = async function bardCommand(client, message) {
 
         if (data && data.content) {
             const respon = data.content;
-            console.log(data);
 
             if (data.images && data.images.length > 0) {
                 await writing.edit(data.content);

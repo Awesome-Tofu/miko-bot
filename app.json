@@ -45,10 +45,15 @@
       "value": "",
       "required":true
     },
-    "GITHUB_TOKEN":{
+    "SESSION_REPO":{
       "description": "create a new public empty repo and paste its repo link",
       "value": "",
       "required":true
+    },
+    "CHARAI_TOKEN":{
+      "description": "steps to get https://pycai.gitbook.io/welcome/api/values#key-token",
+      "value": "",
+      "required":false
     }
      },    
     "buildpacks": [
@@ -68,8 +73,7 @@
      "formation": {
          "web": {
              "quantity": 1,
-             "size": "basic"
+             "size": "standard-1X"
          }
       }
   }
-  

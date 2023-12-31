@@ -37,9 +37,13 @@ const wikip = async (query) => {
     }
 
 
-module.exports = async function wikiCommand(client, message) {
+module.exports = async function wikiCommand(client, message, prefix) {
     try {
-        const utext = message.body.replace('.wiki', '').trim();
+        const utext = message.body.split(prefix + "wiki")[1];
+        if(!utext.trim()){
+            message.reply("No search query");
+            return;
+        }
         const wikiResult = await wikip(utext);
         const media = await MessageMedia.fromUrl(`${wikiResult.thumbnail}`, {unsafeMime: true});
         const caption = `*Title:* ${wikiResult.title}\n\n*Description:* ${wikiResult.description}\n\n*Result:* ${wikiResult.extract}\n\n*Link:* ${wikiResult.wikilink}`

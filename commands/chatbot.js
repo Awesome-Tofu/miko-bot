@@ -35,7 +35,7 @@ module.exports = async function chatbotCommand(client, message) {
             }else {
                 id = message.id.participant;
             }
-            apiUrl = `https://tofuapi.onrender.com/char_ai/${charai_token}/tLF2Fj65fLCELkHYH2TSTdC1RN1tynbvfRv8VwllARw/${id}/${encodeURIComponent(userMessage)}`;
+            apiUrl = `https://tofuapi.onrender.com/char_ai/${charai_token}/aRIvgfWA4uaXxB2wMPsvvBQDbsU5XfPsM0u60ThlDls/${id}/${encodeURIComponent(userMessage)}`;
           }else{
             console.log('No CharAI token found');
             apiUrl = `https://tofuapi.onrender.com/cleverbot/${encodeURIComponent(userMessage)}`;

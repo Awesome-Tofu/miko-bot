@@ -3,12 +3,12 @@ const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch
 require('dotenv').config();
 
 
-module.exports = async function trCommand(client, message) {
+module.exports = async function trCommand(client, message, prefix) {
   try{
+    let utext = message.body.split(prefix + "tr")[1].trim();
     let quotedMsg = await message.getQuotedMessage();
-    let utext = message.body.replace('.tr ','') || process.env.DEFAULT_LANGUAGE;
-    if(utext=='.tr'){
-        utext = 'en'
+    if(!utext){
+        utext = process.env.DEFAULT_LANGUAGE|| 'en';
     }
       const repliedText = quotedMsg._data.body;
       const response = await fetch(`https://translate-api-gray.vercel.app//translate?q=${repliedText}&lang=${utext || process.env.DEFAULT_LANGUAGE ||findLangName(utext)}`);

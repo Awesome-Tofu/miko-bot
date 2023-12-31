@@ -129,17 +129,17 @@ async function getVideoSize(url) {
     }
   }
 
-module.exports = async function hbarCommand(client, message) {
+module.exports = async function hbarCommand(client, message, prefix) {
     try{
-const utext = message.body.replace('.hbar ','').trim();
-const words = utext.split(' ');
-if(message.body=='.hbar'|| message.body=='.hbar '){
-    const availableCmds = `These are the availabe commands\n\n\n.hbar trending\n\n.hbar random\n\n.hbar tags\n\n.hbar get <tag>(.eg loli)\n\n.hbar watch <name>(.eg overflow)`;
+const utext = message.body.split(prefix + "hbar")[1];
+const words = utext.trim().split(' ');
+if(!utext.trim()){
+    const availableCmds = `These are the availabe commands\n\n\n${prefix}hbar trending\n\n${prefix}hbar random\n\n${prefix}hbar tags\n\n${prefix}hbar get <tag>(.eg loli)\n\n${prefix}hbar watch <name>(.eg overflow)`;
     message.reply(availableCmds);
-}else if(utext=="trending"){
+}else if(utext.trim()=="trending"){
     const trendings = await trending();
-    message.reply(`Trending\n\n${trendings}`);
-}else if(utext=="random"){
+    await message.reply(`Trending\n\n${trendings}`);
+}else if(utext.trim()=="random"){
     const scraping = await message.reply('```Scraping...```');
     try {
         const vidrandomdata = await hrandom();

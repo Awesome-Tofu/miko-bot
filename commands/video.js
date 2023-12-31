@@ -1,13 +1,14 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const { MessageMedia } = require('whatsapp-web.js');
 
-module.exports = async function videoCommand(client, message) {
+module.exports = async function videoCommand(client, message, prefix) {
     try {
-        if (message.body.trim() == '.video') {
+        const utext = message.body.split(prefix + "video")[1].trim();
+        if (!utext.trim()) {
             message.reply("No query!");
+            return;
         } else {
             const downloading = await message.reply('```Please be patient while the video is downloading...```');
-            const utext = message.body.replace('.video ', '');
             const response = await fetch(`https://vihangayt.me/download/ytmp4?url=${utext.trim()}`);
             const data = await response.json();
             const video = data.data.vid_720p;

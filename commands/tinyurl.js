@@ -1,10 +1,10 @@
 const axios = require("axios");
 
-async function shortenUrl(videoUrl) {
+async function shortenUrl(Url) {
     try {
       const response = await axios.get('https://api.erdwpe.com/api/linkshort/tinyurl', {
         params: {
-          link: videoUrl,
+          link: Url,
         },
       });
   
@@ -25,11 +25,13 @@ async function shortenUrl(videoUrl) {
   }
 
 
-  module.exports = async function tinyCommand(client, message){
+  module.exports = async function tinyCommand(client, message, prefix){
     try{
-        const utext = message.body.replace('.tiny ', '').trim();
-        if(!utext){
+        const nocmd = message.body.split(prefix + "tiny")[1];
+        const utext = message.body.replace(prefix + 'tiny ', '').trim();
+        if(!nocmd.trim()){
             await message.reply("No Query!");
+            return;
         }else{
             const link = await shortenUrl(utext);
             await message.reply("```Shortened link🔗```\n\n"+link);

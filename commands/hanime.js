@@ -2,14 +2,15 @@ const {tags,trending,getSlug,watch,hinfo} = require('../utils/hfunctions');
 const { MessageMedia } = require('whatsapp-web.js');
 
 
-module.exports = async function hanimeCommand(client, message) {
+module.exports = async function hanimeCommand(client, message, prefix) {
     try{
-const utext = message.body.replace('.hanime ','').trim();
-const words = utext.split(' ');
-if(message.body=='.hanime'|| message.body=='.hanime '){
-    const availableCmds = `These are the availabe commands\n\n\n.hanime trending\n\n.hanime tags\n\n.hanime get <tag>(.eg ahegao) <page>(.eg 3)\n\n.hanime watch <name>(.eg tsundero-2)\n\n.hanime info <name>(.eg tsundero-2)`;
+const utext = message.body.split(prefix + "hanime")[1];
+const words = utext.trim().split(' ');
+if(!utext.trim()){
+    const availableCmds = `These are the availabe commands\n\n\n${prefix}hanime trending\n\n${prefix}hanime tags\n\n${prefix}hanime get <tag>(.eg ahegao) <page>(.eg 3)\n\n${prefix}hanime watch <name>(.eg tsundero-2)\n\n${prefix}hanime info <name>(.eg tsundero-2)`;
     message.reply(availableCmds);
-}else if(utext=="trending"){
+    return
+}else if(utext.trim()=="trending"){
     const trending_slugs = await trending();
     message.reply(`Today's Trending\n\n${trending_slugs}`);
 }else if(words[0]=="get"){

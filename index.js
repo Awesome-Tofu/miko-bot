@@ -17,13 +17,12 @@ const {
 const startCommand = require('./commands/start');
 const pingCommand = require('./commands/ping');
 const helpCommand = require('./commands/help');
-const {stickerCommand, animatedCommand} = require('./commands/sticker');
+const stickerCommand = require('./commands/sticker');
 const testCommand = require('./commands/test');
 const tlCommand = require('./commands/telegraph');
 const trCommand = require('./commands/translate');
 const repoCommand = require('./commands/repo');
-const {gptCommand,
-  gpt5Command} = require('./commands/gpt');
+const gptCommand = require('./commands/gpt');
 const bardCommand = require('./commands/bard');
 const echoCommand = require('./commands/echo');
 const imagineCommand = require('./commands/imagine');
@@ -172,108 +171,111 @@ client.on('authenticated', (session) => {
 // Commands here
 
 client.on('message', async message => {
-    const prefix = '.';
-    const body_array = message.body.split(" ");
-    const command = body_array[0].replace(prefix,'').toLowerCase();
+  let message_body = message.body;
+  const prefix = process.env.PREFIX || '.';
+  // const body_array = message_body.split(/\s+/);
+  // let command;
+  // if (message_body.toLowerCase().startsWith(prefix)) {
+  //     command = body_array[0].replace(prefix, '');
+  // }else{
+  //     command = message_body
+  // }
+  // let utext = message_body.replace(body_array[0], '').trim();
 
-    if(command === 'start') {
+  if(message_body.startsWith(prefix + 'start')) {
       startCommand(client, message);
-    }else if(command=="ping"){
+  }else if(message_body.startsWith(prefix + "ping")){
       pingCommand(client, message);
-    }else if(command=="help"){
+  }else if(message_body.startsWith(prefix + "help")){
       helpCommand(client, message);
-    }else if(command=="sticker"){
-      stickerCommand(client, message);
-    }else if(command=="test"){
-      testCommand(client, message);
-    }else if(command=="tl"||command=="telegraph"){
+  }else if(message_body.startsWith(prefix + "sticker")){
+      stickerCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "test")){
+      testCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "tl") || message_body.startsWith(prefix + "telegraph")){
       tlCommand(client, message);
-    }else if(command=="tr"){
-      trCommand(client, message);
-    }else if(command=="repo"){
+  }else if(message_body.startsWith(prefix + "tr")){
+      trCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "report")){
+    reportCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "repo")){
       repoCommand(client, message);
-    }else if(command=="gpt"){
-      gptCommand(client, message);
-    }else if(command=="gpt5"){
-      gpt5Command(client, message);
-    }else if(command=="bard"){
-      bardCommand(client, message);
-    }else if(command=="code"){
-      codeCommand(client, message);
-    }else if(command=="echo"){
-      echoCommand(client, message);
-    }else if(command.startsWith('imagine')){
-      imagineCommand(client, message);
-    }else if(command=="term"){
-      termCommand(client, message);
-    }else if(command=="info"){
-      infoCommand(client, message);
-    }else if(command=="audio"){
-      AudioDownloadYouTube(client, message);
-    }else if(command=="video"){
-      videoCommand(client, message);
-    }else if(command=="detail"){
-      GetYouTubeInfo(client, message);
-    }else if(command=="q"||command=="quote"){
+  }else if(message_body.startsWith(prefix + "gpt")){
+    gptCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "bard")){
+      bardCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "code")){
+      codeCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "echo")){
+      echoCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + 'imagine')){
+      imagineCommand(client, message, prefix, prefix);
+  }else if(message_body.startsWith(prefix + "term")){
+      termCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "info")){
+      infoCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "audio")){
+      AudioDownloadYouTube(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "video")){
+      videoCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "detail")){
+      GetYouTubeInfo(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "q") || message_body.startsWith(prefix + "quote")){
       quoteCommand(client, message);
-    }else if(command=="paste"){
-      pasteCommand(client, message);
-    }else if(command=="extract"){
-      extractCommand(client, message);
-    }else if(command=="hanime"){
-      hanimeCommand(client, message);
-    }else if(command=="insta"){
-      instaCommand(client, message);
-    }else if(command=="enhance" || command=="upscale"){
+  }else if(message_body.startsWith(prefix + "paste")){
+      pasteCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "extract")){
+      extractCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "hanime")){
+      hanimeCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "insta")){
+      instaCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "enhance") || message_body.startsWith(prefix + "upscale")){
       enhanceCommand(client, message);
-    }else if(command=="wanted"){
-      wantedCommand(client, message);
-    }else if(command=="tts"){
+  }else if(message_body.startsWith(prefix + "wanted")){
+      wantedCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "tts")){
       ttsCommand(client, message);
-    }else if(command=="pp"){
+  }else if(message_body.startsWith(prefix + "pp")){
       ppCommand(client, message);
-    }else if(command=="sauce"){
+  }else if(message_body.startsWith(prefix + "sauce")){
       sauceCommand(client, message);
-    }else if(command=="tiny"){
-      tinyCommand(client, message);
-    }else if(command=="rmbg"){
+  }else if(message_body.startsWith(prefix + "tiny")){
+      tinyCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "rmbg")){
       rmbgCommand(client, message);
-    }else if(command=="carbon"){
-      carbonCommand(client, message);
-    }else if(command=="promote"){
+  }else if(message_body.startsWith(prefix + "carbon")){
+      carbonCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "promote")){
       promoteCommand(client, message);
-    }else if(command=="demote"){
+  }else if(message_body.startsWith(prefix + "demote")){
       demoteCommand(client, message);
-    }else if(command=="kick"){
+  }else if(message_body.startsWith(prefix + "kick")){
       kickCommand(client, message);
-    }else if(command=="invite"){
+  }else if(message_body.startsWith(prefix + "invite")){
       inviteCommand(client, message);
-    }else if(command=="report"){
-      reportCommand(client, message);
-    }else if(command=="support"){
+  }else if(message_body.startsWith(prefix + "support")){
       supportCommand(client, message);
-    }else if(command=="toanime"){
+  }else if(message_body.startsWith(prefix + "toanime")){
       toanimeCommand(client, message);
-    }else if(command=="toanime3d"){
+  }else if(message_body.startsWith(prefix + "toanime3d")){
       toanime3dCommand(client, message);
-    }else if(command=="asticker"){
-      animatedCommand(client, message);
-    }else if(command=="del"){
+  }else if(message_body.startsWith(prefix + "del")){
       delCommand(client, message);
-    }else if(command=="emoji"){
-      emojiCommand(client, message);
-    }else if(command=="hbar"){
-      hbarCommand(client, message);
-    }else if(command=="pint"){
-      pintCommand(client, message);
-    }else if(command=="wiki"){
-      wikiCommand(client, message);
-    }else if(command=="id"){
+  }else if(message_body.startsWith(prefix + "emoji")){
+      emojiCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "hbar")){
+      hbarCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "pint")){
+      pintCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "wiki")){
+      wikiCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "id")){
       idCommand(client, message);
-    }else{
+  }else{
       //else it will run chatbot
       chatbotCommand(client, message);
-    }
+  }
   });
   
 

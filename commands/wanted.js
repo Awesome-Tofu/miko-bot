@@ -22,7 +22,7 @@ async function telegraph(attachmentData) {
     });
 }
 
-module.exports = async function wantedCommand(client, message) {
+module.exports = async function wantedCommand(client, message, prefix) {
   try {
     if (message.hasQuotedMsg) {
       let quotedMsg = await message.getQuotedMessage();
@@ -32,9 +32,9 @@ module.exports = async function wantedCommand(client, message) {
       if (telegraphImageUrl === "error") {
         quotedMsg.reply(`Error occurred while creating a direct link.`);
       } else {
-        quotedMsg.reply("Generating..")
+        await quotedMsg.reply("Generating..")
         // Extracting name and bounty from the message
-        const regex = /^\.wanted "(.+)" (\d+)$/;
+        const regex = new RegExp(`^\\${prefix}wanted "(.+)" (\\d+)$`);
         const match = message.body.match(regex);
 
         if (match) {
@@ -49,7 +49,7 @@ module.exports = async function wantedCommand(client, message) {
           await client.sendMessage(message.from, media);
         } else {
           // Invalid command format
-          message.reply(`Invalid command format. Please use: .wanted "Name" Bounty\n*Example*\n.wanted "Monkey D Luffy" 300000`);
+          message.reply(`Invalid command format. Please use: ${prefix}wanted "Name" Bounty\n*Example*\n${prefix}wanted "Monkey D Luffy" 300000`);
         }
       }
     } else {

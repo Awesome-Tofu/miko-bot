@@ -31,10 +31,10 @@ function extractQueryAndNegativePrompt(input) {
     return null;
 }
 
-module.exports = async function imagineCommand(client, message) {
-    const invalid_cmd_msg = 'Invalid format. Please use the format `.imagineN "query" "negative prompt"`.\n\nAvalible commmands and model\n*imagine1:* Model *MeinaHentai*\n*imagine2:* Model *MeinaMix*\n*imagine3:* Model *AnyLora*\n*imagine4:* Model *AnyThingV4*\n*imagine5:* Model *DarkSushi*\n*imagine6:* Model *DarkSushi Mix*\n*imagine7:* Model *SDXL*\n*imagine8:* Model *Creative*\n*imagine9:* Model *CreativeV2*\n*imagine10:* Model *Absolute Reality*\n*imagine11:* Model *CalicoMix*\n*imagine12:* Model *Concept Art*\n*imagine13:* Model *Lexica* \n\n*Example*\n.imagine1 "1girl, pink hair, office background, arms behind" "nsfw, bad hand, no men, no dust"';
+module.exports = async function imagineCommand(client, message, prefix) {
+    const invalid_cmd_msg = 'Invalid format. Please use the format `' +prefix+ 'imagineN "query" "negative prompt"`.\n\nAvalible commmands and model\n*imagine1:* Model *MeinaHentai*\n*imagine2:* Model *MeinaMix*\n*imagine3:* Model *AnyLora*\n*imagine4:* Model *AnyThingV4*\n*imagine5:* Model *DarkSushi*\n*imagine6:* Model *DarkSushi Mix*\n*imagine7:* Model *SDXL*\n*imagine8:* Model *Creative*\n*imagine9:* Model *CreativeV2*\n*imagine10:* Model *Absolute Reality*\n*imagine11:* Model *CalicoMix*\n*imagine12:* Model *Concept Art*\n*imagine13:* Model *Lexica* \n\n*Example*\n'+prefix+'imagine1 "1girl, pink hair, office background, arms behind" "nsfw, bad hand, no men, no dust"';
     // Extract the user's input
-    if (message.body.trim() === '.imagine') {
+    if (message.body.startsWith(prefix + 'imagine ')) {
         await message.reply(invalid_cmd_msg);
         return;
     }
@@ -43,7 +43,7 @@ module.exports = async function imagineCommand(client, message) {
 
     
     try{
-        const userInput = message.body.replace('.imagine', '').trim();
+        const userInput = message.body.split(prefix + "imagine")[1].trim();
 
         // Use a regular expression to split the input into command and parameters
         const match = userInput.match(/^(\S+)(?:\s+(.+))?/);
@@ -51,7 +51,7 @@ module.exports = async function imagineCommand(client, message) {
         if (match) {
             // Extract the command and parameters
             const command = match[1];
-            const parameters = match[2] || ''; // Use an empty string if parameters are not provided
+            const parameters = match[2] || '';
 
             console.log('Command:', command);
             // Determine the model number and name based on the command
@@ -105,7 +105,7 @@ module.exports = async function imagineCommand(client, message) {
                     }
                 } else {
                     // Handle the case where the user didn't provide a valid query and negative prompt
-                    client.sendMessage(message.from, 'Please provide a query and a negative prompt in double quotes (e.g., `.imagine1 "1girl, pink hair, office background, arms behind back" "nsfw, bad hand, bad art"`). First double quote is the prompt, and the second is the negative prompt.');
+                    client.sendMessage(message.from, 'Please provide a query and a negative prompt in double quotes (e.g., `'+prefix+'imagine1 "1girl, pink hair, office background, arms behind back" "nsfw, bad hand, bad art"`). First double quote is the prompt, and the second is the negative prompt.');
                 }
             } else {
                 // Handle the case where the user used an invalid imagine command

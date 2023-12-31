@@ -239,11 +239,12 @@ async function inviteCommand(client, message) {
 };
 
 
-async function reportCommand(client, message) {
-    const utext = message.body.replace('.report ', '')
+async function reportCommand(client, message, prefix) {
+    const utext = message.body.split(prefix + "report")[1];
     let inviteLink;
-    if(utext.trim()==".report"||utext.trim()=="report"){
-        message.reply('please provide the problem\n*Example*\n.report there is something wrong with .gpt command')
+    if(!utext.trim()){
+        message.reply('please provide the problem\n*Example*\n.report there is something wrong with .gpt command');
+        return;
     }
     const chat = await message.getChat();
         try {

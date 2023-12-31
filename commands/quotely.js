@@ -57,12 +57,12 @@ module.exports = async function testCommand(client, message) {
               fs.writeFileSync(imagePath, img);
 
               const media = await MessageMedia.fromFilePath(imagePath);
-              await client.sendMessage(message.from, media, { sendMediaAsSticker: true });
+              await client.sendMessage(message.from, media, { sendMediaAsSticker: true, stickerName: 'quotely', stickerAuthor: user_name  });
 
 
         }catch(error){
             console.error("Error:", error);
-             message.reply("Error!")
+            message.reply("Error!"+`\n${error.message}`)
         }
 
     }else{

@@ -1,26 +1,25 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const { MessageMedia } = require('whatsapp-web.js');
-const gif2mp4File = require('../utils/gif2mp4'); // Assuming you have this utility function
+const gif2mp4File = require('../utils/gif2mp4'); 
 
-module.exports = async function bardCommand(client, message) {
-    let utext = message.body.replace('.bard ', '');
-    console.log(utext.trim());
-    if (utext.trim() === '.bard'|| utext.trim() === 'bard') {
+module.exports = async function bardCommand(client, message, prefix) {
+    let utext = message.body.split(prefix + "bard")[1].trim();
+    if (!utext.trim()) {
         await message.reply('No query!');
         return;
-    } 
+    }
     const writing = await message.reply('Writing...');
     try {        
         const response = await fetch(`https://tofuapi.onrender.com/chat/bard/${encodeURIComponent(utext)}`);
         const data = await response.json();
-
         if (data && data.content) {
             const respon = data.content;
 
             if (data.images && data.images.length > 0) {
                 await writing.edit(data.content);
-
+                let delay = 0;
                 for (const imageUrl of data.images) {
+                    setTimeout(async () => {
                     if (imageUrl.toLowerCase().endsWith('.gif')) {
                         const result = await gif2mp4File(imageUrl);
                         const media = await MessageMedia.fromUrl(result.result);
@@ -29,6 +28,8 @@ module.exports = async function bardCommand(client, message) {
                         const media = await MessageMedia.fromUrl(imageUrl, { unsafeMime: true });
                         await client.sendMessage(message.from, media);
                     }
+                }, delay);
+                delay += 1000;
                 }
             } else {
                 // No images, send the text response
@@ -40,6 +41,7 @@ module.exports = async function bardCommand(client, message) {
         }
         
     } catch (error) {
-        await writing.edit('Something went wrong.'+`\n${error.message}`);
+        await message.reply('Something went wrong.'+`\n${error.message}`);
+        console.error('Bard Error: '+`\n${error}`);
     }
 };

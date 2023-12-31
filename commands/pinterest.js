@@ -12,10 +12,10 @@ async function pinterest(query) {
   }
 }
 
-module.exports = async function pintCommand(client, message) {
+module.exports = async function pintCommand(client, message, prefix) {
   try {
     // Extracting query from the message
-    const regex = /^\.pint (.+)$/;
+    const regex = new RegExp(`^\\${prefix}pint (.+)$`);
     const match = message.body.match(regex);
 
     if (match) {
@@ -38,7 +38,7 @@ module.exports = async function pintCommand(client, message) {
       }
     } else {
       // Invalid command format
-      message.reply(`Invalid command format. Please use: .pint "Query"`);
+      message.reply(`Invalid command format. Please use: ${prefix}pint "Query"`);
     }
   } catch (error) {
     console.error("Command Error:", error);

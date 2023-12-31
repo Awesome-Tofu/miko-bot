@@ -8,12 +8,13 @@ const ffmpeg = require('fluent-ffmpeg');
 
 
 // YOUTUBE AUDIO DOWNLOADER
-async function AudioDownloadYouTube(client, message) {
-    let url = message.body.replace('.audio ','');
+async function AudioDownloadYouTube(client, message, prefix) {
+    let url = message.body.split(prefix + "audio")[1].trim();
     try {
-        if(url=='.audio')
+        if(!url.trim())
         {
-            await message.reply('No query!')
+            await message.reply('No query!');
+            return;
         }
         else
         {
@@ -81,12 +82,13 @@ async function processAudio(client, message, inputFilePath) {
 }
 
 
-async function GetYouTubeInfo(client, message) {
-    let url = message.body.replace('.detail ','');
+async function GetYouTubeInfo(client, message, prefix) {
+    let url = message.body.split(prefix + "detail")[1].trim();
     try {
-        if(url=='.detail')
+        if(!url.trim())
         {
             await message.reply('No query!')
+            return;
         }
         else
         {

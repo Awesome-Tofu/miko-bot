@@ -2,11 +2,14 @@ const { exec } = require("child_process");
 require("dotenv").config();
 
 
-module.exports = async function termCommand(client, message) {
+module.exports = async function termCommand(client, message, prefix) {
 
 if(message.author == `${process.env.OWNER_NUMBER}@c.us`||message.from == `${process.env.OWNER_NUMBER}@c.us`){
-    const command = message.body.replace('.term', '').trim();
-
+    const command = message.body.split(prefix + "term")[1].trim();
+    if (!command.trim()){
+        await message.reply(`⚠️ Please provide a command after "${prefix}term" to execute.`);
+        return;
+    }
     if (command) {
         // Execute the command using child_process
         exec(command, (error, stdout, stderr) => {
@@ -19,7 +22,7 @@ if(message.author == `${process.env.OWNER_NUMBER}@c.us`||message.from == `${proc
             }
         });
     } else {
-        message.reply('⚠️ Please provide a command after ".term" to execute.');
+        message.reply(`⚠️ Please provide a command after "${prefix}term" to execute.`);
     }
 }else{
     message.reply('⚠️ You do not rights to do that');

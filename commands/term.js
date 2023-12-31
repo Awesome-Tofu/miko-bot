@@ -1,10 +1,55 @@
 const { exec } = require("child_process");
 require("dotenv").config();
+const vm = require('vm');
+const util = require('util');
+const { isSudoUser } = require('./sudo');
 
+async function evalCommand(client, message, prefix) {
+    if (message.author == `${process.env.OWNER_NUMBER}@c.us` || message.from == `${process.env.OWNER_NUMBER}@c.us` || await isSudoUser(message)) {
+        try {
+            const command = message.body.split(prefix + "eval")[1].trim();
+            if (!command.trim()) {
+                await message.reply(`⚠️ Please provide a command after "${prefix}eval" to execute.`);
+                return;
+            }
+            if (command) {
+                const start = Date.now();
+                let result;
+                let consoleOutput = '';
+                try {
+                    // Create a new script using the command, and run it in a new context
+                    const script = new vm.Script(`(async () => { ${command} })()`);
+                    const context = {
+                        console: {
+                            log: function(value) {
+                                consoleOutput += util.inspect(value) + '\n';
+                            }
+                        },
+                        message: message, // Add message to the context
+                        client: client, // Add client to the context
+                        require: require, // Add require to the context
+                    };
+                    vm.createContext(context);
+                    result = script.runInContext(context);
+                } catch (error) {
+                    result = error;
+                }
+                const end = Date.now();
+                const timeTaken = end - start;
+                const output = consoleOutput || util.inspect(result, { depth: 0 }); // Use util.inspect to convert the result to a string
+                await message.reply(`📎 Input: ${command}\n\n📒 Output: ${output}\n\n✨ Taken Time: ${timeTaken}ms`);
+            }
+    } catch (error) {
+        await message.reply(`⚠️ Error:\n${error.message}`);
+    }
+} else {
+    message.reply('⚠️ You do not have rights to do that');
+    console.log(message.from + ' tried to access eval');
+}
+}
 
-module.exports = async function termCommand(client, message, prefix) {
-
-if(message.author == `${process.env.OWNER_NUMBER}@c.us`||message.from == `${process.env.OWNER_NUMBER}@c.us`){
+async function termCommand(client, message, prefix) {
+if(message.author == `${process.env.OWNER_NUMBER}@c.us`||message.from == `${process.env.OWNER_NUMBER}@c.us` || await isSudoUser(message)){
     const command = message.body.split(prefix + "term")[1].trim();
     if (!command.trim()){
         await message.reply(`⚠️ Please provide a command after "${prefix}term" to execute.`);
@@ -25,7 +70,9 @@ if(message.author == `${process.env.OWNER_NUMBER}@c.us`||message.from == `${proc
         message.reply(`⚠️ Please provide a command after "${prefix}term" to execute.`);
     }
 }else{
-    message.reply('⚠️ You do not rights to do that');
-    console.log(message.from + 'tried to access .term');
+    message.reply('⚠️ You do not have rights to do that');
+    console.log(message.from + 'tried to access term');
 }
 };
+
+module.exports = { evalCommand, termCommand };

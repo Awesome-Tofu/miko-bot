@@ -29,7 +29,7 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
     ```env
    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD (required), if you are running on windows remove it
    PUPPETEER_EXECUTABLE_PATH (required), if you are running on windows remove it
-   MONGODB_URI (optional)
+   MONGODB_URI (required) (get it from https://cloud.mongodb.com/)
    DEFAULT_LANGUAGE (optional)
    BOT_NUMBER (required)
    OWNER_NUMBER (required)

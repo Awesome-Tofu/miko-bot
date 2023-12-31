@@ -16,9 +16,9 @@
       "required": true
     },
     "MONGODB_URI":{
-      "description": "Add your mongoDB URI or you can skip it",
-      "value": "mongodb+srv://akash:akash@cluster0.yusz4qo.mongodb.net/?retryWrites=true&w=majority",
-      "required":false
+      "description": "Add your mongoDB URI",
+      "value": "",
+      "required":true
     },
     "BOT_NUMBER":{
       "description": "bot's phone number example - 918377xxxxxx",

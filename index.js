@@ -26,7 +26,7 @@ const gptCommand = require('./commands/gpt');
 const bardCommand = require('./commands/bard');
 const echoCommand = require('./commands/echo');
 const imagineCommand = require('./commands/imagine');
-const termCommand = require('./commands/term');
+const {termCommand, evalCommand} = require('./commands/term');
 const infoCommand = require('./commands/info');
 const { AudioDownloadYouTube,
   GetYouTubeInfo 
@@ -54,6 +54,7 @@ const emojiCommand = require('./commands/emojimix');
 const hbarCommand = require('./commands/hbar');
 const pintCommand = require('./commands/pinterest');
 const wikiCommand = require('./commands/wiki');
+const { addsudoCommand, delsudoCommand, listsudoCommand } = require('./commands/sudo');
 
 
 //Code
@@ -197,11 +198,11 @@ client.on('message', async message => {
   }else if(message_body.startsWith(prefix + "tr")){
       trCommand(client, message, prefix);
   }else if(message_body.startsWith(prefix + "report")){
-    reportCommand(client, message, prefix);
+      reportCommand(client, message, prefix);
   }else if(message_body.startsWith(prefix + "repo")){
       repoCommand(client, message);
   }else if(message_body.startsWith(prefix + "gpt")){
-    gptCommand(client, message, prefix);
+      gptCommand(client, message, prefix);
   }else if(message_body.startsWith(prefix + "bard")){
       bardCommand(client, message, prefix);
   }else if(message_body.startsWith(prefix + "code")){
@@ -212,6 +213,8 @@ client.on('message', async message => {
       imagineCommand(client, message, prefix, prefix);
   }else if(message_body.startsWith(prefix + "term")){
       termCommand(client, message, prefix);
+  }else if(message_body.startsWith(prefix + "eval")){
+      evalCommand(client, message, prefix);
   }else if(message_body.startsWith(prefix + "info")){
       infoCommand(client, message, prefix);
   }else if(message_body.startsWith(prefix + "audio")){
@@ -260,8 +263,6 @@ client.on('message', async message => {
       toanimeCommand(client, message);
   }else if(message_body.startsWith(prefix + "toanime3d")){
       toanime3dCommand(client, message);
-  }else if(message_body.startsWith(prefix + "del")){
-      delCommand(client, message);
   }else if(message_body.startsWith(prefix + "emoji")){
       emojiCommand(client, message, prefix);
   }else if(message_body.startsWith(prefix + "hbar")){
@@ -272,6 +273,14 @@ client.on('message', async message => {
       wikiCommand(client, message, prefix);
   }else if(message_body.startsWith(prefix + "id")){
       idCommand(client, message);
+  }else if(message_body.startsWith(prefix + "addsudo")){
+      addsudoCommand(client, message);
+  }else if(message_body.startsWith(prefix + "delsudo")){
+      delsudoCommand(client, message);
+  }else if(message_body.startsWith(prefix + "sudos")){
+      listsudoCommand(client, message);
+  }else if(message_body.startsWith(prefix + "del")){
+      delCommand(client, message);
   }else{
       //else it will run chatbot
       chatbotCommand(client, message);

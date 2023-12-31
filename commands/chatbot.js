@@ -4,13 +4,17 @@ const fsPromises = require('fs').promises; // Promises-based fs
 const path = require('path');
 const { error } = require('console');
 require('dotenv').config();
+const MongoClient = require('mongodb').MongoClient;
+const uri = process.env.MONGODB_URI;
 
-module.exports = async function chatbotCommand(client, message) {
+async function chatbotCommand(client, message) {
+  const chatId = message.from;
+  const chatbotEnabled = await isChatbotEnabled(chatId);
+  if (chatbotEnabled) {
       const userMessage = message.body;
       const quotedMsg = await message.getQuotedMessage();
       const chat = await message.getChat();
-      if(quotedMsg){
-      if (quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg) {
+      if ((chat.isGroup === false && message.body) || (quotedMsg && quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg)) {
         // If message type is sticker, send a random sticker from the chatbotstickers folder
         if (message.type == 'sticker'){ 
           const files = await fsPromises.readdir('./commands/chatbotstickers');
@@ -63,5 +67,79 @@ module.exports = async function chatbotCommand(client, message) {
         }
 
       }
-    }
+  }
 }
+
+
+async function chatbottoggleCommand(waclient, message, prefix) {
+  const client = new MongoClient(uri);
+  const chatId = message.from;
+  const command = message.body.split(prefix + "chatbot")[1].trim();
+  const chat = await message.getChat();
+  if (chat.isGroup) {
+      const authorId = message.id.participant;
+      const isAdmin = chat.participants.find((participant) => {
+      return participant.id._serialized === authorId && participant.isAdmin;
+      });
+      if (!isAdmin) {
+          message.reply('Only admins can use this command.');
+          return;
+      }
+  }
+
+  try {
+      await client.connect();
+      const collection = client.db("Chatbot").collection("chats");
+      if (command === 'on') {
+          await collection.updateOne({ chatId: chatId }, { $set: { chatbotEnabled: true } }, { upsert: true });
+          message.reply('Chatbot enabled for this chat.');
+      } else if (command === 'off') {
+          await collection.updateOne({ chatId: chatId }, { $set: { chatbotEnabled: false } }, { upsert: true });
+          message.reply('Chatbot disabled for this chat.');
+      } else {
+          const chatbotStatus = await collection.findOne({ chatId: chatId });
+          if (chatbotStatus) {
+              if (chatbotStatus.chatbotEnabled) {
+                  message.reply('Chatbot is currently enabled for this chat.');
+              } else {
+                  message.reply('Chatbot is currently disabled for this chat.');
+              }
+          } else {
+              if (process.env.CHATBOT === 'true') {
+                  message.reply('Chatbot is currently enabled by default.');
+              } else {
+                  message.reply('Chatbot is currently disabled by default.');
+              }
+          }
+      }
+  } catch (error) {
+      console.error(error);
+      message.reply(`⚠️ Error:\n${error.message}`);
+  } finally {
+      await client.close();
+  }
+}
+
+async function isChatbotEnabled(chatId) {
+  const client = new MongoClient(uri);
+  try {
+      await client.connect();
+      const collection = client.db("Chatbot").collection("chats");
+      const chatbotStatus = await collection.findOne({ chatId: chatId });
+      if (chatbotStatus) {
+          return chatbotStatus.chatbotEnabled;
+      } else {
+          return process.env.CHATBOT;
+      }
+  } catch (error) {
+      console.error(error);
+      return false;
+  } finally {
+      await client.close();
+  }
+}
+
+module.exports = {
+    chatbotCommand,
+    chatbottoggleCommand
+};

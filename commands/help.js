@@ -7,7 +7,6 @@ module.exports = async function helpCommand(client, message) {
 ➥ *addsudo* - Add a sudo user
 ➥ *delsudo* - Remove a sudo user
 
-
 *🤖 Bot Commands:*
 ➥ *start* - Start the bot
 ➥ *restart* - Redeploy the bot (only owner)
@@ -15,9 +14,10 @@ module.exports = async function helpCommand(client, message) {
 ➥ *ping* - Pong!
 
 *👥 User Management:*
-➥ *promote* [@tag] - Promote replied user
-➥ *demote* [@tag] - Demote replied user
-➥ *kick* [@tag] - Remove replied user
+➥ *promote* [@tag] - Promote replied user (only admins)
+➥ *demote* [@tag] - Demote replied user (only admins)
+➥ *kick* [@tag] - Remove replied user (only admins)
+➥ *chatbot* [on/off] - turn on or off chatbot (only admins)
 ➥ *id* [@tag] - Get user ID
 ➥ *info* - Get info of replied user
 ➥ *extract* [@number] - Get number info

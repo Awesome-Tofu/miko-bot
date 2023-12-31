@@ -37,7 +37,7 @@ const pasteCommand = require('./commands/paste');
 const extractCommand = require('./commands/extract');
 const hanimeCommand = require('./commands/hanime');
 const instaCommand = require('./commands/insta');
-const chatbotCommand = require('./commands/chatbot');
+const {chatbotCommand, chatbottoggleCommand} = require('./commands/chatbot');
 const codeCommand = require('./commands/code');
 const enhanceCommand = require('./commands/enhance');
 const wantedCommand = require('./commands/wanted');
@@ -281,6 +281,8 @@ client.on('message', async message => {
       listsudoCommand(client, message);
   }else if(message_body.startsWith(prefix + "del")){
       delCommand(client, message);
+  }else if(message_body.startsWith(prefix + "chatbot")){
+      chatbottoggleCommand(client, message, prefix);
   }else{
       //else it will run chatbot
       chatbotCommand(client, message);

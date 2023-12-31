@@ -129,7 +129,7 @@ async function isChatbotEnabled(chatId) {
       if (chatbotStatus) {
           return chatbotStatus.chatbotEnabled;
       } else {
-          return process.env.CHATBOT;
+          return process.env.CHATBOT || true;
       }
   } catch (error) {
       console.error(error);

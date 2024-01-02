@@ -4,7 +4,7 @@
     "description": "loli",
     "main": "index.js",
     "scripts": {
-        "start": "pm2 start session.js --deep-monitoring --attach --name miko",
+        "start": "pm2 start start.js --deep-monitoring --attach --name miko",
         "stop": "pm2 stop miko",
         "test": "echo \"Error: no test specified\" && exit 1"
     },

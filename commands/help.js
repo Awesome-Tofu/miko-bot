@@ -65,6 +65,5 @@ module.exports = async function helpCommand(client, message) {
 *🔗 Other Commands:*
 ➥ *repo* - Provides repo (deployable on Heroku)
 
-More coming soon...
     `);
 }

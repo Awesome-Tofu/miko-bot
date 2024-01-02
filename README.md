@@ -7,7 +7,9 @@ MIKO BOT is a Node.js-based WhatsApp chatbot powered by [Puppeteer](https://pptr
 - **WhatsApp Automation**: MIKO BOT can automate tasks such as sending messages, images, and stickers to WhatsApp contacts or groups.
 - **Dynamic Responses**: Customize your bot to provide dynamic responses based on user inputs or predefined conditions.
 - **Message Handling**: Handle incoming messages, process them, and respond accordingly.
-- **Sticker Handling**: Respond with random stickers from a predefined collection.
+- **Sticker Handling**: Convert and create sticker with bot.
+- **Chatbot AI**: Customize AI replies from the bot.
+- **More?**: Just try example bot and you can explore all features.
 - **Example Bot**: [Miko Bot](https://wa.link/lof6tp)
 
 ## Getting Started
@@ -26,6 +28,7 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
 
 3. **Set Environment Variables:**
 
+   **sample:** [sample.env](https://github.com/Awesome-Tofu/miko-bot/blob/main/sample.env)
     ```env
    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD (required), if you are running on windows remove it
    PUPPETEER_EXECUTABLE_PATH (required), if you are running on windows remove it
@@ -40,11 +43,11 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    CHATBOT (optional) (set default chatbot true/false)
     
 
-4. **Start the script:**
+5. **Start the script:**
    ```bash
    npm start
 
-5. **Scanning the QR code:**
+6. **Scanning the QR code:**
 
    Open the link provided by the deployment platform OR if you are running on local platform open http://localhost:3000/
 
@@ -55,10 +58,9 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    | Command          | Description                                  |
    | ----------------- | -------------------------------------------- |
    | `.start`         | Command to start the bot.                    |
-   | `.send <message>`| Send a text message to a contact or group.   |
-   | `.imageine`         | Generate a random image from a predefined list.  |
+   | `.imagine`         | Generate a random image from a predefined list.  |
    | `.sticker`       | Send a sticker from replied image.     |
-   | `.translate <text>` | Translate text to the default language.    |
+   | `.translate <code>` | Translate text to the default language.    |
    | `.report <issue>`| Report an issue with the bot.              |
    | `.support`       | Get support and assistance.                |
    | `.help`       | You can see more command lists               |
@@ -71,9 +73,16 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
  <img alt="whatsapp" src="https://img.shields.io/badge/Join Group-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
   </a>
 
+## Thanks to
+
+   - [Whatsapp-web.js](https://github.com/pedroslopez/whatsapp-web.js) for providing awesome package
+   - [WhatsBot](https://github.com/tuhinpal/WhatsBot) for telegraph, sticker, term and carbon command inspiration
+   - [ThiruXD ♡︎](https://github.com/ThiruXD) for making youtube downloader commands
+   - Last but Not Least: [You](https://i.imgur.com/lDjxY1D.gif) <img src="https://i.imgur.com/lDjxY1D.gif" alt="image" width="35" height="auto"> for using my repo
+   
 ## Things I want you to know
 
-   I am still learning nodejs, so my code might look repeating cuz I dont want to touch code if its working, and I am having trouble in saving session (session.js doesnt works). If you can help, please feel free to contribute.
+   I am still learning nodejs, so my code might look repeating cuz I dont want to touch code if its working, and I am having trouble in saving session on  heroku. If you can help, please feel free to contribute.
    
 ## License
 

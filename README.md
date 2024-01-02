@@ -37,6 +37,7 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    GITHUB_TOKEN (required) (https://github.com/settings/tokens)
    SESSION_REPO (required) (just make a new public repo and paste the link)
    CHARAI_TOKEN (optional) (see how to get https://pycai.gitbook.io/welcome/api/values#key-token)
+   CHATBOT (optional) (set default chatbot true/false)
     
 
 4. **Start the script:**

@@ -22,11 +22,11 @@ module.exports = async function bardCommand(client, message, prefix) {
                     setTimeout(async () => {
                     if (imageUrl.toLowerCase().endsWith('.gif')) {
                         const result = await gif2mp4File(imageUrl);
-                        const media = await MessageMedia.fromUrl(result.result);
-                        await client.sendMessage(message.from, media, { sendVideoAsGif: true });
+                        const media = await MessageMedia.fromUrl(result.result, { unsafeMime: true });
+                        await message.reply(media, { sendVideoAsGif: true });
                     } else {
                         const media = await MessageMedia.fromUrl(imageUrl, { unsafeMime: true });
-                        await client.sendMessage(message.from, media);
+                        await message.reply(media);
                     }
                 }, delay);
                 delay += 1000;

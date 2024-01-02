@@ -30,6 +30,8 @@ module.exports = async function helpCommand(client, message) {
 ➥ *paste* [text] - Paste the text to link
 ➥ *tiny* [link] - Get shortened URL of given link
 ➥ *wiki* [query] - Get details from Wikipedia
+➥ *sauce* - Get source of replied anime media
+
 
 *🎨 Media Commands:*
 ➥ *sticker* [sticker name] - Convert image/gif/video to sticker
@@ -48,10 +50,9 @@ module.exports = async function helpCommand(client, message) {
 *🎭 Fun Commands:*
 ➥ *imagine* [prompt] (won't work for now) - Generates image, be patient while running this command
 ➥ *wanted* ["name" bounty] - Get One Piece bounty of given image
-➥ *tts* - Convert text to speech model aoi
+➥ *tts* ⚠️Depecrated - Convert text to speech model aoi
 ➥ *pp* - Get random couple pfp
 ➥ *carbon* [text] - Get carbon photo of given text
-➥ *sauce* - Get source of replied anime media
 
 *📚 Learning Commands:*
 ➥ *code* - Generate code (code assistant PaLM)

@@ -1,8 +1,10 @@
 const { exec } = require("child_process");
 require("dotenv").config();
+const { MessageMedia } = require('whatsapp-web.js');
 const vm = require('vm');
 const util = require('util');
 const { isSudoUser } = require('./sudo');
+const fs = require('fs');
 
 async function evalCommand(client, message, prefix) {
     if (message.author == `${process.env.OWNER_NUMBER}@c.us` || message.from == `${process.env.OWNER_NUMBER}@c.us` || await isSudoUser(message)) {
@@ -28,6 +30,10 @@ async function evalCommand(client, message, prefix) {
                         message: message, // Add message to the context
                         client: client, // Add client to the context
                         require: require, // Add require to the context
+                        MessageMedia: MessageMedia, // Add MessageMedia to the context
+                        __dirname: __dirname, // Add __dirname to the context
+                        __filename: __filename, // Add __filename to the context
+                        fs: fs, // Add fs to the context
                     };
                     vm.createContext(context);
                     result = script.runInContext(context);

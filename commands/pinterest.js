@@ -30,7 +30,7 @@ module.exports = async function pintCommand(client, message, prefix) {
         // Sending each image one by one
         for (const imageUrl of images) {
           const media = await MessageMedia.fromUrl(imageUrl, { unsafeMime: true });
-          await client.sendMessage(message.from, media);
+          await message.reply(media);
         }
       } else {
         // No images found or an error occurred
@@ -42,6 +42,6 @@ module.exports = async function pintCommand(client, message, prefix) {
     }
   } catch (error) {
     console.error("Command Error:", error);
-    message.reply("An error occurred while processing the command.");
+    message.reply("An error occurred while processing the command.", `\n${error.message}`);
   }
 };

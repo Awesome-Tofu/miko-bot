@@ -12,7 +12,7 @@ module.exports = async function ppCommand(client, message) {
         const media2 = await MessageMedia.fromUrl(female);
         await client.sendMessage(message.from, media2, {caption:"Female"});
     }catch(error){
-        message.reply('Something went wrong!')
+        message.reply('Something went wrong!', `\n${error.message}`)
     }
    
 }

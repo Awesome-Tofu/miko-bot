@@ -32,7 +32,7 @@ module.exports = async function wantedCommand(client, message, prefix) {
       if (telegraphImageUrl === "error") {
         quotedMsg.reply(`Error occurred while creating a direct link.`);
       } else {
-        await quotedMsg.reply("Generating..")
+        const generating = await quotedMsg.reply("Generating..")
         // Extracting name and bounty from the message
         const regex = new RegExp(`^\\${prefix}wanted "(.+)" (\\d+)$`);
         const match = message.body.match(regex);
@@ -46,14 +46,15 @@ module.exports = async function wantedCommand(client, message, prefix) {
 
           // Fetching the enhanced image
           const media = await MessageMedia.fromUrl(wantedAPI, { unsafeMime: true });
-          await client.sendMessage(message.from, media);
+          await message.reply(media);
+          await generating.delete(true);
         } else {
           // Invalid command format
           message.reply(`Invalid command format. Please use: ${prefix}wanted "Name" Bounty\n*Example*\n${prefix}wanted "Monkey D Luffy" 300000`);
         }
       }
     } else {
-      await client.sendMessage(message.from, "*Error*\n```Please reply to a media file```");
+      await message.reply("*Error*\n```Please reply to a media file```");
     }
   } catch (error) {
     console.error(error);

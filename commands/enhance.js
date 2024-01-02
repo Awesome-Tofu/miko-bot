@@ -35,12 +35,14 @@ module.exports = async function enhanceCommand(client, message) {
         if (data == "error") {
           quotedMsg.reply(`Error occured while create direct link.`);
         } else {
+          const enhancing = await message.reply(`Enhancing...`);
           const enhanceAPI = 'https://vihangayt.me/tools/enhance?url='
           const media = await MessageMedia.fromUrl(`${enhanceAPI}${data}`, {unsafeMime: true});
           await client.sendMessage(message.from, media, {caption: "*Enhanced image*", sendMediaAsDocument: true});
+          await enhancing.delete(true);
         }
       } else {
-        await client.sendMessage(message.from, "*Error*\n```Please reply to a media file```");
+        await message.reply("*Error*\n```Please reply to a media file```");
       }
   }catch(error){
     await message.reply("*Error*\n```Can't support text!```")

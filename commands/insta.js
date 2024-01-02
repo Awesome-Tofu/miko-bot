@@ -13,7 +13,6 @@ module.exports = async function instaCommand(client, message, prefix) {
     const downloading_message = await message.reply('```Please be patient while the media is downloading...```');
 
     try {
-            console.log(link);
             const response = await fetch(`https://vihangayt.me/download/instagram?url=${link}`);
             const data = await response.json();
             if (data.data.data.length > 0) {
@@ -24,10 +23,10 @@ module.exports = async function instaCommand(client, message, prefix) {
 
                     if (type === 'image') {
                         const media = await MessageMedia.fromUrl(file);
-                        await client.sendMessage(message.from, media);
+                        await message.reply(media);
                     } else if (type === 'video') {
                         const media = await MessageMedia.fromUrl(file, { unsafeMime: true });
-                        await client.sendMessage(message.from, media);
+                        await message.reply(media);
                     } else {
                         downloading_message.edit('Unknown media type');
                     }

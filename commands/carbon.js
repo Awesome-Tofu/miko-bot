@@ -11,7 +11,7 @@ const { MessageMedia } = require('whatsapp-web.js');
             const media = await MessageMedia.fromUrl(`${carbonAPI}${encodeURIComponent(utext)}`, {unsafeMime: true});
             media.mimetype = 'image/png';
             media.filename = "carbon.png";
-            await client.sendMessage(message.from, media);
+            await message.reply(media);
         }
     }catch(err){
         message.reply("error!");

@@ -58,7 +58,7 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    | Command          | Description                                  |
    | ----------------- | -------------------------------------------- |
    | `.start`         | Command to start the bot.                    |
-   | `.imagine`         | Generate a random image from a predefined list.  |
+   | `.eval`         | Evaluate nodejs script with vim.  |
    | `.sticker`       | Send a sticker from replied image.     |
    | `.translate <code>` | Translate text to the default language.    |
    | `.report <issue>`| Report an issue with the bot.              |

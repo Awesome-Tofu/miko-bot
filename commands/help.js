@@ -64,6 +64,7 @@ module.exports = async function helpCommand(client, message) {
 
 *🔗 Other Commands:*
 ➥ *repo* - Provides repo (deployable on Heroku)
+➥ *owner* - Provides owner contact
 
     `);
 }

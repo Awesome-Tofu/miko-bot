@@ -6,12 +6,11 @@ async function stickerCommand(client, message, prefix) {
   let utext = message.body.split(prefix + "sticker")[1];
   let stickerName;
   let stickerAuthor;
+  const contact = await message.getContact();
   if (utext){
       stickerName = utext;
-      const contact = await message.getContact();
-      stickerAuthor = contact.pushname;
   }else{
-      stickerName = "🙂";
+      stickerName = contact.pushname;
       stickerAuthor = "Miku";
   }
     if (!quotedMsg){

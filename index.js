@@ -6,12 +6,6 @@ const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
-const {
-  downloadAndExtractFolderFromGitHub,
-  deleteZipFileFromGitHub,
-  uploadFolderToGitHub
-} = require('./session');
-
 
 //import Commands
 const startCommand = require('./commands/start');
@@ -75,6 +69,7 @@ const client = new Client({
     '--disable-setuid-sandbox'
   ],
   executablePath: puppeteerExecutablePath,
+  headless: true,
 	}
 });
 
@@ -113,14 +108,6 @@ client.on('qr', async(text) => {
   console.log('QR RECEIVED', qrText);
   qrcode.generate(qrText, { small: true });
   console.log('Visit the server URL to scan the code');
-
-  // try {
-  //   console.log("downloading session from github");
-  //   await downloadAndExtractFolderFromGitHub();
-  // } catch (error) {
-  //   console.log("no session present on github.");
-  //   console.error(error.message);
-  // }
 });
 
 
@@ -131,10 +118,13 @@ client.on('remote_session_saved',async () => {
 })
 
 
+client.on('authenticated', async (session) => {
+  console.log('WHATSAPP WEB => Authenticated');
+});
+
 client.on('ready', async() => {
     console.log('Miko bot started successfully!');
     const support_group_id = "120363179001099439@g.us";
-    // const inviteCodeg = args.join(' ')
     try {
       client.acceptInvite('E0XzCPRXoip16GVoG9yUV0'); 
       console.log('Joined the group!'); 
@@ -142,30 +132,7 @@ client.on('ready', async() => {
       console.log('That invite code seems to be invalid.');
     }
     isClientReady = true;
-
-    // try {
-    //   console.log("deleting session from github");
-    //   await deleteZipFileFromGitHub();
-    //   console.log("uploading session to github");
-    //   await uploadFolderToGitHub('.wwebjs_auth.zip');
-    // } catch (error) {
-    //   console.log("no session to delete on github");
-    //   try {
-    //     console.log("uploading session to github");
-    //     await uploadFolderToGitHub('.wwebjs_auth.zip');
-    //   } catch (error) {
-    //     console.log("deleting session from github");
-    //     await deleteZipFileFromGitHub();
-    //     console.log("uploading session to github");
-    //     await uploadFolderToGitHub('.wwebjs_auth.zip')
-    //   }
-    // }
 });
-
-client.on('authenticated', (session) => {
-  console.log('WHATSAPP WEB => Authenticated');
-});
-
 
 
 
@@ -174,14 +141,6 @@ client.on('authenticated', (session) => {
 client.on('message', async message => {
   let message_body = message.body;
   const prefix = process.env.PREFIX || '.';
-  // const body_array = message_body.split(/\s+/);
-  // let command;
-  // if (message_body.toLowerCase().startsWith(prefix)) {
-  //     command = body_array[0].replace(prefix, '');
-  // }else{
-  //     command = message_body
-  // }
-  // let utext = message_body.replace(body_array[0], '').trim();
 
   if(message_body.startsWith(prefix + 'start')) {
       startCommand(client, message);
@@ -287,24 +246,18 @@ client.on('message', async message => {
       //else it will run chatbot
       chatbotCommand(client, message);
   }
-  });
+});
   
+app.get('/:filename', (req, res) => {
+const requestedFilename = req.params.filename;
+const gifPath = path.resolve(requestedFilename);
 
-  app.get('/delsession',async(req,res)=>{
-    await deleteZipFileFromGitHub();
-    res.json({message:"deleted session from github"});
-  })
-
-  app.get('/:filename', (req, res) => {
-    const requestedFilename = req.params.filename;
-    const gifPath = path.resolve(requestedFilename);
-
-    if (fs.existsSync(gifPath)) {
-        res.setHeader('Content-Type', 'image/gif');
-        res.sendFile(gifPath);
-    } else {
-        res.status(404).send('File not found');
-    }
+if (fs.existsSync(gifPath)) {
+    res.setHeader('Content-Type', 'image/gif');
+    res.sendFile(gifPath);
+} else {
+    res.status(404).send('File not found');
+}
 });
 
 
@@ -317,3 +270,13 @@ app.listen(port, () => {
 
 client.initialize();
 console.log("Initializing...");
+
+client.on("auth_failure", () => {
+    console.error(
+      "There is a problem in authentication, Kindly set the env var again and restart the app"
+    );
+  });
+
+  client.on("disconnected", (reason) => {
+    console.log("Client was logged out", reason);
+  });

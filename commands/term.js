@@ -5,6 +5,7 @@ const vm = require('vm');
 const util = require('util');
 const { isSudoUser } = require('./sudo');
 const fs = require('fs');
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 async function evalCommand(client, message, prefix) {
     if (message.author == `${process.env.OWNER_NUMBER}@c.us` || message.from == `${process.env.OWNER_NUMBER}@c.us` || await isSudoUser(message)) {
@@ -34,6 +35,7 @@ async function evalCommand(client, message, prefix) {
                         __dirname: __dirname, // Add __dirname to the context
                         __filename: __filename, // Add __filename to the context
                         fs: fs, // Add fs to the context
+                        fetch: fetch, // Add fetch to the context
                     };
                     vm.createContext(context);
                     result = script.runInContext(context);

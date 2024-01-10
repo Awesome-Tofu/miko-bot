@@ -49,6 +49,7 @@ const hbarCommand = require('./commands/hbar');
 const pintCommand = require('./commands/pinterest');
 const wikiCommand = require('./commands/wiki');
 const ownerCommand = require('./commands/owner');
+const drawCommand = require('./commands/draw');
 const { addsudoCommand, delsudoCommand, listsudoCommand } = require('./commands/sudo');
 
 
@@ -245,6 +246,8 @@ client.on('message', async message => {
       chatbottoggleCommand(client, message, prefix);
   }else if(message_body.startsWith(prefix + "owner")){
       ownerCommand(client, message);
+  }else if(message_body.startsWith(prefix + "draw")){
+      drawCommand(client, message, prefix);
   }else{
       //else it will run chatbot
       chatbotCommand(client, message);

@@ -9,7 +9,6 @@ module.exports = async function helpCommand(client, message) {
 
 *🤖 Bot Commands:*
 ➥ *start* - Start the bot
-➥ *restart* - Redeploy the bot (only owner)
 ➥ *help* - Display this help message
 ➥ *ping* - Pong!
 
@@ -31,7 +30,12 @@ module.exports = async function helpCommand(client, message) {
 ➥ *tiny* [link] - Get shortened URL of given link
 ➥ *wiki* [query] - Get details from Wikipedia
 ➥ *sauce* - Get source of replied anime media
+➥ *getprompt* - Get ai prompt from replied image
 
+*📚 Learning Commands:*
+➥ *code* [prompt] - Generate code (code assistant PaLM)
+➥ *gpt* [prompt] - Ask GPT
+➥ *bard* [prompt] - Ask bard
 
 *🎨 Media Commands:*
 ➥ *sticker* [sticker name] - Convert image/gif/video to sticker
@@ -39,25 +43,24 @@ module.exports = async function helpCommand(client, message) {
 ➥ *video* [yt link] - Download high quality YouTube video
 ➥ *insta* [insta link] - Get Instagram video/photo
 ➥ *detail* [yt link] - Get video info and channel info
-➥ *q* - Quotely the message
 ➥ *rmbg* - Remove background of replied photo
 ➥ *enhance* or *upscale* - Enhance the given picture
-➥ *toanime* - Convert image to anime
-➥ *toanime3d* - Convert image to 3D anime
-➥ *emoji* [☺️+😅] - Mix your emojis
 ➥ *pint* [query] - Get Pinterest images
 
 *🎭 Fun Commands:*
-➥ *imagine* [prompt] (won't work for now) - Generates image, be patient while running this command
+➥ *q* - Quotely the message
+➥ *imagine* ["prompt" "negative prompt"] (some models won't work sometimes) - Generates image, be patient while running this command
+➥ *draw* [prompt] - in case imagine command is not working
+➥ *meme* [category] - Get random meme
+➥ *joke* [category] - Get random joke
 ➥ *wanted* ["name" bounty] - Get One Piece bounty of given image
 ➥ *tts* ⚠️Depecrated - Convert text to speech model aoi
+➥ *emoji* [☺️+😅] - Mix your emojis
 ➥ *pp* - Get random couple pfp
 ➥ *carbon* [text] - Get carbon photo of given text
+➥ *toanime* - Convert image to anime
+➥ *toanime3d* - Convert image to 3D anime
 
-*📚 Learning Commands:*
-➥ *code* - Generate code (code assistant PaLM)
-➥ *gpt* [prompt] - Ask GPT
-➥ *bard* [prompt] - Ask bard
 
 *🔞 NSFW Commands:*
 ➥ *hanime* - Get hanime videos (m3u8)

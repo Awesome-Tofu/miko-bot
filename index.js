@@ -86,13 +86,13 @@ app.get('/', (req, res) => {
         // If QR code is available and client is not ready
         fs.readFile('index.html', 'utf8', (err, data) => {
             const qr_code = qrimage.imageSync(qrText, { type: 'svg' });
-            const modifiedHTML = data.replace('<div class="loading-animation"></div>', qr_code).replace('<!-- pfp -->', '<img class="github-pfp" src="pfp.gif" alt="GitHub PFP">').replace('Please wait Qr code is being generated', 'Scan the QR code using your WhatsApp app');
+            const modifiedHTML = data.replace('<div class="loading-animation"></div>', qr_code).replace('<!-- pfp -->', '<img class="github-pfp" src="logo.gif" alt="GitHub PFP">').replace('Please wait Qr code is being generated', 'Scan the QR code using your WhatsApp app');
             res.send(modifiedHTML);
         });
     } else if (isClientReady) {
         // If client is ready
         fs.readFile('index.html', 'utf8', (err, data) => {
-            const modifiedHTML = data.replace('<div class="loading-animation"></div>', '<div class="scanning-complete">Scanning complete ✅</div>').replace('Please wait Qr code is being generated', 'Scan completed!').replace('setInterval(checkForQRCode, 5000);', 'setInterval(checkForQRCode, 1000);');
+            const modifiedHTML = data.replace('<div class="loading-animation"></div>', '<div class="scanning-complete">Scanning complete ✅</div>').replace('Please wait Qr code is being generated', 'Scan completed!');
             res.send(modifiedHTML);
         });
     } else {

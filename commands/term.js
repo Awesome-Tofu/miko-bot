@@ -24,7 +24,10 @@ async function evalCommand(client, message, prefix) {
                     const script = new vm.Script(`(async () => { ${command} })()`);
                     const context = {
                         console: {
-                            log: function(value) {
+                            log: async function(value) {
+                                if (value instanceof Promise) {
+                                    value = await value;
+                                }
                                 consoleOutput += util.inspect(value) + '\n';
                             }
                         },

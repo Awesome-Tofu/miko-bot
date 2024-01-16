@@ -100,15 +100,15 @@ async function chatbottoggleCommand(waclient, message, prefix) {
           const chatbotStatus = await collection.findOne({ chatId: chatId });
           if (chatbotStatus) {
               if (chatbotStatus.chatbotEnabled) {
-                  message.reply('Chatbot is currently enabled for this chat.');
+                  message.reply('Chatbot is currently enabled for this chat.\nuse `' + prefix + 'chatbot off` to disable.');
               } else {
-                  message.reply('Chatbot is currently disabled for this chat.');
+                  message.reply('Chatbot is currently disabled for this chat.\n use `' + prefix + 'chatbot on` to enable.');
               }
           } else {
               if (process.env.CHATBOT === 'true') {
-                  message.reply('Chatbot is currently enabled by default.');
+                  message.reply('Chatbot is currently enabled by default.\n use `' + prefix + 'chatbot off` to disable.');
               } else {
-                  message.reply('Chatbot is currently disabled by default.');
+                  message.reply('Chatbot is currently disabled by default.\n use `' + prefix + 'chatbot on` to enable.');
               }
           }
       }

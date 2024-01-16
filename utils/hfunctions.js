@@ -17,7 +17,7 @@ async function tags() {
 //Get random trending videos
 async function trending() {
     try {
-        const response = await fetch('https://alive-miniskirt-seal.cyclic.app/trending/day/1');
+        const response = await fetch('https://hanime.cyclic.app/trending/day/1');
         const data = await response.json();
 
         if (!data.results) {
@@ -40,7 +40,7 @@ async function trending() {
 //Get slug from tag
 async function getSlug(tag, page){
     try{
-        const response = await fetch(`https://alive-miniskirt-seal.cyclic.app/hentai-tags/${tag}/${page}`);
+        const response = await fetch(`https://hanime.cyclic.app/hentai-tags/${tag}/${page}`);
         const data = await response.json();
 
         if (!data.results) {
@@ -61,7 +61,7 @@ async function getSlug(tag, page){
 //Get video from slug
 async function watch(slug){
     try{
-        const response = await fetch(`https://alive-miniskirt-seal.cyclic.app/watch/${slug}`);
+        const response = await fetch(`https://hanime.cyclic.app/watch/${slug}`);
         const data = await response.json();
         const videoData = data.results[0].streams;
         const video360p = videoData.find(video => video.height === "360");
@@ -83,7 +83,7 @@ async function watch(slug){
 
 async function hinfo(slug){
     try{
-        const response = await fetch(`https://alive-miniskirt-seal.cyclic.app/watch/${slug}`);
+        const response = await fetch(`https://hanime.cyclic.app/watch/${slug}`);
         const data = await response.json();
         const resultsData = data.results[0];
         const infoData = {

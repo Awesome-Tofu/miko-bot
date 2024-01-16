@@ -39,10 +39,10 @@ async function chatbotCommand(client, message) {
             }else {
                 id = message.id.participant;
             }
-            apiUrl = `https://tofuapi.onrender.com/char_ai/${charai_token}/aRIvgfWA4uaXxB2wMPsvvBQDbsU5XfPsM0u60ThlDls/${id}/${encodeURIComponent(userMessage)}`;
+            apiUrl = `https://tofu-api.onrender.com/char_ai/${charai_token}/aRIvgfWA4uaXxB2wMPsvvBQDbsU5XfPsM0u60ThlDls/${id}/${encodeURIComponent(userMessage)}`;
           }else{
             console.log('No CharAI token found');
-            apiUrl = `https://tofuapi.onrender.com/cleverbot/${encodeURIComponent(userMessage)}`;
+            apiUrl = `https://tofu-api.onrender.com/cleverbot/${encodeURIComponent(userMessage)}`;
           }
           const response = await fetch(apiUrl);
           if (response.ok) {

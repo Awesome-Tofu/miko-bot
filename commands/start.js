@@ -35,7 +35,7 @@ module.exports = async function startCommand(client, message) {
       }
     } catch (error) {
         console.error('Error while running nekos best API endpoint\n'+error);
-        let response = await fetch('https://tofuapi.onrender.com/get_gif/'+randomEndpoints)
+        let response = await fetch('https://tofu-api.onrender.com/get_gif/'+randomEndpoints)
         const data = await response.json();
         const gifFile = data.gif_url;
         try{

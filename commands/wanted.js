@@ -42,7 +42,7 @@ module.exports = async function wantedCommand(client, message, prefix) {
           const bounty = match[2];
 
           // Constructing the URL with parameters
-          const wantedAPI = `https://one-piece-wanted.onrender.com/generate-poster?image_source=${telegraphImageUrl}&first_name=${encodeURIComponent(name)}&last_name=%E2%80%8E%20&bounty_amount=${bounty}`;
+          const wantedAPI = `https://tofu-api.onrender.com/wantedposter/?image_source=${telegraphImageUrl}&first_name=${encodeURIComponent(name)}&last_name=%E2%80%8E%20&bounty_amount=${bounty}`;
 
           // Fetching the enhanced image
           const media = await MessageMedia.fromUrl(wantedAPI, { unsafeMime: true });

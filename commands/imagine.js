@@ -69,7 +69,7 @@ module.exports = async function imagineCommand(client, message, prefix) {
 
 
                     // Construct the URL for fetching the image with the query and negative prompt
-                    const apiUrl = `https://tofuapi.onrender.com/imagine/${number}/${queryAndNegativePrompt.query}/${queryAndNegativePrompt.negativePrompt}`;
+                    const apiUrl = `https://tofu-api.onrender.com/imagine/${number}/${queryAndNegativePrompt.query}/${queryAndNegativePrompt.negativePrompt}`;
 
                     try {
                         // Fetch the image from the API

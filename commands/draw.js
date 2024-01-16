@@ -24,7 +24,7 @@ module.exports = async function drawCommand(client, message, prefix) {
             prompt: utext,
             neg_prompt: 'Bad hand, bad face, bad art, bad legs, bad chest, bad body, bad quality',
         }
-        const api = 'https://seaart-api.onrender.com/generate';
+        const api = 'https://seaart-api-45bo.onrender.com/generate';
         const response = await axios.post(api, payload);
         const data = response.data;
         const processedImg = data.img;

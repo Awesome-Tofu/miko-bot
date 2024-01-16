@@ -5,7 +5,7 @@ const axios = require('axios');
 
 async function trending() {
     try {
-        const response = await fetch('https://hentaibar.onrender.com/trending/1');
+        const response = await fetch('https://hentaibar-api.onrender.com/trending/1');
         const data = await response.json();
         const formattedNames = data.results.map(result => `➥${result.name}`).join('\n');
         return formattedNames;
@@ -17,7 +17,7 @@ async function trending() {
 
 async function get(tag) {
     try {
-        const response = await fetch(`https://hentaibar.onrender.com/tags/${tag}/1`);
+        const response = await fetch(`https://hentaibar-api.onrender.com/tags/${tag}/1`);
         const data = await response.json();
         const formattedNames = data.results.map(result => `➥${result.name}`).join('\n');
         return formattedNames;
@@ -29,7 +29,7 @@ async function get(tag) {
 
 async function tags(){
     try {
-        const response = await fetch('https://hentaibar.onrender.com/tags/');
+        const response = await fetch('https://hentaibar-api.onrender.com/tags/');
         const data = await response.json();
         const formattedTags = data.tags.map(tag => `➥${tag}`).join('\n');
         return formattedTags;
@@ -41,7 +41,7 @@ async function tags(){
 
 async function search(name){
     try {
-        const response = await fetch(`https://hentaibar.onrender.com/search/${name}/1`);
+        const response = await fetch(`https://hentaibar-api.onrender.com/search/${name}/1`);
         const data = await response.json();
         const formattedNames = data.results.map(result => `➥${result.name}`).join('\n');
         return formattedNames;
@@ -61,7 +61,7 @@ function getRandomNumber(min, max) {
 async function hrandom() {
     try {
         const randomNum = getRandomNumber(112, 123);
-        const response = await fetch(`https://hentaibar.onrender.com/longest/${randomNum}`);
+        const response = await fetch(`https://hentaibar-api.onrender.com/longest/${randomNum}`);
         const data = await response.json();
         const randomIndex = getRandomNumber(0, data.results.length - 1);
         const randomUrlObject = data.results[randomIndex].url;
@@ -85,7 +85,7 @@ async function hrandom() {
 
 async function watch(name){
     try {
-        const response = await fetch(`https://hentaibar.onrender.com/search/${name}/1`); // Replace with your actual API endpoint
+        const response = await fetch(`https://hentaibar-api.onrender.com/search/${name}/1`); // Replace with your actual API endpoint
         const data = await response.json();
 
         // Check if there are any results
@@ -213,7 +213,7 @@ if(!utext.trim()){
     let all_tags = await tags();
     await message.reply(`Available Tags\n\n${all_tags}`);
 }else if(words[0]=="cls"){
-    const response = await fetch('https://hentaibar.onrender.com/delall/');
+    const response = await fetch('https://hentaibar-api.onrender.com/delall/');
     const data = await response.json();
     await message.reply(`cleared videos\n\n${data.status.replace('Cleared ','')}`);
 }

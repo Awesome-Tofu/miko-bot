@@ -10,7 +10,7 @@ module.exports = async function bardCommand(client, message, prefix) {
     }
     const writing = await message.reply('Writing...');
     try {        
-        const response = await fetch(`https://tofuapi.onrender.com/chat/bard/${encodeURIComponent(utext)}`);
+        const response = await fetch(`https://tofu-api.onrender.com/chat/bard/${encodeURIComponent(utext)}`);
         const data = await response.json();
         if (data && data.content) {
             const respon = data.content;

@@ -1,7 +1,6 @@
 {
     "name": "miko-bot",
     "description": "Miko bot whatsapp automated program",
-    "repository": "https://github.com/Awesome-Tofu/miko-bot",
     "logo": "https://miro.medium.com/v2/resize:fit:698/1*0jjdu52m0MO4SjLWiCVOlg.jpeg",
     "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device", "whatsapp-web.js"],
     "env": {

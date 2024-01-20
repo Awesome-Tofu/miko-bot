@@ -90,7 +90,7 @@ async function listsudoCommand(waclient, message) {
         let sudoUserDetails = '';
 
         for (let user of sudoUsers) {
-            const contact = await client.getContactById(user.number + '@c.us');
+            const contact = await waclient.getContactById(user.number + '@c.us');
             const name = contact.pushname || 'No Name';
             sudoUserDetails += `${user.number} (${name})\n`;
         }

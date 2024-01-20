@@ -22,7 +22,7 @@ async function addsudoCommand(waclient, message) {
             await client.connect();
             const collection = client.db("SUDO").collection("users");
             const contactNumber = quotedMsg.author.replace('@c.us', '') || quotedMsg.from.replace('@c.us', '');
-            const result = await collection.insertOne({ number: contactNumber });
+            await collection.insertOne({ number: contactNumber });
             message.reply(`Added sudo user for number: ${contactNumber}`);
         } catch (error) {
             console.error(error);
@@ -56,7 +56,7 @@ async function delsudoCommand(waclient, message) {
             await client.connect();
             const collection = client.db("SUDO").collection("users");
             const contactNumber = quotedMsg.author.replace('@c.us', '') || quotedMsg.from.replace('@c.us', '');
-            const result = await collection.deleteOne({ number: contactNumber });
+            await collection.deleteOne({ number: contactNumber });
             message.reply(`Removed sudo user for number: ${contactNumber}`);
         } catch (error) {
             console.error(error);
@@ -79,7 +79,7 @@ async function listsudoCommand(waclient, message) {
     try {
         await client.connect();
         const collection = client.db("SUDO").collection("users");
-        const senderNumber = message.author.replace('@c.us', '') || message.from.replace('@c.us', '');
+        const senderNumber = message.author == undefined ? message.from.replace('@c.us', '') : message.author.replace('@c.us', '');
         const sudoUser = await collection.findOne({ number: senderNumber });
         if (senderNumber !== process.env.OWNER_NUMBER && !sudoUser) {
             message.reply('⚠️ You do not have rights to do that');
@@ -107,7 +107,7 @@ async function isSudoUser(message) {
     try {
         await client.connect();
         const collection = client.db("SUDO").collection("users");
-        const senderNumber = message.author.replace('@c.us', '') || message.from.replace('@c.us', '');
+        const senderNumber = message.author == undefined ? message.from.replace('@c.us', '') : message.author.replace('@c.us', '');
         const sudoUser = await collection.findOne({ number: senderNumber });
         return sudoUser !== null;
     } catch (error) {

@@ -31,12 +31,9 @@ module.exports = async function ttsCommand(client, message) {
     try {
         if (message.hasQuotedMsg) {
             let quotedMsg = await message.getQuotedMessage();
-            let query = encodeURIComponent(quotedMsg.body); // Encode the text for the API request
+            let query = encodeURIComponent(quotedMsg.body);
 
-
-            // Create a MessageMedia instance with the audio buffer
-            // const media = await MessageMedia.fromUrl(`https://api.yanzbotz.my.id/api/tts/aoi?query=${query}`, {unsafeMime: true});
-            const mp3Url = `https://api.yanzbotz.my.id/api/tts/aoi?query=${query}`;
+            const mp3Url = `https://tofu-api.onrender.com/voice_ai/22/${query}`;
 
             const outputPath = './commands/audio_dl/download.mp3';
 

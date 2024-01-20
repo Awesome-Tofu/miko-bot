@@ -87,12 +87,20 @@ async function listsudoCommand(waclient, message) {
             return;
         }
         const sudoUsers = await collection.find().toArray();
-        const sudoUserNumbers = sudoUsers.map(user => user.number).join(', ');
-        if (!sudoUserNumbers) {
+        let sudoUserDetails = '';
+
+        for (let user of sudoUsers) {
+            const contact = await client.getContactById(user.number + '@c.us');
+            const name = contact.pushname || 'No Name';
+            sudoUserDetails += `${user.number} (${name})\n`;
+        }
+        
+        if (!sudoUserDetails) {
             message.reply(`No sudo users.`);
             return;
         }
-        message.reply(`Sudo users: ${sudoUserNumbers}`);
+        
+        message.reply(`Sudo users:\n${sudoUserDetails}`);
     } catch (error) {
         console.error(error);
         message.reply(`⚠️ Error:\n${error.message}`);

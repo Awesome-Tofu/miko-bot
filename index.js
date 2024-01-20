@@ -42,7 +42,7 @@ const delCommand = require('./commands/del');
 const tinyCommand = require('./commands/tinyurl');
 const rmbgCommand = require('./commands/rmbg');
 const carbonCommand = require('./commands/carbon');
-const { promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, supportCommand, idCommand } = require('./commands/group');
+const { promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, revokeCommand, supportCommand, idCommand } = require('./commands/group');
 const { toanimeCommand, toanime3dCommand } = require('./commands/toanime');
 const emojiCommand = require('./commands/emojimix');
 const hbarCommand = require('./commands/hbar');
@@ -152,7 +152,7 @@ client.on('message', async message => {
     } else if (message_body.startsWith(prefix + "ping")) {
         pingCommand(client, message);
     } else if (message_body.startsWith(prefix + "help")) {
-        helpCommand(client, message);
+        helpCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "sticker")) {
         stickerCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "test")) {
@@ -161,6 +161,8 @@ client.on('message', async message => {
         tlCommand(client, message);
     } else if (message_body.startsWith(prefix + "tr")) {
         trCommand(client, message, prefix);
+    } else if (message_body.startsWith(prefix + "revoke")) {
+        revokeCommand(client, message);
     } else if (message_body.startsWith(prefix + "report")) {
         reportCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "repo")) {

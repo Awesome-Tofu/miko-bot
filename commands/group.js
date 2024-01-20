@@ -238,12 +238,42 @@ async function inviteCommand(client, message) {
     }
 };
 
+async function revokeCommand(client, message) {
+    const chat = await message.getChat();
+    if (!chat.isGroup) {
+        message.reply('This command only works in groups.');
+        return;
+    }
+
+    const botId = `${process.env.BOT_NUMBER}@c.us`;
+    const isBotAdmin = chat.participants.find((participant) => {
+        return participant.id._serialized === botId && participant.isAdmin;
+    });
+    if (!isBotAdmin) {
+        message.reply('I am not admin, promote me to admin to use this command');
+        return;
+    }
+
+    // Check if the replied user is already an admin
+    const userid = message.author;
+    const isUserAdmin = chat.participants.find((participant) => {
+        return participant.id._serialized === userid && participant.isAdmin;
+    });
+
+    if (!isUserAdmin) {
+        message.reply('You are not an admin.');
+        return;
+    }
+
+    const newInviteLink = await chat.revokeInvite();
+    await message.reply('Revoked the current invite link. This is the new link: \nhttps://chat.whatsapp.com/' + newInviteLink);
+}
 
 async function reportCommand(client, message, prefix) {
     const utext = message.body.split(prefix + "report")[1];
     let inviteLink;
     if(!utext.trim()){
-        message.reply('please provide the problem\n*Example*\n.report there is something wrong with .gpt command');
+        message.reply('please provide the problem\n*Example*\n.report there is something wrong with '+prefix+'gpt command');
         return;
     }
     const chat = await message.getChat();
@@ -259,8 +289,12 @@ async function reportCommand(client, message, prefix) {
 }
 
 async function supportCommand(client, message) {
-    await message.reply('```⭐Feel free to join our support group⭐```'+`\n\n*https://chat.whatsapp.com/E0XzCPRXoip16GVoG9yUV0*`);
+    const chat = await client.getChatById('120363179001099439@g.us');
+    const inviteCode = await chat.getInviteCode();
+    const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
+    await message.reply('```⭐Feel free to join our support group⭐```'+`\n\n*${inviteLink}*`);
 }
+
 
 async function idCommand(client, message){
 
@@ -295,6 +329,7 @@ module.exports = {
     kickCommand,
     inviteCommand,
     reportCommand,
+    revokeCommand,
     supportCommand,
     idCommand
   };

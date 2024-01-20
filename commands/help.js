@@ -1,74 +1,76 @@
-module.exports = async function helpCommand(client, message) {
+module.exports = async function helpCommand(client, message, prefix) {
     await message.reply(`
 *💻 Owner or Sudo Commands:*
-➥ *eval* [code] - Evaluate the given JavaScript code
-➥ *term* [command] - Execute the given command in terminal
-➥ *sudos* - List all sudo users
-➥ *addsudo* - Add a sudo user
-➥ *delsudo* - Remove a sudo user
+➥ *${prefix}eval* [code] - Evaluate the given JavaScript code
+➥ *${prefix}term* [command] - Execute the given command in terminal
+➥ *${prefix}sudos* - List all sudo users
+➥ *${prefix}addsudo* - Add a sudo user
+➥ *${prefix}delsudo* - Remove a sudo user
 
 *🤖 Bot Commands:*
-➥ *start* - Start the bot
-➥ *help* - Display this help message
-➥ *ping* - Pong!
+➥ *${prefix}start* - Start the bot
+➥ *${prefix}help* - Display this help message
+➥ *${prefix}ping* - Pong!
 
 *👥 User Management:*
-➥ *promote* [@tag] - Promote replied user (only admins)
-➥ *demote* [@tag] - Demote replied user (only admins)
-➥ *kick* [@tag] - Remove replied user (only admins)
-➥ *chatbot* [on/off] - turn on or off chatbot (only admins)
-➥ *id* [@tag] - Get user ID
-➥ *info* - Get info of replied user
-➥ *extract* [@number] - Get number info
+➥ *${prefix}promote* [@tag] - Promote replied user (only admins)
+➥ *${prefix}demote* [@tag] - Demote replied user (only admins)
+➥ *${prefix}kick* [@tag] - Remove replied user (only admins)
+➥ *${prefix}revoke* - Reset group chat link (only admins) 
+➥ *${prefix}invite* - Get group chat link
+➥ *${prefix}chatbot* [on/off] - turn on or off chatbot (only admins)
+➥ *${prefix}id* [@tag] - Get user ID
+➥ *${prefix}info* - Get info of replied user
+➥ *${prefix}extract* [@number] - Get number info
 
 *🔧 Utilities:*
-➥ *report* [message] - Report any problem to devs
-➥ *support* - Join our support group
-➥ *tl* or *telegraph* - Generate link of file
-➥ *tr* [language code] - Translate
-➥ *paste* [text] - Paste the text to link
-➥ *tiny* [link] - Get shortened URL of given link
-➥ *wiki* [query] - Get details from Wikipedia
-➥ *sauce* - Get source of replied anime media
-➥ *getprompt* - Get ai prompt from replied image
+➥ *${prefix}report* [message] - Report any problem to devs
+➥ *${prefix}support* - Join our support group
+➥ *${prefix}tl* or *telegraph* - Generate link of file
+➥ *${prefix}tr* [language code] - Translate
+➥ *${prefix}paste* [text] - Paste the text to link
+➥ *${prefix}tiny* [link] - Get shortened URL of given link
+➥ *${prefix}wiki* [query] - Get details from Wikipedia
+➥ *${prefix}sauce* - Get source of replied anime media
+➥ *${prefix}getprompt* - Get ai prompt from replied image
 
 *📚 Learning Commands:*
-➥ *code* [prompt] - Generate code (code assistant PaLM)
-➥ *gpt* [prompt] - Ask GPT
-➥ *bard* [prompt] - Ask bard
+➥ *${prefix}code* [prompt] - Generate code (code assistant PaLM)
+➥ *${prefix}gpt* [prompt] - Ask GPT
+➥ *${prefix}bard* [prompt] - Ask bard
 
 *🎨 Media Commands:*
-➥ *sticker* [sticker name] - Convert image/gif/video to sticker
-➥ *audio* [yt link] - Download high quality YouTube audio
-➥ *video* [yt link] - Download high quality YouTube video
-➥ *insta* [insta link] - Get Instagram video/photo
-➥ *detail* [yt link] - Get video info and channel info
-➥ *rmbg* - Remove background of replied photo
-➥ *enhance* or *upscale* - Enhance the given picture
-➥ *pint* [query] - Get Pinterest images
+➥ *${prefix}sticker* [sticker name] - Convert image/gif/video to sticker
+➥ *${prefix}audio* [yt link] - Download high quality YouTube audio
+➥ *${prefix}video* [yt link] - Download high quality YouTube video
+➥ *${prefix}insta* [insta link] - Get Instagram video/photo
+➥ *${prefix}detail* [yt link] - Get video info and channel info
+➥ *${prefix}rmbg* - Remove background of replied photo
+➥ *${prefix}enhance* or *upscale* - Enhance the given picture
+➥ *${prefix}pint* [query] - Get Pinterest images
 
 *🎭 Fun Commands:*
-➥ *q* - Quotely the message
-➥ *imagine* ["prompt" "negative prompt"] (some models won't work sometimes) - Generates image, be patient while running this command
-➥ *draw* [prompt] - in case imagine command is not working
-➥ *meme* [category] - Get random meme
-➥ *joke* [category] - Get random joke
-➥ *wanted* ["name" bounty] - Get One Piece bounty of given image
-➥ *tts* ⚠️Depecrated - Convert text to speech model aoi
-➥ *emoji* [☺️+😅] - Mix your emojis
-➥ *pp* - Get random couple pfp
-➥ *carbon* [text] - Get carbon photo of given text
-➥ *toanime* - Convert image to anime
-➥ *toanime3d* - Convert image to 3D anime
+➥ *${prefix}q* - Quotely the message
+➥ *${prefix}imagine* ["prompt" "negative prompt"] (some models won't work sometimes) - Generates image, be patient while running this command
+➥ *${prefix}draw* [prompt] - in case imagine command is not working
+➥ *${prefix}meme* [category] - Get random meme
+➥ *${prefix}joke* [category] - Get random joke
+➥ *${prefix}wanted* ["name" bounty] - Get One Piece bounty of given image
+➥ *${prefix}tts* - Convert text to speech model aoi
+➥ *${prefix}emoji* [☺️+😅] - Mix your emojis
+➥ *${prefix}pp* - Get random couple pfp
+➥ *${prefix}carbon* [text] - Get carbon photo of given text
+➥ *${prefix}toanime* - Convert image to anime
+➥ *${prefix}toanime3d* - Convert image to 3D anime
 
 
 *🔞 NSFW Commands:*
-➥ *hanime* - Get hanime videos (m3u8)
-➥ *hbar* - Get hentaibar videos (mp4)
+➥ *${prefix}hanime* - Get hanime videos (m3u8)
+➥ *${prefix}hbar* - Get hentaibar videos (mp4)
 
 *🔗 Other Commands:*
-➥ *repo* - Provides repo (deployable on Heroku)
-➥ *owner* - Provides owner contact
+➥ *${prefix}repo* - Provides repo (deployable on Heroku)
+➥ *${prefix}owner* - Provides owner contact
 
     `);
 }

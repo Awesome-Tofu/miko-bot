@@ -33,6 +33,7 @@ async function evalCommand(client, message, prefix) {
                         },
                         message: message, // Add message to the context
                         client: client, // Add client to the context
+                        process: process, // Add process to the context
                         require: require, // Add require to the context
                         MessageMedia: MessageMedia, // Add MessageMedia to the context
                         __dirname: __dirname, // Add __dirname to the context

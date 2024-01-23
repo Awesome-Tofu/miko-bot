@@ -11,7 +11,7 @@ module.exports = async function codeCommand(client, message, prefix) {
 
     const writing = await message.reply('Writing...');
         try{
-            const response = await fetch(`https://tofu-api.onrender.com/chat/palm/${encodeURIComponent(utext)}`);
+            const response = await fetch(`https://api.qewertyy.me/models?model_id=1&prompt=${encodeURIComponent(utext)}`);
             const data = await response.json();
             const respon = await data.content;
             await writing.edit(respon);

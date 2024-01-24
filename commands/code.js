@@ -1,5 +1,4 @@
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-
+const axios = require('axios');
 
 module.exports = async function codeCommand(client, message, prefix) {
     let utext = message.body.split(prefix + "code")[1].trim();
@@ -11,12 +10,15 @@ module.exports = async function codeCommand(client, message, prefix) {
 
     const writing = await message.reply('Writing...');
         try{
-            const response = await fetch(`https://api.qewertyy.me/models?model_id=1&prompt=${encodeURIComponent(utext)}`);
-            const data = await response.json();
-            const respon = await data.content;
-            await writing.edit(respon);
+            const response = await axios.post(`https://api.qewertyy.me/models?model_id=23&prompt=${encodeURIComponent(utext)}`, {}, {
+                headers: {
+                    'accept': 'application/json'
+                }
+            });
+            const data = response.data.content;
+            await writing.edit(data[0].text);
         
         }catch(error){
-            writing.edit('Something went wrong.');
+            writing.edit('Something went wrong.\n'+ `${error.message}`);
         }
 }

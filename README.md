@@ -21,12 +21,17 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    ```bash
    git clone https://github.com/awesome-tofu/miko-bot.git
 
-2. **Install  Dependencies:**
+2. **Change the Directory**:
+
+   ```bash
+    cd miko-bot
+
+3. **Install  Dependencies:**
 
     ```bash
     npm install
 
-3. **Set Environment Variables:**
+4. **Set Environment Variables:**
 
    **sample:** [sample.env](https://github.com/Awesome-Tofu/miko-bot/blob/main/sample.env)
     ```env
@@ -49,7 +54,7 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
 
    Open the link provided by the deployment platform OR if you are running on local platform open http://localhost:3000/
 
-5. **Command Usage:**
+7. **Command Usage:**
    
    Once the bot is running, you can start sending commands and messages to it via WhatsApp.
 

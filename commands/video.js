@@ -1,13 +1,21 @@
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 const { MessageMedia } = require('whatsapp-web.js');
+const axios = require('axios');
 
 module.exports = async function videoCommand(client, message, prefix) {
     try {
-        const utext = message.body.split(prefix + "video")[1].trim();
+        let utext = message.body.split(prefix + "video")[1].trim();
         if (!utext.trim()) {
             message.reply("No query!");
             return;
         } else {
+            if(utext.startsWith('https://')){
+                utext = utext;
+            }else{
+                const response = await axios(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&type=video&key=AIzaSyCqcwglCnBbIBhkZ5o8Poek_Jxzd3tknK8&q=${utext.trim()}`);
+                const data = response.data.items[0].id.videoId;
+                utext = `https://www.youtube.com/watch?v=${data}`;
+            }   
             const downloading = await message.reply('```Please be patient while the video is downloading...```');
             const response = await fetch(`https://vihangayt.me/download/ytmp4?url=${utext.trim()}`);
             const data = await response.json();
@@ -38,6 +46,6 @@ module.exports = async function videoCommand(client, message, prefix) {
         }
     } catch (error) {
         message.reply("Error"+`\n\n${error.message}`);
-        console.log(error);
+        // console.log(error);
     }
 }

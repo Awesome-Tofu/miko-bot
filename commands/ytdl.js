@@ -4,56 +4,63 @@ const ytdl = require('ytdl-core');
 const { MessageMedia } = require('whatsapp-web.js');
 const fs = require('fs');
 const ffmpeg = require('fluent-ffmpeg');
-
-
+const axios = require('axios');
 
 // YOUTUBE AUDIO DOWNLOADER
 async function AudioDownloadYouTube(client, message, prefix) {
-    let url = message.body.split(prefix + "audio")[1].trim();
+    let url = message.body.split(prefix + "song")[1].trim();
+
     try {
-        if(!url.trim())
-        {
+        if (!url.trim()) {
             await message.reply('No query!');
             return;
         }
-        else
-        {
+        else {
+            const processing = await message.reply('```Please be patient while the audio is downloading...```');
+            if (url.startsWith('https://')) {
+                url = url;
+            } else {
+                const response = await axios(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=20&type=video&key=AIzaSyCqcwglCnBbIBhkZ5o8Poek_Jxzd3tknK8&q=${url.trim()}`);
+                const data = response.data.items[0].id.videoId;
+                url = `https://www.youtube.com/watch?v=${data}`;
+            }
             let info = await ytdl.getInfo(url);
-            let data = 
+            let data =
             {
-            "channel": {
-                "name": info.videoDetails.author.name,
-                "user": info.videoDetails.author.user,
-                "channelUrl": info.videoDetails.author.channel_url,
-                "userUrl": info.videoDetails.author.user_url,
-                "verified": info.videoDetails.author.verified,
-                "subscriber": info.videoDetails.author.subscriber_count
-            },
-            "video": {
-                "title": info.videoDetails.title,
-                "description": info.videoDetails.description,
-                "lengthSeconds": info.videoDetails.lengthSeconds,
-                "videoUrl": info.videoDetails.video_url,
-                "publishDate": info.videoDetails.publishDate,
-                "viewCount": info.videoDetails.viewCount
+                "channel": {
+                    "name": info.videoDetails.author.name,
+                    "user": info.videoDetails.author.user,
+                    "channelUrl": info.videoDetails.author.channel_url,
+                    "userUrl": info.videoDetails.author.user_url,
+                    "verified": info.videoDetails.author.verified,
+                    "subscriber": info.videoDetails.author.subscriber_count
+                },
+                "video": {
+                    "thumbnail": info.videoDetails.thumbnails[0].url,
+                    "title": info.videoDetails.title,
+                    "description": info.videoDetails.description,
+                    "lengthSeconds": info.videoDetails.lengthSeconds,
+                    "videoUrl": info.videoDetails.video_url,
+                    "publishDate": info.videoDetails.publishDate,
+                    "viewCount": info.videoDetails.viewCount
+                }
             }
-            }
+            const media = await MessageMedia.fromUrl(data.video.thumbnail, { unsafeMime: true});
+            await client.sendMessage(message.from, media, { sendMediaAsSticker: true, stickerName: data.channel.user  });
             ytdl(url, { filter: 'audioonly', format: 'mp3', quality: 'highest' }).pipe(fs.createWriteStream(`./commands/audio_dl/download.mp3`)).on('finish', async () => {
-              const media = await MessageMedia.fromFilePath(`./commands/audio_dl/download.mp3`);
-              media.filename = `youtubedl.mp3`;
-              message.reply('```Please be patient while the audio is downloading...```');
-              const caption = `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`
-              await client.sendMessage(message.from, media, { caption:caption,sendMediaAsDocument: true });
-              await processAudio(client, message, './commands/audio_dl/download.mp3');
-        });
-    }
-}catch(error){
+                const media = await MessageMedia.fromFilePath(`./commands/audio_dl/download.mp3`);
+                media.filename = `${data.video.title}.mp3`;
+                await processing.delete(true);
+                const caption = `• Title : *${data.video.title}*\n• Channel : *${data.channel.user}*\n• View Count : *${data.video.viewCount}*`
+                await client.sendMessage(message.from, media, { caption: caption, sendMediaAsDocument: true });
+                await processAudio(client, message, './commands/audio_dl/download.mp3');
+            });
+        }
+    } catch (error) {
         console.log(error);
         message.reply('Something went wrong.');
     }
 }
-
-
 
 
 async function processAudio(client, message, inputFilePath) {
@@ -85,47 +92,45 @@ async function processAudio(client, message, inputFilePath) {
 async function GetYouTubeInfo(client, message, prefix) {
     let url = message.body.split(prefix + "detail")[1].trim();
     try {
-        if(!url.trim())
-        {
+        if (!url.trim()) {
             await message.reply('No query!')
             return;
         }
-        else
-        {
+        else {
             let info = await ytdl.getInfo(url);
-            let data = 
+            let data =
             {
-            "channel": {
-                "name": info.videoDetails.author.name,
-                "user": info.videoDetails.author.user,
-                "channelUrl": info.videoDetails.author.channel_url,
-                "userUrl": info.videoDetails.author.user_url,
-                "verified": info.videoDetails.author.verified,
-                "subscriber": info.videoDetails.author.subscriber_count
-            },
-            "video": {
-                "title": info.videoDetails.title,
-                "description": info.videoDetails.description,
-                "lengthSeconds": info.videoDetails.lengthSeconds,
-                "videoUrl": info.videoDetails.video_url,
-                "publishDate": info.videoDetails.publishDate,
-                "viewCount": info.videoDetails.viewCount
-            }
+                "channel": {
+                    "name": info.videoDetails.author.name,
+                    "user": info.videoDetails.author.user,
+                    "channelUrl": info.videoDetails.author.channel_url,
+                    "userUrl": info.videoDetails.author.user_url,
+                    "verified": info.videoDetails.author.verified,
+                    "subscriber": info.videoDetails.author.subscriber_count
+                },
+                "video": {
+                    "title": info.videoDetails.title,
+                    "description": info.videoDetails.description,
+                    "lengthSeconds": info.videoDetails.lengthSeconds,
+                    "videoUrl": info.videoDetails.video_url,
+                    "publishDate": info.videoDetails.publishDate,
+                    "viewCount": info.videoDetails.viewCount
+                }
             }
             client.sendMessage(message.from, `*CHANNEL DETAILS*\n• Name : *${data.channel.name}*\n• User : *${data.channel.user}*\n• Verified : *${data.channel.verified}*\n• Channel : *${data.channel.channelUrl}*\n• Subscriber : *${data.channel.subscriber}*`);
             client.sendMessage(message.from, `*VIDEO DETAILS*\n• Title : *${data.video.title}*\n• Seconds : *${data.video.lengthSeconds}*\n• VideoURL : *${data.video.videoUrl}*\n• Publish : *${data.video.publishDate}*\n• Viewers : *${data.video.viewCount}*`)
             client.sendMessage(message.from, '*[✅]* Success!');
         }
-    }catch(error){
-            console.log(error);
-            message.reply('Something went wrong.');
-        }
+    } catch (error) {
+        console.log(error);
+        message.reply('Something went wrong.');
+    }
 
 }
 
 
 // Export all the functions in an object
 module.exports = {
-  AudioDownloadYouTube,
-  GetYouTubeInfo
+    AudioDownloadYouTube,
+    GetYouTubeInfo
 };

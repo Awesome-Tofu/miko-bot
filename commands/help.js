@@ -39,12 +39,14 @@ module.exports = async function helpCommand(client, message, prefix) {
 ➥ *${prefix}gpt* [prompt] - Ask GPT
 ➥ *${prefix}bard* [prompt] - Ask bard
 
-*🎨 Media Commands:*
-➥ *${prefix}sticker* [sticker name] - Convert image/gif/video to sticker
-➥ *${prefix}audio* [yt link] - Download high quality YouTube audio
-➥ *${prefix}video* [yt link] - Download high quality YouTube video
+*⬇️ Downloader Commands:*
+➥ *${prefix}song* [yt link or query] - Download high quality YouTube audio
+➥ *${prefix}video* [yt link or query] - Download high quality YouTube video
 ➥ *${prefix}insta* [insta link] - Get Instagram video/photo
 ➥ *${prefix}detail* [yt link] - Get video info and channel info
+
+*🎨 Media Commands:*
+➥ *${prefix}sticker* [sticker name] - Convert image/gif/video to sticker
 ➥ *${prefix}rmbg* - Remove background of replied photo
 ➥ *${prefix}enhance* or *upscale* - Enhance the given picture
 ➥ *${prefix}pint* [query] - Get Pinterest images

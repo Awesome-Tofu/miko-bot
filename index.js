@@ -55,7 +55,6 @@ const memeCommand = require('./commands/meme');
 const jokeCommand = require('./commands/joke');
 const { addsudoCommand, delsudoCommand, listsudoCommand } = require('./commands/sudo');
 
-
 //Code
 const app = express();
 const port = process.env.PORT || 3000;
@@ -64,7 +63,6 @@ const puppeteerExecutablePath =
     process.env.NODE_ENV === 'production'
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath();
-
 
 const client = new Client({
     // ffmpegPath: '/app/vendor/ffmpeg',
@@ -115,13 +113,9 @@ client.on('qr', async (text) => {
     console.log('Visit the server URL to scan the code');
 });
 
-
-
-
 client.on('remote_session_saved', async () => {
     console.log('SESSION SAVED');
 })
-
 
 client.on('authenticated', async (session) => {
     console.log('WHATSAPP WEB => Authenticated');
@@ -129,17 +123,14 @@ client.on('authenticated', async (session) => {
 
 client.on('ready', async () => {
     console.log('Miko bot started successfully!');
-    const support_group_id = "120363179001099439@g.us";
+    isClientReady = true;
     try {
         client.acceptInvite('E0XzCPRXoip16GVoG9yUV0');
         console.log('Joined the group!');
-    } catch (e) {
-        console.log('That invite code seems to be invalid.');
+    } catch (error) {
+        console.error("Error in joining the support group");
     }
-    isClientReady = true;
 });
-
-
 
 // Commands here
 
@@ -183,7 +174,7 @@ client.on('message', async message => {
         evalCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "info")) {
         infoCommand(client, message, prefix);
-    } else if (message_body.startsWith(prefix + "audio")) {
+    } else if (message_body.startsWith(prefix + "song")) {
         AudioDownloadYouTube(client, message, prefix);
     } else if (message_body.startsWith(prefix + "video")) {
         videoCommand(client, message, prefix);

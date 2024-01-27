@@ -33,6 +33,7 @@ module.exports = async function helpCommand(client, message, prefix) {
 ➥ *${prefix}wiki* [query] - Get details from Wikipedia
 ➥ *${prefix}sauce* - Get source of replied anime media
 ➥ *${prefix}getprompt* - Get ai prompt from replied image
+➥ *${prefix}truecaller* - Get details from truecaller
 
 *📚 Learning Commands:*
 ➥ *${prefix}code* [prompt] - Generate code (code assistant PaLM)
@@ -53,7 +54,7 @@ module.exports = async function helpCommand(client, message, prefix) {
 
 *🎭 Fun Commands:*
 ➥ *${prefix}q* - Quotely the message
-➥ *${prefix}imagine* ["prompt" "negative prompt"] (some models won't work sometimes) - Generates image, be patient while running this command
+➥ *${prefix}imagine* ["prompt" "negative prompt"] (better use draw command) - Generates image, be patient while running this command
 ➥ *${prefix}draw* [prompt] - in case imagine command is not working
 ➥ *${prefix}meme* [category] - Get random meme
 ➥ *${prefix}joke* [category] - Get random joke

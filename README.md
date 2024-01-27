@@ -44,6 +44,7 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    NUMVERIFY_KEY (optional)
    CHARAI_TOKEN (optional) (see how to get https://pycai.gitbook.io/welcome/api/values#key-token)
    CHATBOT (optional) (set default chatbot true/false)
+   INSTALLATION_ID (optional) (get truecaller installation ID from https://replit.com/@E-Venture/truecaller-installation-id?v=1)
     
 
 5. **Start the script:**

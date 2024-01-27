@@ -54,6 +54,7 @@ const getpromptCommand = require('./commands/getprompt');
 const memeCommand = require('./commands/meme');
 const jokeCommand = require('./commands/joke');
 const { addsudoCommand, delsudoCommand, listsudoCommand } = require('./commands/sudo');
+const truecallerCommand = require('./commands/truecaller');
 
 //Code
 const app = express();
@@ -148,6 +149,8 @@ client.on('message', async message => {
         stickerCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "test")) {
         testCommand(client, message, prefix);
+    } else if (message_body.startsWith(prefix + "truecaller")) {
+        truecallerCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "tl") || message_body.startsWith(prefix + "telegraph")) {
         tlCommand(client, message);
     } else if (message_body.startsWith(prefix + "tr")) {

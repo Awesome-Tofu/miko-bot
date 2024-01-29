@@ -30,6 +30,7 @@ module.exports = async function pintCommand(client, message, prefix) {
         // Sending each image one by one
         for (const imageUrl of images) {
           const media = await MessageMedia.fromUrl(imageUrl, { unsafeMime: true });
+          await new Promise(resolve => setTimeout(resolve, 1000));
           await message.reply(media);
         }
       } else {

@@ -1,5 +1,5 @@
-const axios = require('axios');
 const { MessageMedia } = require('whatsapp-web.js');
+const generate = require('../utils/drawmodule');
 
 let processingRequest = false;
 
@@ -17,16 +17,11 @@ module.exports = async function drawCommand(client, message, prefix) {
             return;
         }
         const processing = await message.reply(`*Processing...*`);
-        const models = ['quartz', 'MeinaHentai', 'Counterfeit-V3.0', 'MeinaUnreal', 'NUKE - ColorMax Anime', 'Loli Diffusion AOM2 SFW', 'AnythingElse V4', '万象熔炉 | Anything V5/Ink', 'Hardcore - Asian Porn', 'Pastel+lines mix', 'Kawaii Realistic Manga Mix'];
+        const models = ['quartz', 'MeinaHentai', 'Counterfeit-V3.0', 'MeinaUnreal', 'NUKE - ColorMax Anime', 'Loli Diffusion AOM2 SFW', 'AnythingElse V4', '万象熔炉 | Anything V5/Ink', 'Hardcore - Asian Porn', 'Pastel+lines mix', 'Kawaii Realistic Manga Mix', 'cornflower - stylized', 'fiamix++ H'];
         const randomModel = models[Math.floor(Math.random() * models.length)];
-        const payload = {
-            model: randomModel,
-            prompt: utext,
-            neg_prompt: 'Bad hand, bad face, bad art, bad legs, bad chest, bad body, bad quality',
-        }
-        const api = 'https://seaart-api-awesome-tofu.koyeb.app/generate';
-        const response = await axios.post(api, payload);
-        const data = response.data;
+        const neg_prompt = 'Bad hand, bad face, bad art, bad legs, bad chest, bad body, bad quality'
+
+        const data = await generate(utext, neg_prompt, randomModel);
         const processedImg = data.img;
         const chosmodel = data.model;
         await processing.edit('Done!');

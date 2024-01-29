@@ -9,11 +9,15 @@ async function gptCommand(client, message, prefix) {
     }
     const writing = await message.reply('Writing...');
         try{
-            const response = await fetch(`https://vihangayt.me/tools/chatgpt?q=${utext}`);
+            const response = await fetch('https://api.qewertyy.me/models?model_id=5&prompt='+encodeURIComponent(utext), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+            });
             const data = await response.json();
-            const respon = await data.data;
+            const respon = await data.content;
             await writing.edit(respon);
-        
         }catch(error){
             writing.edit('Something went wrong.');
         }

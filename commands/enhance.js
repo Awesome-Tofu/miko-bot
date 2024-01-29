@@ -1,29 +1,7 @@
 const axios = require("axios");
-const FormData = require("form-data");
-let mime = require("mime-to-extensions");
 const { MessageMedia } = require('whatsapp-web.js');
-
-
-
-async function telegraph(attachmentData) {
-    let form = new FormData();
-    form.append("file", Buffer.from(attachmentData.data, "base64"), {
-      filename: `telegraph.${mime.extension(attachmentData.mimetype)}`,
-    });
-  
-    return axios
-      .create({
-        headers: form.getHeaders(),
-      })
-      .post("https://te.legra.ph/upload", form)
-      .then((response) => {
-        return "https://te.legra.ph" + response.data[0].src;
-      })
-      .catch((error) => {
-        return "error";
-      });
-  }
-
+const fs = require("fs").promises;
+const normalfs = require("fs");
 
 module.exports = async function enhanceCommand(client, message) {
   try{
@@ -31,21 +9,24 @@ module.exports = async function enhanceCommand(client, message) {
     if (message.hasQuotedMsg) {
         let quotedMsg = await message.getQuotedMessage();
         let attachmentData = await quotedMsg.downloadMedia();
-        let data = await telegraph(attachmentData);
-        if (data == "error") {
-          quotedMsg.reply(`Error occured while create direct link.`);
-        } else {
-          const enhancing = await message.reply(`Enhancing...`);
-          const enhanceAPI = 'https://vihangayt.me/tools/enhance?url='
-          const media = await MessageMedia.fromUrl(`${enhanceAPI}${data}`, {unsafeMime: true});
-          await client.sendMessage(message.from, media, {caption: "*Enhanced image*", sendMediaAsDocument: true});
-          await enhancing.delete(true);
-        }
+        normalfs.writeFileSync('./commands/images/input.png', attachmentData.data, 'base64');
+        const enhancing = await message.reply(`Enhancing...`);
+        const attachmentData2 = await fs.readFile('./commands/images/input.png');
+        const base64Data = Buffer.from(attachmentData2).toString('base64');
+        const enhanceAPI = 'https://api.qewertyy.me/upscale';
+        const response = await axios.post(enhanceAPI, {image_data: base64Data}, {responseType: 'arraybuffer', responseEncoding: 'binary'});
+        await fs.writeFile('./commands/images/enhanced.png', response.data);
+        
+        const media = await MessageMedia.fromFilePath('./commands/images/enhanced.png');
+        await client.sendMessage(message.from, media, {caption: "*Enhanced image*", sendMediaAsDocument: true});
+        await enhancing.delete(true);
+      
       } else {
         await message.reply("*Error*\n```Please reply to a media file```");
       }
   }catch(error){
-    await message.reply("*Error*\n```Can't support text!```")
+    await message.reply("*Error*\n```"+error+"```");
+    console.error(error)
   } 
 
 }

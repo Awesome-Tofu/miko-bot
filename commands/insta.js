@@ -1,4 +1,4 @@
-const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+const { igdl } = require('../utils/igdl');
 const { MessageMedia } = require('whatsapp-web.js');
 
 module.exports = async function instaCommand(client, message, prefix) {
@@ -13,28 +13,16 @@ module.exports = async function instaCommand(client, message, prefix) {
     const downloading_message = await message.reply('```Please be patient while the media is downloading...```');
 
     try {
-            const response = await fetch(`https://vihangayt.me/download/instagram?url=${link}`);
-            const data = await response.json();
-            if (data.data.data.length > 0) {
-                await downloading_message.edit('```Uploading```');
-                for (const mediaData of data.data.data) {
-                    const type = mediaData.type;
-                    const file = mediaData.url;
-
-                    if (type === 'image') {
-                        const media = await MessageMedia.fromUrl(file);
-                        await message.reply(media);
-                    } else if (type === 'video') {
-                        const media = await MessageMedia.fromUrl(file, { unsafeMime: true });
-                        await message.reply(media);
-                    } else {
-                        downloading_message.edit('Unknown media type');
-                    }
-                }
-                await downloading_message.delete(true);
-            } else {
-                downloading_message.edit('No media found');
-            }
+        const data = await igdl(link);
+        // console.log(data);
+        for (const item of data.data) {
+            const media = await MessageMedia.fromUrl(item, { unsafeMime: true });
+            await downloading_message.edit("```Uploading...```")
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await message.reply(media);
+        }
+        
+        await downloading_message.delete(true);
     } catch (error) {
         await downloading_message.edit("Error! Account may be private or invalid link");
         console.error(error);

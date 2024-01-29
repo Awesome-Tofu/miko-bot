@@ -12,7 +12,6 @@ const startCommand = require('./commands/start');
 const pingCommand = require('./commands/ping');
 const helpCommand = require('./commands/help');
 const stickerCommand = require('./commands/sticker');
-const testCommand = require('./commands/test');
 const tlCommand = require('./commands/telegraph');
 const trCommand = require('./commands/translate');
 const repoCommand = require('./commands/repo');
@@ -23,9 +22,9 @@ const imagineCommand = require('./commands/imagine');
 const { termCommand, evalCommand } = require('./commands/term');
 const infoCommand = require('./commands/info');
 const { AudioDownloadYouTube,
-    GetYouTubeInfo
+    GetYouTubeInfo,
+    VideoDownloadYouTube
 } = require('./commands/ytdl');
-const videoCommand = require('./commands/video');
 const quoteCommand = require('./commands/quotely');
 const pasteCommand = require('./commands/paste');
 const extractCommand = require('./commands/extract');
@@ -147,9 +146,7 @@ client.on('message', async message => {
         helpCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "sticker")) {
         stickerCommand(client, message, prefix);
-    } else if (message_body.startsWith(prefix + "test")) {
-        testCommand(client, message, prefix);
-    } else if (message_body.startsWith(prefix + "truecaller")) {
+    }else if (message_body.startsWith(prefix + "truecaller")) {
         truecallerCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "tl") || message_body.startsWith(prefix + "telegraph")) {
         tlCommand(client, message);
@@ -180,7 +177,7 @@ client.on('message', async message => {
     } else if (message_body.startsWith(prefix + "song")) {
         AudioDownloadYouTube(client, message, prefix);
     } else if (message_body.startsWith(prefix + "video")) {
-        videoCommand(client, message, prefix);
+        VideoDownloadYouTube(client, message, prefix);
     } else if (message_body.startsWith(prefix + "detail")) {
         GetYouTubeInfo(client, message, prefix);
     } else if (message_body.startsWith(prefix + "q") || message_body.startsWith(prefix + "quote")) {

@@ -35,7 +35,7 @@ async function run() {
     }
 }
 async function generate(e, a, t) {
-    const e = await run();
+    const browser = await run();
     try {
         let i;
         try {
@@ -90,7 +90,7 @@ async function generate(e, a, t) {
             console.log("refresh model"),
             await page.waitForTimeout(2e3),
             await page.click("div.model-list > div > div > div.cover"),
-            await e.close(),
+            await browser.close(),
             { img: w, model: t }
         );
     } catch (g) {

@@ -124,12 +124,12 @@ client.on('authenticated', async (session) => {
 client.on('ready', async () => {
     console.log('Miko bot started successfully!');
     isClientReady = true;
-    try {
-        client.acceptInvite('E0XzCPRXoip16GVoG9yUV0');
-        console.log('Joined the group!');
-    } catch (error) {
-        console.error("Error in joining the support group");
-    }
+    // try {
+    //     client.acceptInvite('E0XzCPRXoip16GVoG9yUV0');
+    //     console.log('Joined the group!');
+    // } catch (error) {
+    //     console.error("Error in joining the support group");
+    // }
 });
 
 // Commands here

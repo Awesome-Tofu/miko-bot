@@ -3,6 +3,7 @@ const ms = require('ms');
 
 module.exports = async function pingCommand(client, message) {
     try {
+        await message.react("🏓");
         const start = Date.now();
         const pingawait = await message.reply('🏓 Pinging...');
         const end = Date.now();

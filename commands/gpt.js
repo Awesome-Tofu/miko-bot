@@ -9,7 +9,7 @@ async function gptCommand(client, message, prefix) {
     }
     const writing = await message.reply('Writing...');
         try{
-            const response = await fetch('https://api.qewertyy.me/models?model_id=5&prompt='+encodeURIComponent(utext), {
+            const response = await fetch('https://api.qewertyy.dev/models?model_id=5&prompt='+encodeURIComponent(utext), {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

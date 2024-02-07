@@ -18,6 +18,7 @@ module.exports = async function helpCommand(client, message, prefix) {
 ➥ *${prefix}kick* [@tag] - Remove replied user (only admins)
 ➥ *${prefix}revoke* - Reset group chat link (only admins) 
 ➥ *${prefix}invite* - Get group chat link
+➥ *${prefix}tagall* - Tag everyone in the group (only admins)
 ➥ *${prefix}chatbot* [on/off] - turn on or off chatbot (only admins)
 ➥ *${prefix}id* [@tag] - Get user ID
 ➥ *${prefix}info* - Get info of replied user
@@ -36,9 +37,10 @@ module.exports = async function helpCommand(client, message, prefix) {
 ➥ *${prefix}truecaller* - Get details from truecaller
 
 *📚 Learning Commands:*
-➥ *${prefix}code* [prompt] - Generate code (code assistant PaLM)
-➥ *${prefix}gpt* [prompt] - Ask GPT
+➥ *${prefix}code* [prompt] - Generate code (code assistant Blackbox)
 ➥ *${prefix}bard* [prompt] - Ask bard
+➥ *${prefix}palm* [prompt] - Ask PaLM
+➥ *${prefix}gpt* [prompt] - Ask GPT
 
 *⬇️ Downloader Commands:*
 ➥ *${prefix}song* [yt link or query] - Download high quality YouTube audio
@@ -68,7 +70,6 @@ module.exports = async function helpCommand(client, message, prefix) {
 
 
 *🔞 NSFW Commands:*
-➥ *${prefix}hanime* - Get hanime videos (m3u8)
 ➥ *${prefix}hbar* - Get hentaibar videos (mp4)
 
 *🔗 Other Commands:*

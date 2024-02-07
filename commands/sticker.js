@@ -1,5 +1,6 @@
 const { MessageMedia } = require('whatsapp-web.js');
 const fs = require('fs');
+require('dotenv').config();
 
 async function stickerCommand(client, message, prefix) {
   let quotedMsg = await message.getQuotedMessage();
@@ -10,8 +11,8 @@ async function stickerCommand(client, message, prefix) {
   if (utext){
       stickerName = utext;
   }else{
-      stickerName = contact.pushname;
-      stickerAuthor = "Miku";
+      stickerName = process.env.STICKER_NAME || contact.pushname;
+      stickerAuthor = process.env.AUTHOR_NAME || "Miku";
   }
     if (!quotedMsg){
       message.reply(`🙇‍♂️ *Error*\n\n` + "```Please reply to an image or gif or short video```");

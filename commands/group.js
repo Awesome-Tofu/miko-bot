@@ -323,6 +323,51 @@ async function idCommand(client, message){
     }
 }
 
+async function tagallCommand(client, message) {
+    const chat = await message.getChat();
+    if (!chat.isGroup) {
+        message.reply("This command only works in groups.");
+        return;
+    }
+
+    const userid = message.author;
+    const isUserAdmin = chat.participants.find((participant) => {
+        return participant.id._serialized === userid && participant.isAdmin;
+    });
+
+    if (!isUserAdmin) {
+        message.reply('You are not an admin.');
+        return;
+    }
+    
+    const participants = await chat.participants;
+    const contacts = [];
+    const userIds = [];
+    const admins = [];
+    const members = [];
+
+    for (let participant of participants) {
+        const contact = await client.getContactById(participant.id._serialized);
+        contacts.push(contact);
+        userIds.push(`@${contact.id.user}`);
+        if (participant.isAdmin) {
+            admins.push(`@${contact.id.user}`);
+        } else {
+            members.push(`@${contact.id.user}`);
+        }
+    }
+
+    const groupName = chat.name;
+    const taggerContact = await client.getContactById(message.author);
+    const taggerName = await taggerContact.pushname;
+
+    const messageText = `*Group name:* ${groupName}\n*Members:* ${participants.length}\n*Tagger:* ${taggerName}\n\n💈*Admins*\n${admins.join('\n')}\n\n*Members*\n${members.join('\n')}`;
+
+    await client.sendMessage(message.from, messageText, {
+        mentions: contacts
+    });
+}
+
 module.exports = {
     promoteCommand,
     demoteCommand,
@@ -331,5 +376,6 @@ module.exports = {
     reportCommand,
     revokeCommand,
     supportCommand,
-    idCommand
+    idCommand,
+    tagallCommand
   };

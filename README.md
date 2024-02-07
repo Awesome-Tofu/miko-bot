@@ -42,9 +42,10 @@ Follow these steps to set up and run the MIKO BOT on your local machine or deplo
    BOT_NUMBER (required)
    OWNER_NUMBER (required)
    NUMVERIFY_KEY (optional)
-   CHARAI_TOKEN (optional) (see how to get https://pycai.gitbook.io/welcome/api/values#key-token)
    CHATBOT (optional) (set default chatbot true/false)
    INSTALLATION_ID (optional) (get truecaller installation ID from https://replit.com/@E-Venture/truecaller-installation-id?v=1)
+   STICKER_NAME = tofu (optional) (sticker name of .sticker command)
+   AUTHOR_NAME = miko (optional) (pack/author name of .sticker command)
     
 
 5. **Start the script:**

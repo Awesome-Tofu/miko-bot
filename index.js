@@ -28,10 +28,9 @@ const { AudioDownloadYouTube,
 const quoteCommand = require('./commands/quotely');
 const pasteCommand = require('./commands/paste');
 const extractCommand = require('./commands/extract');
-const hanimeCommand = require('./commands/hanime');
 const instaCommand = require('./commands/insta');
 const { chatbotCommand, chatbottoggleCommand } = require('./commands/chatbot');
-const codeCommand = require('./commands/code');
+const {codeCommand, palmCommand} = require('./commands/code');
 const enhanceCommand = require('./commands/enhance');
 const wantedCommand = require('./commands/wanted');
 const ttsCommand = require('./commands/tts');
@@ -41,7 +40,7 @@ const delCommand = require('./commands/del');
 const tinyCommand = require('./commands/tinyurl');
 const rmbgCommand = require('./commands/rmbg');
 const carbonCommand = require('./commands/carbon');
-const { promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, revokeCommand, supportCommand, idCommand } = require('./commands/group');
+const { promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, revokeCommand, supportCommand, idCommand, tagallCommand } = require('./commands/group');
 const { toanimeCommand, toanime3dCommand } = require('./commands/toanime');
 const emojiCommand = require('./commands/emojimix');
 const hbarCommand = require('./commands/hbar');
@@ -124,16 +123,30 @@ client.on('authenticated', async (session) => {
 client.on('ready', async () => {
     console.log('Miko bot started successfully!');
     isClientReady = true;
-    // try {
-    //     client.acceptInvite('E0XzCPRXoip16GVoG9yUV0');
-    //     console.log('Joined the group!');
-    // } catch (error) {
-    //     console.error("Error in joining the support group");
-    // }
+});
+
+// Watcher
+client.on('group_join', async (notification) => {
+    // console.log('Group join event', notification);
+    const joinedUser = notification.id.participant;
+    const chat = await client.getChatById(notification.id.remote);
+    const participants = await chat.participants;
+    const chatName = chat.name;
+    const description = chat.description == undefined ? 'no description' : chat.description;
+    const owner = chat.owner._serialized;
+    const welcomeMsg = process.env.WELCOME_MSG || 'Welcome to the group';
+    const joinMsg = `*${chatName}*\n\nHello @${joinedUser.replace('@c.us', '')}, ${welcomeMsg}\n\n💠 Group Description: ${description}\n\n👤 Members: ${participants.length}\n\n💈 Owner: @${owner.replace('@c.us', '')}`;
+    client.sendMessage(notification.id.remote, joinMsg, { mentions: [joinedUser, owner] });
+});
+
+client.on('group_leave', async (notification) => {
+    // console.log(notification);
+    const leftUser = notification.id.participant;
+    const leaveMsg = `Goodbye @${leftUser.replace('@c.us', '')}!`;
+    client.sendMessage(notification.id.remote, leaveMsg, { mentions: [leftUser] });
 });
 
 // Commands here
-
 client.on('message', async message => {
     let message_body = message.body;
     const prefix = process.env.PREFIX || '.';
@@ -184,10 +197,10 @@ client.on('message', async message => {
         quoteCommand(client, message);
     } else if (message_body.startsWith(prefix + "paste")) {
         pasteCommand(client, message, prefix);
+    } else if (message_body.startsWith(prefix + "palm")) {
+        palmCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "extract")) {
         extractCommand(client, message, prefix);
-    } else if (message_body.startsWith(prefix + "hanime")) {
-        hanimeCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "insta")) {
         instaCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "enhance") || message_body.startsWith(prefix + "upscale")) {
@@ -250,13 +263,16 @@ client.on('message', async message => {
         memeCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "joke")) {
         jokeCommand(client, message, prefix);
+    } else if (message_body.startsWith(prefix + "tagall")) {
+        tagallCommand(client, message);
     } else {
         //else it will run chatbot
         chatbotCommand(client, message);
     }
 });
 
-app.get('/:filename', (req, res) => {
+
+app.get('/logo.gif', (req, res) => {
     const requestedFilename = req.params.filename;
     const gifPath = path.resolve(requestedFilename);
 

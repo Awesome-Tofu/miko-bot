@@ -17,9 +17,14 @@ module.exports = async function instaCommand(client, message, prefix) {
         // console.log(data);
         for (const item of data.data) {
             const media = await MessageMedia.fromUrl(item, { unsafeMime: true });
-            await downloading_message.edit("```Uploading...```")
+            await downloading_message.edit("```Uploading...```");
+            media.filename = 'instadl';
             await new Promise(resolve => setTimeout(resolve, 1000));
-            await message.reply(media);
+            try {
+                await client.sendMessage(message.from, media);
+            } catch (error) {
+                await client.sendMessage(message.from, media, { sendMediaAsDocument: true });
+            }
         }
         
         await downloading_message.delete(true);

@@ -48,6 +48,16 @@
       "description": "get by running https://replit.com/@E-Venture/truecaller-installation-id?v=1",
       "value": "",
       "required":false
+    },
+    "AUTHOR_NAME":{
+      "description": "pack or author name of .sticker command",
+      "value": "",
+      "required":false
+    },
+    "STICKER_NAME":{
+      "description": "sticker name of .sticker command",
+      "value": "",
+      "required":false
     }
      },    
     "buildpacks": [

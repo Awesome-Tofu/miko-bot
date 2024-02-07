@@ -39,11 +39,6 @@
       "value": "13e4e196a58f64646251999692b9d006",
       "required":false
     },
-    "CHARAI_TOKEN":{
-      "description": "steps to get https://pycai.gitbook.io/welcome/api/values#key-token",
-      "value": "",
-      "required":false
-    },
     "INSTALLATION_ID":{
       "description": "get by running https://replit.com/@E-Venture/truecaller-installation-id?v=1",
       "value": "",

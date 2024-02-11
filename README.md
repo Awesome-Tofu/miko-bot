@@ -10,7 +10,7 @@ MIKO BOT is a Node.js-based WhatsApp chatbot powered by [Puppeteer](https://pptr
 - **Sticker Handling**: Convert and create sticker with bot.
 - **Chatbot AI**: Customize AI replies from the bot.
 - **More?**: Just try example bot and you can explore all features.
-- **Example Bot**: [Miko Bot](https://wa.link/lof6tp)
+- **Example Bot**: [Miko Bot](https://wa.link/lof6tp) I wont be running from now on, but you can try the repo
 
 ## Getting Started
 

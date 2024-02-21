@@ -65,7 +65,13 @@ const puppeteerExecutablePath =
     ? process.env.PUPPETEER_EXECUTABLE_PATH
     : puppeteer.executablePath();
 
-mongoose.connect('mongodb+srv://kazuha321:kazuha321@cluster0.oafdfob.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0').then(() => {
+const mongoURI = process.env.MONGO_URI;
+if (!mongoURI) {
+  console.error('MONGO_URI is required');
+  process.exit(1);
+}
+
+mongoose.connect(mongoURI).then(() => {
   const store = new MongoStore({ mongoose: mongoose });
   const client = new Client({
     // ffmpegPath: '/app/vendor/ffmpeg',

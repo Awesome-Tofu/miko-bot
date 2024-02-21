@@ -16,6 +16,7 @@
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.3.1",
     "download": "^8.0.0",
+    "mongoose": "^8.1.3",
     "express": "^4.18.2",
     "fluent-ffmpeg": "^2.1.2",
     "form-data": "^4.0.0",
@@ -26,9 +27,10 @@
     "puppeteer": "^21.4.1",
     "qr-image": "^3.2.0",
     "qrcode-terminal": "^0.12.0",
-    "whatsapp-web.js": "^1.23.0",
+    "whatsapp-web.js": "github:nkbhasker/whatsapp-web.js#fix-remote-auth",
     "wikipedia": "^2.1.1",
-    "ytdl-core": "^4.11.5"
+    "ytdl-core": "^4.11.5",
+    "wwebjs-mongo": "^1.1.0"
   },
   "repository": {
     "type": "git",

@@ -65,9 +65,9 @@ const puppeteerExecutablePath =
     ? process.env.PUPPETEER_EXECUTABLE_PATH
     : puppeteer.executablePath();
 
-const mongoURI = process.env.MONGO_URI;
+const mongoURI = process.env.MONGODB_URI;
 if (!mongoURI) {
-  console.error('MONGO_URI is required');
+  console.error('MONGODB_URI is required');
   process.exit(1);
 }
 

@@ -14,7 +14,7 @@ async function chatbotCommand(client, message) {
         const userMessage = message.body;
         const quotedMsg = await message.getQuotedMessage();
         const chat = await message.getChat();
-        if ((chat.isGroup === false && message.body) || (quotedMsg && quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg)) {
+        if ((chat.isGroup === false && (message.body || message.type == 'sticker')) || (quotedMsg && quotedMsg.from == `${process.env.BOT_NUMBER}@c.us` && message.hasQuotedMsg)) {
             // If message type is sticker, send a random sticker from the chatbotstickers folder
             if (message.type == 'sticker') {
                 const files = await fsPromises.readdir('./commands/chatbotstickers');
@@ -29,14 +29,14 @@ async function chatbotCommand(client, message) {
                 client.sendMessage(message.from, sticker, { sendMediaAsSticker: true });
             } else {
                 await chat.sendStateTyping();
-                apiUrl = `https://tofu-api.onrender.com/cleverbot/${encodeURIComponent(userMessage)}`;
+                apiUrl = `https://tofu-node-apis.onrender.com/api/chatbot/miko/tofu/${encodeURIComponent(userMessage)}`;
                 const response = await fetch(apiUrl);
                 if (response.ok) {
                     const botResponse = await response.json();
                     const trResponse = await fetch(`https://translate-api-gray.vercel.app/translate?q=${encodeURIComponent(botResponse.reply)}`);
                     const translationData = await trResponse.json();
                     // If the source language is already English or Hindi, return the query itself
-                    if (translationData.from && (translationData.from.toLowerCase() === 'hi' || translationData.from.toLowerCase() === 'en')) {
+                    if (translationData.from && (translationData.from.toLowerCase() === 'hi' || translationData.from.toLowerCase() === 'en' || translationData.from.toLowerCase() === process.env.DEFAULT_LANGUAGE)) {
                         // If the source language is already English or Hindi, return the query itself
                         await message.reply(botResponse.reply);
                     } else {

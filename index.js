@@ -1,4 +1,5 @@
-const { Client, RemoteAuth, MessageMedia } = require('whatsapp-web.js');
+const { Client, MessageMedia } = require('whatsapp-web.js');
+const { RemoteAuth } = require('whatsapp-web.js-remote-auth-fixed');
 const qrcode = require('qrcode-terminal');
 const { MongoStore } = require('wwebjs-mongo');
 const mongoose = require('mongoose');

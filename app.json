@@ -53,6 +53,11 @@
       "description": "sticker name of .sticker command",
       "value": "",
       "required":false
+    },
+    "CHATBOT":{
+      "description": "write true if you want chatbot to be turned on as default or false if you want it to be turned off",
+      "value": "false",
+      "required":false
     }
      },    
     "buildpacks": [

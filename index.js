@@ -9,6 +9,7 @@ const qrimage = require('qr-image');
 const puppeteer = require('puppeteer');
 const fs = require('fs');
 const path = require('path');
+const MongoClient = require('mongodb').MongoClient;
 
 //import Commands
 const startCommand = require('./commands/start');
@@ -297,6 +298,10 @@ mongoose.connect(mongoURI).then(() => {
     }
   });
 
+  app.get('/logout', async (req, res) => {
+    await store.delete({ session: 'RemoteAuth' });
+    res.json({ status: "Logged out" });
+  })
 
 
   app.listen(port, () => {

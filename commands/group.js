@@ -70,7 +70,7 @@ async function promoteCommand(client, message) {
 };
 
 
-async function demoteCommand(client, message){
+async function demoteCommand(client, message) {
     // Check if the message is from a group
     const chat = await message.getChat();
     if (!chat.isGroup) {
@@ -140,7 +140,7 @@ async function demoteCommand(client, message){
     }
 }
 
-async function kickCommand(client, message){
+async function kickCommand(client, message) {
     // Check if the message is from a group
     const chat = await message.getChat();
     if (!chat.isGroup) {
@@ -231,7 +231,7 @@ async function inviteCommand(client, message) {
     try {
         const inviteCode = await chat.getInviteCode();
         const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
-        message.reply("```Group Invitation link🔗```\n\n"+inviteLink);
+        message.reply("```Group Invitation link🔗```\n\n" + inviteLink);
     } catch (error) {
         console.error('Error getting group invitation link:', error);
         message.reply('An error occurred while getting the group invitation link.');
@@ -272,35 +272,35 @@ async function revokeCommand(client, message) {
 async function reportCommand(client, message, prefix) {
     const utext = message.body.split(prefix + "report")[1];
     let inviteLink;
-    if(!utext.trim()){
-        message.reply('please provide the problem\n*Example*\n.report there is something wrong with '+prefix+'gpt command');
+    if (!utext.trim()) {
+        message.reply('please provide the problem\n*Example*\n.report there is something wrong with ' + prefix + 'gpt command');
         return;
     }
     const chat = await message.getChat();
-        try {
-            const inviteCode = await chat.getInviteCode();
-            inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
-        } catch (error) {
-            inviteLink = "UNKNOWN: either chat is private or bot is not admin"
-        }
+    try {
+        const inviteCode = await chat.getInviteCode();
+        inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
+    } catch (error) {
+        inviteLink = "UNKNOWN: either chat is private or bot is not admin"
+    }
     const contact = await message.getContact();
-    await message.reply('```Reported to the support group! My devs will work soon upon it. Thanks for reporting.☺️```'+`\n\n*Your report:*\n${utext}`)
-    client.sendMessage('120363179001099439@g.us',`🀄 *Report recieved*\nfrom: ${inviteLink}\nuser: ${contact.number}\nreport: ${utext}`);
+    await message.reply('```Reported to the support group! My devs will work soon upon it. Thanks for reporting.☺️```' + `\n\n*Your report:*\n${utext}`)
+    client.sendMessage('120363179001099439@g.us', `🀄 *Report recieved*\nfrom: ${inviteLink}\nuser: ${contact.number}\nreport: ${utext}`);
 }
 
 async function supportCommand(client, message) {
     const chat = await client.getChatById('120363179001099439@g.us');
     const inviteCode = await chat.getInviteCode();
     const inviteLink = `https://chat.whatsapp.com/${inviteCode}`;
-    await message.reply('```⭐Feel free to join our support group⭐```'+`\n\n*${inviteLink}*`);
+    await message.reply('```⭐Feel free to join our support group⭐```' + `\n\n*${inviteLink}*`);
 }
 
 
-async function idCommand(client, message){
+async function idCommand(client, message) {
 
     const chat = await message.getChat();
     if (!chat.isGroup) {
-        message.reply("This chat's id is: "+`*${message.id.remote}*`);
+        message.reply("This chat's id is: " + `*${message.id.remote}*`);
         return;
     }
 
@@ -311,12 +311,12 @@ async function idCommand(client, message){
         return;
     }
 
-    if (quotedMessage){
+    if (quotedMessage) {
         const contact = await quotedMessage.getContact();
         message.reply(`User *${contact.pushname}'s* id is: *${quotedMessage.author}*`)
     }
 
-    if (utext.length !== 0){
+    if (utext.length !== 0) {
         const id = utext[0].id._serialized;
         const contact = await client.getContactById(id)
         message.reply(`User *${contact.pushname}'s* id is: *${id}*`)
@@ -339,7 +339,7 @@ async function tagallCommand(client, message) {
         message.reply('You are not an admin.');
         return;
     }
-    
+
     const participants = await chat.participants;
     const contacts = [];
     const userIds = [];
@@ -368,6 +368,37 @@ async function tagallCommand(client, message) {
     });
 }
 
+async function pinCommand(client, message) {
+    const chat = await message.getChat();
+    if (!chat.isGroup) {
+        message.reply("This command only works in groups.");
+        return;
+    }
+    const quotedMsg = await message.getQuotedMessage();
+    if (!quotedMsg) {
+        await message.reply("Please reply to a message to pin it");
+        return;
+    }
+    const result = await quotedMsg.pin(2592000);
+    if (result) message.reply("Pinned message for 30 days"); else message.reply("Failed to pin the message");
+}
+
+async function unpinCommand(client, message) {
+    const chat = await message.getChat();
+    if (!chat.isGroup) {
+        message.reply("This command only works in groups.");
+        return;
+    }
+
+    const quotedMsg = await message.getQuotedMessage();
+    if (!quotedMsg) {
+        await message.reply("Please reply to a message to pin it");
+        return;
+    }
+    const result = await quotedMsg.unpin();
+    if (result) message.reply("Unpinned the message"); else message.reply("Failed to unpin the message");
+}
+
 module.exports = {
     promoteCommand,
     demoteCommand,
@@ -377,5 +408,7 @@ module.exports = {
     revokeCommand,
     supportCommand,
     idCommand,
-    tagallCommand
-  };
+    tagallCommand,
+    pinCommand,
+    unpinCommand
+};

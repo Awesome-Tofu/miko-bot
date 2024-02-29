@@ -44,7 +44,7 @@ const delCommand = require('./commands/del');
 const tinyCommand = require('./commands/tinyurl');
 const rmbgCommand = require('./commands/rmbg');
 const carbonCommand = require('./commands/carbon');
-const { promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, revokeCommand, supportCommand, idCommand, tagallCommand } = require('./commands/group');
+const { promoteCommand, demoteCommand, kickCommand, inviteCommand, reportCommand, revokeCommand, supportCommand, idCommand, tagallCommand, pinCommand, unpinCommand } = require('./commands/group');
 const { toanimeCommand, toanime3dCommand } = require('./commands/toanime');
 const emojiCommand = require('./commands/emojimix');
 const hbarCommand = require('./commands/hbar');
@@ -280,6 +280,10 @@ mongoose.connect(mongoURI).then(() => {
       jokeCommand(client, message, prefix);
     } else if (message_body.startsWith(prefix + "tagall")) {
       tagallCommand(client, message);
+    } else if (message_body.startsWith(prefix + "pin")) {
+      pinCommand(client, message);
+    } else if (message_body.startsWith(prefix + "unpin")) {
+      unpinCommand(client, message);
     } else {
       //else it will run chatbot
       chatbotCommand(client, message);

@@ -13,7 +13,7 @@ module.exports = async function enhanceCommand(client, message) {
         const enhancing = await message.reply(`Enhancing...`);
         const attachmentData2 = await fs.readFile('./commands/images/input.png');
         const base64Data = Buffer.from(attachmentData2).toString('base64');
-        const enhanceAPI = 'https://api.qewertyy.me/upscale';
+        const enhanceAPI = 'https://api.qewertyy.dev/upscale';
         const response = await axios.post(enhanceAPI, {image_data: base64Data}, {responseType: 'arraybuffer', responseEncoding: 'binary'});
         await fs.writeFile('./commands/images/enhanced.png', response.data);
         

@@ -33,7 +33,7 @@ module.exports = async function ttsCommand(client, message) {
             let quotedMsg = await message.getQuotedMessage();
             let query = encodeURIComponent(quotedMsg.body);
 
-            const mp3Url = `https://tofu-api.onrender.com/voice_ai/22/${query}`;
+            const mp3Url = `https://apis-awesome-tofu.koyeb.app/api/charaivoice?q=${query}&voice_id=22`;
 
             const outputPath = './commands/audio_dl/download.mp3';
 

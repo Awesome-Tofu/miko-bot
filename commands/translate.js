@@ -11,7 +11,7 @@ module.exports = async function trCommand(client, message, prefix) {
         utext = process.env.DEFAULT_LANGUAGE|| 'en';
     }
       const repliedText = quotedMsg._data.body;
-      const response = await fetch(`https://translate-api-gray.vercel.app//translate?q=${repliedText}&lang=${utext || process.env.DEFAULT_LANGUAGE ||findLangName(utext)}`);
+      const response = await fetch(`https://apis-awesome-tofu.koyeb.app/api/translate?q=${repliedText}&to=${utext || process.env.DEFAULT_LANGUAGE ||findLangName(utext)}`);
       const data = await response.json();
       const translatedText = data.text;
       const detectedLang = findLangName(data.from);

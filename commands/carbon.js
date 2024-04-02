@@ -7,7 +7,7 @@ const { MessageMedia } = require('whatsapp-web.js');
             await message.reply("No Query!");
             return;
         }else{
-            const carbonAPI = 'https://api.yanzbotz.my.id/api/maker/carbon?text='
+            const carbonAPI = 'https://apis-awesome-tofu.koyeb.app/api/carbon?lang=javascript&text='
             const media = await MessageMedia.fromUrl(`${carbonAPI}${encodeURIComponent(utext)}`, {unsafeMime: true});
             media.mimetype = 'image/png';
             media.filename = "carbon.png";

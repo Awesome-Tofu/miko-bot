@@ -33,7 +33,7 @@ async function chatbotCommand(client, message) {
                 const response = await fetch(apiUrl);
                 if (response.ok) {
                     const botResponse = await response.json();
-                    const trResponse = await fetch(`https://translate-api-gray.vercel.app/translate?q=${encodeURIComponent(botResponse.reply)}`);
+                    const trResponse = await fetch(`https://apis-awesome-tofu.koyeb.app/api/translate?q=${encodeURIComponent(botResponse.reply)}`);
                     const translationData = await trResponse.json();
                     // If the source language is already English or Hindi, return the query itself
                     if (translationData.from && (translationData.from.toLowerCase() === 'hi' || translationData.from.toLowerCase() === 'en' || translationData.from.toLowerCase() === process.env.DEFAULT_LANGUAGE)) {

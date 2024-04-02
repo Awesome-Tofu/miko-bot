@@ -4,7 +4,7 @@ let processingRequest = false;
 const t = require('../utils/drawmodule');
 
 async function getimg(req_id) {
-    const response = await axios.get(`https://tofu-node-apis.onrender.com/api/seaart/getimg?token=${t.o}&req_id=${req_id}`);
+    const response = await axios.get(`https://apis-awesome-tofu.koyeb.app/api/seaart/getimg?token=${t.o}&req_id=${req_id}`);
     const data = response.data;
     if (data.status !== "FINISHED") {
         return getimg(req_id);
@@ -47,7 +47,7 @@ module.exports = async function drawCommand(client, message, prefix) {
             "prompt": utext,
             "neg_prompt": neg_prompt
         }
-        const preResponse = await axios.post('https://tofu-node-apis.onrender.com/api/seaart', payload);
+        const preResponse = await axios.post('https://apis-awesome-tofu.koyeb.app/api/seaart', payload);
         const req_id = preResponse.data.req_id;
         const processedImg = await getimg(req_id);;
         const chosmodel = await getmodel(randomModel);

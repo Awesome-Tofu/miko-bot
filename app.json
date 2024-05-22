@@ -1,31 +1,83 @@
 {
-  "name": "miko-bot",
-  "description": "Miko bot whatsapp automated program",
-  "logo": "https://miro.medium.com/v2/resize:fit:698/1*0jjdu52m0MO4SjLWiCVOlg.jpeg",
-  "keywords": [
-    "nodejs",
-    "bot",
-    "whatsapp bot",
-    "whatsapp automation",
-    "multi device",
-    "whatsapp-web.js"
-  ],
-  "env": {
-    "TOKEN": {
+    "name": "miko-bot",
+    "description": "Miko bot whatsapp automated program",
+    "logo": "https://miro.medium.com/v2/resize:fit:698/1*0jjdu52m0MO4SjLWiCVOlg.jpeg",
+    "keywords": ["nodejs", "bot", "whatsapp bot", "whatsapp automation", "multi device", "whatsapp-web.js"],
+    "env": {
+    "PUPPETEER_EXECUTABLE_PATH": {
       "description": "Leave it as default",
-      "value": "",
-      "required": false
+      "value": "/app/.apt/usr/bin/google-chrome",
+      "required": true
     },
-    "SESSION": {
+    "PUPPETEER_SKIP_CHROMIUM_DOWNLOAD": {
       "description": "Leave it as default",
+      "value": "true",
+      "required": true
+    },
+    "MONGODB_URI":{
+      "description": "Add your mongoDB URI",
       "value": "",
-      "required": false
+      "required":true
+    },
+    "BOT_NUMBER":{
+      "description": "bot's phone number example - 918377xxxxxx",
+      "value": "",
+      "required":true
+    },
+    "OWNER_NUMBER":{
+      "description": "Add your phone number example - 913474xxxxxx",
+      "value": "",
+      "required":true
+    },
+    "DEFAULT_LANGUAGE":{
+      "description": "default language for translation",
+      "value": "en",
+      "required":false
+    },
+    "NUMVERIFY_KEY":{
+      "description": "get the key from https://numverify.com/product for free or use mine",
+      "value": "13e4e196a58f64646251999692b9d006",
+      "required":false
+    },
+    "INSTALLATION_ID":{
+      "description": "get by running https://replit.com/@E-Venture/truecaller-installation-id?v=1",
+      "value": "",
+      "required":false
+    },
+    "AUTHOR_NAME":{
+      "description": "pack or author name of .sticker command",
+      "value": "",
+      "required":false
+    },
+    "STICKER_NAME":{
+      "description": "sticker name of .sticker command",
+      "value": "",
+      "required":false
+    },
+    "CHATBOT":{
+      "description": "write true if you want chatbot to be turned on as default or false if you want it to be turned off",
+      "value": "false",
+      "required":false
     }
-  },
-  "formation": {
-    "web": {
-      "quantity": 1,
-      "size": "standard-1X"
-    }
-  }
+     },    
+    "buildpacks": [
+      {
+        "url": "heroku/nodejs"
+      },
+      {
+        "url": "https://github.com/heroku/heroku-buildpack-google-chrome.git"
+      },
+      {
+         "url": "https://github.com/jontewks/puppeteer-heroku-buildpack.git"
+      },
+      {
+        "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+      }
+    ],
+     "formation": {
+         "web": {
+             "quantity": 1,
+             "size": "standard-1X"
+         }
+      }
 }
